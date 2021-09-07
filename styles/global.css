@@ -1,0 +1,181 @@
+/* Landing page start */
+.sc-EHOje, .dLVStj, .terminal-base, .blCJWW {
+  max-width: 100% !important;
+  max-height: 50rem !important;
+  overflow: auto !important;
+  width: 100%;
+  height: 100%;
+}
+.nav-group {
+  display: flex;
+  max-width: 50rem;
+  margin: 0 auto 0 auto;
+}
+#msg {
+  display: flex;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+#msg h2 {
+  color: rgb(179, 216, 149);
+  font-weight: 600;
+}
+.nav-group a {
+  flex: auto;
+  font-size: 2rem;
+  text-decoration: none;
+  box-decoration-break: slice;
+  background-image: linear-gradient( transparent calc( 100% - 5px ), rgb(54, 75, 54) 5px );
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 100%;
+  transition: background-size 0.5s ease-in-out;
+  color: rgb(175, 175, 175);
+  margin-bottom: 1rem;
+}
+.nav-group a:hover, .nav-group a:active {
+  color: rgb(204, 204, 204) !important;
+  background-size: 100% 100%;
+}
+.container-md {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+#index-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(rgba(0,0,0, 0.12), rgba(0,0,0, 0.1) , transparent 10px, transparent 12px );
+  pointer-events: none;
+  animation: flicker 1.5s infinite;
+}
+@keyframes flicker {
+  0% { opacity: 0.55; }
+  5% { opacity: 0.5; }
+  10% { opacity: 0.45; }
+  15% { opacity: 0.5; }
+  20% { opacity: 0.55; }
+  25% { opacity: 0.5; }
+  30% { opacity: 0.45; }
+  35% { opacity: 0.4; }
+  40% { opacity: 0.35; }
+  45% { opacity: 0.4; }
+  50% { opacity: 0.5; }
+  55% { opacity: 0.6; }
+  60% { opacity: 0.7; }
+  65% { opacity: 0.6; }
+  70% { opacity: 0.5; }
+  75% { opacity: 0.4; }
+  80% { opacity: 0.3; }
+  85% { opacity: 0.4; }
+  90% { opacity: 0.45; }
+  95% { opacity: 0.5; }
+  100% { opacity: 0.5; }
+}
+#index-body {
+  background-color: #16191A;
+  animation: glow 1s ease-in-out infinite alternate;
+  font-family: 'Aldrich', monospace;
+  text-shadow: 0 0 2px #C8C8C8;
+  min-height: 60rem !important;
+  max-height: 100rem !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+.terminal {
+  width: 80%;
+  box-shadow: 0 0 0.8rem rgb(54, 75, 54);
+  margin: 2rem auto;
+  padding: .2rem;
+  background-color: rgba(90, 134, 90, 0.05);
+  background-repeat: no-repeat;
+  background-image:   linear-gradient(to right, rgb(54, 75, 54) 100%, rgb(54, 75, 54) 100%),
+                      linear-gradient(to bottom, rgb(54, 75, 54) 100%, rgb(54, 75, 54) 100%),
+                      linear-gradient(to right, rgb(54, 75, 54) 100%, rgb(54, 75, 54) 100%),
+                      linear-gradient(to bottom, rgb(54, 75, 54) 100%, rgb(54, 75, 54) 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: drawnBorder 28s cubic-bezier(0.5, 1, 0.6, 1) 1 , glowShadow 34s normal forwards ease-in-out;
+  max-height: 80%;
+  overflow: hidden;
+}
+.morph-section {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  margin: auto;
+  font-family: monospace;
+  color: rgba(27, 139, 42, 0.3);
+  user-select: none;
+  overflow: hidden;
+  width: 660px;
+  height: 600px;
+  font-size: .6rem;
+  width: 400px;
+}
+.glow {
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 3px rgba(176, 196, 222, 0.212);
+  }
+  to {
+    text-shadow: 0 0 6px rgba(176, 196, 222, 0.301);
+  }
+}
+@keyframes drawnBorder {
+  0% { background-size: 0 3px, 3px 0, 0 3px, 3px 0; }
+  25% { background-size: 100% 3px, 3px 0, 0 3px, 3px 0; }
+  50% { background-size: 100% 3px, 3px 100%, 0 3px, 3px 0; }
+  75% { background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0; }
+  100% {  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%; }
+}
+
+@keyframes glowShadow {
+  0% { box-shadow: 0 0 0px rgb(118, 180, 118); }
+  60% { box-shadow: 0 0 0px rgb(118, 180, 118); }
+  100% { box-shadow: 0 0 10px rgb(118, 180, 118);}
+}
+@media (max-width: 1000px) {
+  .morph-section {
+    font-size: 0.5em;
+    width: 350px;
+    left: 40%;
+    top: 30%;
+    height: 400px;
+  }
+}
+@media (max-width: 800px) {
+  .terminal {
+    width: 98%;
+    margin: 0 auto 0 auto;
+    padding: .2rem;
+  }
+}
+@media (max-width: 500px) {
+  .nav-group a {
+    font-size: 1.3rem;
+  }
+  .morph-section {
+    font-size: 0.5em;
+    width: 300px;
+    left: 10%;
+    top: 40%;
+    height: 300px;
+  }
+}
+/* Landing page end */
+
+
+/* Blog */
+@media (max-width: 767px) {
+  .video-grid, .image-grid {
+    width: 100% !important;
+  }
+}
