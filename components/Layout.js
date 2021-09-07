@@ -68,7 +68,6 @@ const VideoComponent = props => {
   let {size, pos, full, grid} = props
   if (!size) size = 'md'
   let margin = 'none'
-  console.log('center')
   if (pos === 'center') {
     margin = '0 auto 0 auto'
   }

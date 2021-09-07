@@ -42,7 +42,7 @@ The biggest issue I had was with the timer for the round.
 I could not find a easy way to emit to the socket that the host should clear the timeout that the server is running. 
 The only way it worked is if the creator of the socket emits to clear the timer. 
 For this reason, I had to do a inefficient solution where the host will continue to run the timer when the game is over and upon a new round it will automatically be reset.
-This is particularrly inefficient due to the updates to game state which happen with the timer, all members of the socket are getting those new game update emits.
+This is particularly inefficient due to the updates to game state which happen with the timer, all members of the socket are getting those new game update emits.
 
 ```js
 socket.on('join-game', async ({ gameID, name }) => {
