@@ -5,3 +5,4 @@
 
 ## Debt
 - switched to react-bootstrap beta version to get Badge pills background working [ref](https://github.com/react-bootstrap/react-bootstrap/issues/5824#issuecomment-883565052)
+- no longer works with node 15+ but using a NODE_OPTIONS='--openssl-legacy-provider' fixes this

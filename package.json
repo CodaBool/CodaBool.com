@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "cross-env NODE_OPTIONS='--openssl-legacy-provider' next dev",
+    "build": "cross-env NODE_OPTIONS='--openssl-legacy-provider' next build",
+    "start": "cross-env NODE_OPTIONS='--openssl-legacy-provider' next start",
+    "cross": "cross-env NODE_OPTIONS='--openssl-legacy-provider' next dev"
   },
   "keywords": [],
   "author": "",
@@ -29,5 +30,8 @@
     "terminal-in-react-pseudo-file-system-plugin": "^2.0.0",
     "terminal-in-react-vi-plugin": "^1.1.0",
     "timeago.js": "^4.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
