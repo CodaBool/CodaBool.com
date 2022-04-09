@@ -49,6 +49,7 @@ export default function Project() {
             <span style={{animation: 'fade 5s infinite'}}> . </span>
             <span style={{animation: 'fade 6s infinite'}}> . </span>
           </h5>
+          <p className="text-muted text-center">Waking Heroku server may take a few minutes</p>
           {/* <TerminalAnimation
             lines={redirectSpinner}
             interval={5}
