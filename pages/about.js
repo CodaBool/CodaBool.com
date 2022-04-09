@@ -65,7 +65,7 @@ export default function About() {
             <h1 className="display-4 m-2">Hello, <div className="d-inline-block" style={{animation: 'sway 5s infinite'}}>👋</div></h1>
           </Fade>
           <Fade triggerOnce delay={500}>
-            <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I am a DevOps engineer, but I also do full-stack development outside of work. I mainly work with AWS and for my full stack projects I enjoy Next.js  which uses serverless technology for its backend. I like to use MongoDB for my database solutions. Please feel free to look around at my projects, blog or reach out to me. Thanks for visiting. </p>
+            <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I am a DevOps engineer, but I also do full-stack development outside of work. I mainly work with AWS and for my full stack projects I enjoy Next.js  which uses serverless technology for its backend. I like to use PostgreSQL + Prisma for my database solutions. Please feel free to look around at my projects, blog or reach out to me. Thanks for visiting. </p>
           </Fade>
         </Col>
       </Row>

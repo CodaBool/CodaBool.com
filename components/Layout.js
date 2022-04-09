@@ -8,7 +8,10 @@ import { format } from 'timeago.js'
 import { NUM_OF_BLOGS } from '../constants'
 import mdCSS from '../styles/markdown.module.css'
 
-const ImageComponent = ({ src, size, float }) => {
+// found an alternative way of parsing and using remark with next-mdx-remote
+// https://github.com/vercel/next.js/blob/canary/examples/with-mdx-remote/utils/mdxUtils.js
+
+const Img = ({ src, size, float }) => {
   if (!size) size = 'sm'
   return (
     <div 
@@ -60,11 +63,11 @@ const ImageComponent = ({ src, size, float }) => {
           }
         }
       `}</style>
-      <Image src={src} layout="fill" />
+      <Image src={src} layout="fill" quality={50} />
     </div>
   )
 }
-const VideoComponent = props => {
+const Video = props => {
   let {size, pos, full, grid} = props
   if (!size) size = 'md'
   let margin = 'none'
@@ -120,8 +123,8 @@ const VideoComponent = props => {
   )
 }
 const components = {
-  img: ImageComponent,
-  video: VideoComponent
+  Img: Img,
+  Video: Video
 }
 
 const BlogNav = ({ current, total }) => {
@@ -183,13 +186,14 @@ export default function Layout({ children, meta }) {
       </div>
       <div className="d-flex mt-3 ms-4">
         <div id="author-img">
-          <Image 
+          <Image
             src='/assets/authorImg/codabool.jpg'
             alt='CodaBool'
             className="rounded-circle"
             layout="fixed"
             width={100}
             height={100}
+            quality={30}
           />
         </div>
         <div className="ms-3 mt-4">

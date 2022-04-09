@@ -14,7 +14,7 @@ export default function blog({ blogs }) {
     tempArr = moreBlogs.slice(i, i + chunk)
     splitBlogs.push(tempArr)
   }
-  
+
   return (
     <>
       {hero && <Blog meta={hero.meta} isHero />}

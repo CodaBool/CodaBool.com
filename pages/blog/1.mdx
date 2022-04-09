@@ -21,7 +21,7 @@ Also, this site served to be somewhere to showcase my photography.
 I had done a couple vacations and luckily had access to a DSLR camera. 
 So, enjoy a quick tour of the photography website. I will walk through the main features and my thoughts looking back. 
 
-<img src="/assets/byPost/photography/style-show.jpg" size="md" />
+<Img src="/assets/byPost/photography/style-show.jpg" size="md" />
 
 &emsp;
 First up I created a logo and had an idea for Ven being the online handle. 
@@ -29,25 +29,25 @@ I secured the domain ven.plus (which I do not own anymore).
 Going down on the main page there is a photo slideshow with a seamless connection to the navigation bar. No framework was used and it's all written in CSS. This is still an awesome look and holds up after designing many more pages after this one. 
 
 > Custom logo made in Photoshop
-<img src="/assets/byPost/photography/ven-logo.jpg" size="sm" float />
+<Img src="/assets/byPost/photography/ven-logo.jpg" size="sm" float />
 
 &emsp;
 The styling on many of the pages works and makes for a pleasant viewing experience. However, looking at the code and how it was achieved is another story. While I was an amateur when I wrote this site, I think it is worth taking a look at old projects and what I would do different. 
 
 > Hover Effects and background gradient
-<video autoPlay loop src="/assets/byPost/photography/photography-01.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/photography/photography-01.mp4" />
 
 &emsp;
 Some issues pop out to me as I look back on the code for this. Number one, there is way too many things hard coded. Take a look at the gallery.html page a large eyesore in the code is the use of Google Photos urls which are over 650 character strings. 
 
 > gallery.html Hardcoded URLs
-<video autoPlay loop src="/assets/byPost/photography/photography-02.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/photography/photography-02.mp4" />
 
 &emsp;
 On that same gallery.html page I added classes for the photos and hardcode their position into either a left or right column (that's important). This was the easiest way I found to organize the photos and wanted to keep the JavaScript to a minimal. I was overwhelmed with having to learn a stack of languages. This means the only JavaScript I used was making pictures of a defined class disappear using ` style.display = "none"` 
 
 > Gallery page
-<img src="/assets/byPost/photography/photography-03.jpg" size="lg" />
+<Img src="/assets/byPost/photography/photography-03.jpg" size="lg" />
 
 # How I wrote it
 
@@ -98,7 +98,7 @@ $(document).ready(function(){
 After 5 years looking back at the implementation here the use of classes was correct, they are a nonunique way of manipulating multiple elements. However, creating two columns of pictures through the use of the display property was forced here. The issue becomes obvious when selecting a filter and scrolling all the way to the bottom. 
 
 > Blank space
-<video autoPlay loop src="/assets/byPost/photography/photography-04.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/photography/photography-04.mp4" />
 
 # How I would write it now
 
@@ -169,7 +169,7 @@ Lastly before diving into the logic behind the gallery...some styling. This keep
 
 > CSS
 ```css
-.gallery img {
+.gallery Img {
   max-width: 100%;
   max-height: 100%;
   margin: 10px 0 10px 0;
@@ -179,7 +179,7 @@ Lastly before diving into the logic behind the gallery...some styling. This keep
 
 
 &emsp;
-Alright first I created a way to iterate over the grid by the id of each image tag. Then assign it the next image of the array. For filtering I check if they are supposed to be filtered out with the indexOf method ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)) which returns the index of a given value within an array. However, I use it for its special property of returning -1 when the value is absent. Here if I find that the filter array contains the category I am currently iterating over I set `img.style.display = 'none'` to make the image disappear
+Alright first I created a way to iterate over the grid by the id of each image tag. Then assign it the next image of the array. For filtering I check if they are supposed to be filtered out with the indexOf method ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)) which returns the index of a given value within an array. However, I use it for its special property of returning -1 when the value is absent. Here if I find that the filter array contains the category I am currently iterating over I set `Img.style.display = 'none'` to make the image disappear
 
 
 > JS adding images to grid
@@ -189,8 +189,8 @@ function addImages() {
   for (var category in gallery) {
     if (filters.indexOf(category) === -1) {
       for (const url of gallery[category]) {
-        const img = document.querySelector(`#img-${position}`)
-        img.src = url    
+        const Img = document.querySelector(`#Img-${position}`)
+        Img.src = url    
         position++
       }
     }
@@ -206,8 +206,8 @@ function applyFilters() {
   for (var category in gallery) {
     if (filters.indexOf(category) === -1) {
       for (const url of gallery[category]) {
-        const img = document.querySelector(`#img-${position}`)
-        img.style.display = "block"    
+        const Img = document.querySelector(`#Img-${position}`)
+        Img.style.display = "block"    
         position++
       }
     }
@@ -219,7 +219,7 @@ function applyFilters() {
 &emsp;
 Now if I call `applyFilters()`, images are added to the page in a nice grid. Take a look
 
-<img src="/assets/byPost/photography/gallery-basic.jpg" size="lg" />
+<Img src="/assets/byPost/photography/gallery-basic.jpg" size="lg" />
 
 &emsp;
 But let's implement filtering decisions. I created checkboxes for allowing the user to filter the images. These have an onchange property which calls the handleChange method. This is passed the event where the information about which select input it was can be discovered. I use the input's id property which I conviently name the same as what I expect the name of the filters to be. Here I am using the array.splice method ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)) to remove the filter if the checkbox was unchecked. Otherwise I push the category name onto the active filter array. 
@@ -248,8 +248,8 @@ Ok, so we can add filters and remove them but none of the images are getting rem
 ```js
 function resetImgages() {
   for (let i = 0; i < 12; i++) {
-    const img = document.querySelector(`#img-${i}`)
-    img.style.display = "none"
+    const Img = document.querySelector(`#Img-${i}`)
+    Img.style.display = "none"
   }
 }
 ```
@@ -257,7 +257,7 @@ function resetImgages() {
 &emsp;
 That's it, a working gallery with filtering. Take a look.
 
-<video autoPlay loop src="/assets/byPost/photography/photography-06.mp4" pos='center'></video>
+<Video autoPlay loop src="/assets/byPost/photography/photography-06.mp4" pos='center' />
 
 &emsp;
 If I wanted to improve this more I would add a delay and fade the images out before getting removed for a less jarring experience of filtering. You can checkout my codepen showcasing everything I've shown below.

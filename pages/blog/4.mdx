@@ -36,17 +36,17 @@ The professor wanted every method to have comments which includes the parameter,
  */
 function nextImage() {
 	changed = false; // sets the boolean false and is used to know when to break from the for loop.
-    for (var i = 0; i < imgArray.length; i++) {
+    for (var i = 0; i < ImgArray.length; i++) {
 		if (changed) { //if the photo has already been changed to the next image, break out of the loop.
 			break;
 		}
-		if (imgArray[i].src == elem.src) { // if the position from the loop in the array of images is found to be the same as the current modal image
-			if (i === (imgArray.length - 1)) { // if the image is at the end of the image array
-				elem.src = imgArray[0].src; // set the image to the first image in the array
+		if (ImgArray[i].src == elem.src) { // if the position from the loop in the array of images is found to be the same as the current modal image
+			if (i === (ImgArray.length - 1)) { // if the image is at the end of the image array
+				elem.src = ImgArray[0].src; // set the image to the first image in the array
 				changed = true; //set to break the for loop
 				break;
 			}
-			elem.src = imgArray[i + 1].src; //move to the next image by increasing to the next element in the array
+			elem.src = ImgArray[i + 1].src; //move to the next image by increasing to the next element in the array
 			changed = true; //set to break the for loop
 			break;
 		}
@@ -81,20 +81,20 @@ In the code the calendar is created by making a table and generating dates based
 The form pages are robust and I would recommend visiting them to try the form validation yourself. 
 
 > Appointment Service
-<video autoPlay loop src="/assets/byPost/tech-support/service.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/tech-support/service.mp4" />
 
 <!-- services page -->
 &emsp;
 Another service offered is a live chat service to assist with tech support issues. This is all fake presentation which shows a messaging box similar to a phone screen. 
 
 > Chat Service
-<video autoPlay loop src="/assets/byPost/tech-support/Chat.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/tech-support/Chat.mp4" />
 
 &emsp;
 There is also a gallery section to view the building and some of the services offered. This shows a modal and a way to swap which photo is showing by clicking on the forward or back button. 
 
 > Gallery
-<video autoPlay loop src="/assets/byPost/tech-support/gallery.mp4"></video>
+<Video autoPlay loop src="/assets/byPost/tech-support/gallery.mp4" />
 
 <!-- the form -->
 &emsp;
@@ -108,6 +108,6 @@ Nothing was ever the same after that incident, trigger warning fire edition.
 <!-- about page timeline -->
 
 > About page
-<img src="/assets/byPost/tech-support/about-page.jpg" float />
+<Img src="/assets/byPost/tech-support/about-page.jpg" float />
 
 # Thanks for reading 👍
