@@ -124,8 +124,16 @@ const Video = props => {
 }
 const components = {
   Img: Img,
-  Video: Video
+  Video: Video,
+  p: pushingP
 }
+
+function pushingP(props) {
+  return (
+    <p>&emsp;{props.children}</p>
+  )
+}
+
 
 const BlogNav = ({ current, total }) => {
   const router = useRouter()
