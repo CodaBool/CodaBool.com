@@ -56,7 +56,7 @@ export default function About() {
       `}</style>
       <Row>
         <Col lg={6} className="my-4">
-          <div className="rounded-circle mx-auto" style={{maxWidth: 300, maxHeight: 300, boxShadow: '0 0 1rem grey'}}>
+          <div className="rounded-circle mx-auto about-img" style={{maxWidth: 300, maxHeight: 300, boxShadow: '0 0 1rem grey'}}>
             <Img className="rounded-circle" alt="me" src="/assets/authorImg/codabool-lg.jpg" layout="responsive" width={300} height={300} />
           </div>
         </Col>
@@ -84,6 +84,7 @@ export default function About() {
             src="/assets/images/gamejam-group.jpg"
             alt="group"
             layout="responsive"
+            className="rounded shadow"
             width={540}
             height={396}
           />

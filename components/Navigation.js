@@ -1,4 +1,3 @@
-import React from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Link from 'next/link'
@@ -14,22 +13,22 @@ export default function Navigation() {
   }
   
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" collapseOnSelect expand="lg">
       <Navbar.Brand onClick={() => router.push('/blog')} style={style}>CodaBool</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" data-toggle="collapse" data-target="#responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav" >
         <Nav className="ms-auto">
-          <Link href="/blog">
-            <div className={`${router.asPath.includes('/blog') && 'active'} nav-link`} style={style}>Blog</div>
+          <Link href="/blog" passHref>
+            <Nav.Link className={`${router.asPath.includes('/blog') && 'active'}`} to="/blog" style={style} eventKey="1">Blog</Nav.Link>
           </Link>
-          <Link href="/projects">
-            <div className={`${router.asPath.includes('/projects') && 'active'} nav-link`} style={style}>Projects</div>
+          <Link href="/projects" passHref>
+            <Nav.Link className={`${router.asPath.includes('/projects') && 'active'}`} to="/projects" style={style} eventKey="2">Projects</Nav.Link>
           </Link>
-          <Link href="/about">
-            <div className={`${router.asPath.includes('/about') && 'active'} nav-link`} style={style}>About</div>
+          <Link href="/about" passHref>
+            <Nav.Link className={`${router.asPath.includes('/about') && 'active'}`} to="/about" style={style} eventKey="3">About</Nav.Link>
           </Link>
-          <Link href="/contact">
-            <div className={`${router.asPath.includes('/contact') && 'active'} nav-link`} style={style}>Contact</div>
+          <Link href="/contact" passHref>
+            <Nav.Link className={`${router.asPath.includes('/contact') && 'active'}`} to="/contact" style={style} eventKey="4">Contact</Nav.Link>
           </Link>
         </Nav>
       </Navbar.Collapse>

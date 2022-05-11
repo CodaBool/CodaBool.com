@@ -50,14 +50,22 @@ const ProjectBox = ({ description, link, delay, tags, year, image, id, title }) 
   )
 }
 
-
-
 export default function Projects() {
   return (
     <div className="my-3">
       <h1 className="display-2 m-4">Projects 🔨</h1>
       <hr />
       <Row>
+        <ProjectBox
+          title="Three.js Spinner"
+          description="Create a 1 in 4 chance of anything happening. This is a 3D model with editable text all within your browser. Give it a spin!"
+          link="https://spinner-codabool.vercel.app"
+          tags={['Three.js', 'React']}
+          delay={0}
+          year={2021}
+          id={11}
+          image="/assets/coverImg/spinner.jpg"
+        />
         <ProjectBox
           title="Financial Tracker"
           description="A group financial tracker. Signup and enter your contribution towards a goal. Complete with pie and bar graphs as well as a detailed history."

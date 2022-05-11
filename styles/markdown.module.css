@@ -1019,6 +1019,9 @@
     font-weight: 500;
     font-size: 2.5em;
   }
+  .markdown p {
+    font-size: 1.3rem;
+  }
 
   .markdown blockquote {
     padding: 0 6px;
