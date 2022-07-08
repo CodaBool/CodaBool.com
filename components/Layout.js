@@ -107,6 +107,12 @@ const Video = props => {
           flex-wrap: wrap;
           justify-content: center;
         }
+        .img-grid {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
         @media (max-width: 900px) {
           .blog-video-md, .blog-video-lg {
             width: 100%;

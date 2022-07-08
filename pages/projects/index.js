@@ -57,6 +57,16 @@ export default function Projects() {
       <hr />
       <Row>
         <ProjectBox
+          title="Managing Obesity"
+          description="My first Master's degree application! This web app aims to help users manage their obesity. This uses 3D models, and dynamic charts. So, its a real treat to look at."
+          link="http://p10-managing-obesity.s3-website-us-east-1.amazonaws.com"
+          tags={['Three.js', 'Next.js', 'authentication', 'prisma', 'PSQL', 'chart.js']}
+          delay={0}
+          year={2022}
+          id={12}
+          image="/assets/coverImg/obesity-cover.jpg"
+        />
+        <ProjectBox
           title="Three.js Spinner"
           description="Create a 1 in 4 chance of anything happening. This is a 3D model with editable text all within your browser. Give it a spin!"
           link="https://spinner-codabool.vercel.app"

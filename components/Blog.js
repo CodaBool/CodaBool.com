@@ -48,7 +48,7 @@ export default function Blog({ meta }) {
         className="blog-card-img"
         width={588}
         height={294}
-        quality={30}
+        quality={50}
       />
       <h3 className="mx-2">{meta.title}</h3>
       <p className="text-muted ps-2">{format(meta.created)}</p>
