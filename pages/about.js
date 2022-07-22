@@ -57,7 +57,7 @@ export default function About() {
       <Row>
         <Col lg={6} className="my-4">
           <div className="rounded-circle mx-auto about-img" style={{maxWidth: 300, maxHeight: 300, boxShadow: '0 0 1rem grey'}}>
-            <Img className="rounded-circle" alt="me" src="/assets/authorImg/codabool-lg.jpg" layout="responsive" width={300} height={300} />
+            <Img className="rounded-circle" alt="me" src="/assets/authorImg/codabool-lg.jpg" layout="responsive" width={300} height={300} priority />
           </div>
         </Col>
         <Col lg={6} className="mb-4">
@@ -87,6 +87,7 @@ export default function About() {
             className="rounded shadow"
             width={540}
             height={396}
+            priority
           />
         </Col>
       </Row>

@@ -29,7 +29,9 @@ const ProjectBox = ({ description, link, delay, tags, year, image, id, title }) 
         }
       `}</style>
       <Card className="project-card my-4 shadow rounded" id={id} onClick={e => handleClick(e, link)}>
-        <Img src={image} layout="responsive" width={634} height={317} />
+        <div>
+          <Img src={image} layout="responsive" width={634} height={317} />
+        </div>
         <Fade triggerOnce delay={delay}>
           <Card.Body>
             <h4>{title}</h4>

@@ -15,6 +15,7 @@ export default function blog({ blogs }) {
     splitBlogs.push(tempArr)
   }
 
+
   return (
     <>
       {hero && <Blog meta={hero.meta} isHero />}
@@ -38,5 +39,6 @@ export default function blog({ blogs }) {
 
 export async function getStaticProps() {
   const blogs = await getFiles()
+  blogs.forEach(blog => {blog.data = null})
   return { props: { blogs } }
 }
