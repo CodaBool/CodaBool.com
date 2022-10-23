@@ -59,8 +59,8 @@ export default function Projects() {
       <hr />
       <Row>
         <ProjectBox
-          title="Managing Obesity"
-          description="My first Master's degree application! This web app aims to help users manage their obesity. This uses 3D models, and dynamic charts. So, its a real treat to look at."
+          title="Nikola Assistant"
+          description="I attended TadHack 2022 in Tampa, Florida. We were tasked with using a speech to text API for a project. We built a drive with your voice game that can be very challenging."
           link="https://p11.codabool.com"
           tags={['Three.js', 'React', 'Speech-to-Text', 'Figma']}
           delay={0}
