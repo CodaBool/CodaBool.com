@@ -61,7 +61,17 @@ export default function Projects() {
         <ProjectBox
           title="Managing Obesity"
           description="My first Master's degree application! This web app aims to help users manage their obesity. This uses 3D models, and dynamic charts. So, its a real treat to look at."
-          link="http://p10-managing-obesity.s3-website-us-east-1.amazonaws.com"
+          link="https://p11.codabool.com"
+          tags={['Three.js', 'React', 'Speech-to-Text', 'Figma']}
+          delay={0}
+          year={2022}
+          id={13}
+          image="/assets/coverImg/nikola-assistant.jpg"
+        />
+        <ProjectBox
+          title="Managing Obesity"
+          description="My first Master's degree application! This web app aims to help users manage their obesity. This uses 3D models, and dynamic charts. So, its a real treat to look at."
+          link="https://p10.codabool.com"
           tags={['Three.js', 'Next.js', 'authentication', 'prisma', 'PSQL', 'chart.js']}
           delay={0}
           year={2022}
@@ -81,7 +91,7 @@ export default function Projects() {
         <ProjectBox
           title="Financial Tracker"
           description="A group financial tracker. Signup and enter your contribution towards a goal. Complete with pie and bar graphs as well as a detailed history."
-          link="http://stat-sample.codadash.com.s3-website-us-east-1.amazonaws.com"
+          link="https://stat-sample.codadash.com.s3-website-us-east-1.amazonaws.com"
           tags={['ChartJS', 'React', 'MongoDB', 'Serverless', 'Docker', 'next-auth']}
           delay={0}
           year={2021}
@@ -91,7 +101,7 @@ export default function Projects() {
         <ProjectBox
           title="Web Scraper"
           description="A full serverless framework application, uses lambdas to scrape store to a mongodb and then allows for public use through an API Gateway"
-          link="http://p09-scraper-consumer.s3-website-us-east-1.amazonaws.com"
+          link="https://p9.codabool.com"
           tags={['API', 'Severless', 'Lambda', 'JSDom']}
           delay={0}
           year={2021}
@@ -111,7 +121,7 @@ export default function Projects() {
         <ProjectBox
           title="Confluence ElasticSearch Engine"
           description="Machine Learning search engine for internal company systems. Using ElasticSearch with current data loaded from several systems. This search engine will provide links and short descriptions similar to Google."
-          link="http://p05-ml-search-main.s3-website-us-east-1.amazonaws.com"
+          link="https://p5.codabool.com"
           tags={['React', 'Express', 'ElasticSearch', 'Python']}
           delay={0}
           year={2020}
@@ -131,7 +141,7 @@ export default function Projects() {
         <ProjectBox
           title="Social Media (Senior Project)"
           description="Senior fullstack project to assist with spotting human trafficking and reporting it. This is a social media site to make posts with images and make comments about missing people."
-          link="http://p06-social-sample.s3-website-us-east-1.amazonaws.com"
+          link="https://p6.codabool.com"
           tags={['React', 'Express', 'MongoDB', 'AWS S3']}
           delay={0}
           year={2020}
@@ -141,7 +151,7 @@ export default function Projects() {
         <ProjectBox
           title="Dashboard"
           description="React Dashboard. Sample of a currently used production page created in my intern postion at Ellucian"
-          link="http://p04-dashboard-main.s3-website-us-east-1.amazonaws.com"
+          link="https://p4.codabool.com"
           tags={['React']}
           delay={0}
           year={2020}
@@ -161,7 +171,7 @@ export default function Projects() {
         <ProjectBox
           title="Flickr Tag API Search"
           description="Simple photo search application. Made for a web dev. application. Uses Flickr API to get 20 photos from the tags searched"
-          link="http://p03-flickr-main.s3-website-us-east-1.amazonaws.com"
+          link="https://p3.codabool.com"
           tags={['API', 'React']}
           delay={0}
           year={2021}
@@ -181,7 +191,7 @@ export default function Projects() {
         <ProjectBox
           title="Web Dev 101 School Project"
           description="Mock Tech Support website with JavaScript form validation project"
-          link="http://p02-techsupport-main.s3-website-us-east-1.amazonaws.com"
+          link="https://p2.codabool.com"
           tags={['JavaScript']}
           delay={0}
           year={2018}
@@ -191,7 +201,7 @@ export default function Projects() {
         <ProjectBox
           title="My First Site"
           description="Mock Photography website"
-          link="http://p01-photography-main.s3-website-us-east-1.amazonaws.com"
+          link="https://p1.codabool.com"
           tags={['JavaScript']}
           delay={0}
           year={2015}
