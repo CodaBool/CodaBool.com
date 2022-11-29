@@ -111,7 +111,7 @@ export default function Projects() {
         <ProjectBox
           title="Type Racing Game"
           description="Type Racing Game built in React with Web Sockets. Features multiplayer lobby with live chat, typing stats, and a race to the finish."
-          link="/projects/redirect?id=8"
+          link="https://p8.codabool.com"
           tags={['MongoDB', 'Web Sockets', 'React', 'Express']}
           delay={0}
           year={2021}
@@ -158,7 +158,7 @@ export default function Projects() {
           id={4}
           image="/assets/coverImg/ecrm-dashboard.jpg"
         />
-        <ProjectBox
+        {/* <ProjectBox
           title="Twitter Clone"
           description="Django Social Media site using Bootstrap, Misaka and django-braces. Hosted using Heroku"
           link="/projects/redirect?id=django-2"
@@ -167,7 +167,7 @@ export default function Projects() {
           year={2019}
           id='django-01'
           image="/assets/coverImg/dj-social-cover.jpg"
-        />
+        /> */}
         <ProjectBox
           title="Flickr Tag API Search"
           description="Simple photo search application. Made for a web dev. application. Uses Flickr API to get 20 photos from the tags searched"
@@ -178,7 +178,7 @@ export default function Projects() {
           id={3}
           image="/assets/coverImg/flickr.png"
         />
-        <ProjectBox
+        {/* <ProjectBox
           title="Blog Tutorial"
           description="Django Blog using Bootstrap. Hosted using Heroku"
           link="/projects/redirect?id=django-1"
@@ -187,7 +187,7 @@ export default function Projects() {
           year={2019}
           id='django-01'
           image="/assets/coverImg/dj-blog-cover.jpg"
-        />
+        /> */}
         <ProjectBox
           title="Web Dev 101 School Project"
           description="Mock Tech Support website with JavaScript form validation project"
