@@ -178,7 +178,7 @@ export default function Layout({ children, meta }) {
   return (
     <MDXProvider components={components}>
       <h1 className="display-3 mt-3">{meta.title}</h1>
-      <h4 className="text-muted">{format(meta.created)}</h4>
+      <h4 className="text-muted my-2">{format(meta.created)}</h4>
       <style global jsx>{`
         #blog-cover div {
           border-radius: 1rem;
