@@ -158,16 +158,6 @@ export default function Projects() {
           id={4}
           image="/assets/coverImg/ecrm-dashboard.jpg"
         />
-        {/* <ProjectBox
-          title="Twitter Clone"
-          description="Django Social Media site using Bootstrap, Misaka and django-braces. Hosted using Heroku"
-          link="/projects/redirect?id=django-2"
-          tags={['Django']}
-          delay={0}
-          year={2019}
-          id='django-01'
-          image="/assets/coverImg/dj-social-cover.jpg"
-        /> */}
         <ProjectBox
           title="Flickr Tag API Search"
           description="Simple photo search application. Made for a web dev. application. Uses Flickr API to get 20 photos from the tags searched"
@@ -178,16 +168,6 @@ export default function Projects() {
           id={3}
           image="/assets/coverImg/flickr.png"
         />
-        {/* <ProjectBox
-          title="Blog Tutorial"
-          description="Django Blog using Bootstrap. Hosted using Heroku"
-          link="/projects/redirect?id=django-1"
-          tags={['Django']}
-          delay={0}
-          year={2019}
-          id='django-01'
-          image="/assets/coverImg/dj-blog-cover.jpg"
-        /> */}
         <ProjectBox
           title="Web Dev 101 School Project"
           description="Mock Tech Support website with JavaScript form validation project"

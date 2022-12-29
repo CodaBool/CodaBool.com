@@ -76,7 +76,7 @@ export default function About() {
             <h1 className="display-4 m-2">About me. 💻</h1>
           </Fade>
           <Fade triggerOnce delay={1300}>
-            <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I graduated December of 2020. My Bachelors is in Computing Technology and Software Development. I am pursuing my Master's degree in Computer Science at Georgia Tech Online. I put all my projects as public open source on github under <a href="https://github.com/CodaBool?tab=repositories" style={{textDecoration: 'none', color: 'black'}}>CodaBool</a>, so take a look. </p>
+            <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I graduated December of 2020. My Bachelor's is in Computing Technology and Software Development. I am pursuing my Master's degree in Computer Science at Georgia Tech Online. I put all my projects as public open source on github under <a href="https://github.com/CodaBool?tab=repositories" style={{textDecoration: 'none', color: 'black'}}>CodaBool</a>, so take a look. </p>
           </Fade>
         </Col>
         <Col lg={6} className="group-img-container">
