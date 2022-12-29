@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
         </Row>
         <Row className="ms-2">
-          <div className="mx-auto" style={{maxWidth: '10rem'}}>
+          <div className="mx-auto" style={{maxWidth: '12rem'}}>
             <a href="https://github.com/codabool" className="me-3">
               <Img
                 src="/assets/logos/git-logo.jpg"

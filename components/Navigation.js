@@ -18,16 +18,16 @@ export default function Navigation() {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" data-toggle="collapse" data-target="#responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" >
         <Nav className="ms-auto">
-          <Link href="/blog" passHref>
+          <Link href="/blog" passHref legacyBehavior>
             <Nav.Link className={`${router.asPath.includes('/blog') && 'active'}`} to="/blog" style={style} eventKey="1">Blog</Nav.Link>
           </Link>
-          <Link href="/projects" passHref>
+          <Link href="/projects" passHref legacyBehavior>
             <Nav.Link className={`${router.asPath.includes('/projects') && 'active'}`} to="/projects" style={style} eventKey="2">Projects</Nav.Link>
           </Link>
-          <Link href="/about" passHref>
+          <Link href="/about" passHref legacyBehavior>
             <Nav.Link className={`${router.asPath.includes('/about') && 'active'}`} to="/about" style={style} eventKey="3">About</Nav.Link>
           </Link>
-          <Link href="/contact" passHref>
+          <Link href="/contact" passHref legacyBehavior>
             <Nav.Link className={`${router.asPath.includes('/contact') && 'active'}`} to="/contact" style={style} eventKey="4">Contact</Nav.Link>
           </Link>
         </Nav>

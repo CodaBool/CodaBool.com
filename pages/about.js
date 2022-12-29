@@ -57,7 +57,7 @@ export default function About() {
       <Row>
         <Col lg={6} className="my-4">
           <div className="rounded-circle mx-auto about-img" style={{maxWidth: 300, maxHeight: 300, boxShadow: '0 0 1rem grey'}}>
-            <Img className="rounded-circle" alt="me" src="/assets/authorImg/codabool-lg.jpg" layout="responsive" width={300} height={300} priority placeholder="blur" blurDataURL="/assets/authorImg/codabool-lg.jpg" />
+            <Img className="rounded-circle" alt="me" sizes="100vw" src="/assets/authorImg/codabool-lg.jpg" width={300} height={300} priority style={{ width: '100%', height: 'auto' }} placeholder="blur" blurDataURL="/assets/authorImg/codabool-lg.jpg" />
           </div>
         </Col>
         <Col lg={6} className="mb-4">
@@ -83,10 +83,11 @@ export default function About() {
           <Img
             src="/assets/images/gamejam-group.jpg"
             alt="group"
-            layout="responsive"
             className="rounded shadow"
+            sizes="100vw"
             width={540}
             height={396}
+            style={{ width: '100%', height: 'auto' }}
             priority
             placeholder="blur"
             blurDataURL="/assets/images/gamejam-group.jpg"

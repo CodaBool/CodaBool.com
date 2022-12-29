@@ -19,7 +19,7 @@ export default function Blog({ meta }) {
           overflow: hidden;
         }
         .blog-card:hover img {
-          transform: scale(1.08);
+          transform: scale(1.02);
         }
         .blog-card-img {
           transition: transform .3s ease;
@@ -44,10 +44,11 @@ export default function Blog({ meta }) {
       <Img
         src={meta.cover}
         alt="Cover"
-        layout="responsive"
         className="blog-card-img"
+        sizes="100vw"
         width={588}
         height={294}
+        style={{ width: '100%', height: 'auto' }}
         quality={50}
       />
       <h3 className="mx-2 mt-2">{meta.title}</h3>

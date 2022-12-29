@@ -7,6 +7,8 @@ import { MDXProvider } from '@mdx-js/react'
 import { format } from 'timeago.js'
 import { NUM_OF_BLOGS } from '../constants'
 import mdCSS from '../styles/markdown.module.css'
+import { Suspense, useRef, useEffect } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 
 // found an alternative way of parsing and using remark with next-mdx-remote
 // https://github.com/vercel/next.js/blob/canary/examples/with-mdx-remote/utils/mdxUtils.js
@@ -21,6 +23,8 @@ const Img = ({ src, size, float }) => {
       <style global jsx>{`
         .blog img {
           object-fit: contain;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
         }
         .img-container {
           width: 100%;
@@ -63,12 +67,19 @@ const Img = ({ src, size, float }) => {
           }
         }
       `}</style>
-      <Image src={src} layout="fill" quality={50} />
+      <Image src={src} sizes="60vw" fill alt='image' quality={50} />
     </div>
   )
 }
 const Video = props => {
-  let {size, pos, full, grid} = props
+  let {size, pos, full, grid, volume} = props
+  const ref = useRef()
+  useEffect(() => {
+    if (volume) {
+      ref.current.volume = volume
+    }
+  }, [])
+
   if (!size) size = 'md'
   let margin = 'none'
   if (pos === 'center') {
@@ -88,6 +99,7 @@ const Video = props => {
     style.height = '100%'
     style.margin = '1rem'
   }
+  
   // style.width = `${props.grid ? '40%' : '75%;'}`
   return (
     <>
@@ -124,7 +136,7 @@ const Video = props => {
           }
         }
       `}</style>
-      <video {...props} style={style} className={`d-block blog-video-${size}`}></video>
+      <video {...props} ref={ref} style={style} className={`d-block blog-video-${size}`}></video>
     </>
   )
 }
@@ -176,50 +188,52 @@ const BlogNav = ({ current, total }) => {
 
 export default function Layout({ children, meta }) {
   return (
-    <MDXProvider components={components}>
-      <h1 className="display-3 mt-3">{meta.title}</h1>
-      <h4 className="text-muted my-2">{format(meta.created)}</h4>
-      <style global jsx>{`
-        #blog-cover div {
-          border-radius: 1rem;
-          box-shadow: 0 0 1rem rgba(128, 128, 128, 0.5);
-        }
-        #author-img div {
-          border-radius: 50%;
-          box-shadow: 0 0 1rem rgba(128, 128, 128, 0.5);
-        }
-      `}</style>
-      <div id="blog-cover">
-        <Image
-          src={meta.cover}
-          alt="Cover Image"
-          layout="responsive"
-          width={1200}
-          height={600}
-        />
-      </div>
-      <div className="d-flex mt-3 ms-4">
-        <div id="author-img">
+    <Suspense fallback={<Spinner />}>
+      <MDXProvider components={components}>
+        <h1 className="display-3 mt-3">{meta.title}</h1>
+        <h4 className="text-muted my-2">{format(meta.created)}</h4>
+        <style global jsx>{`
+          #blog-cover div {
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(128, 128, 128, 0.5);
+          }
+          #author-img div {
+            border-radius: 50%;
+            box-shadow: 0 0 1rem rgba(128, 128, 128, 0.5);
+          }
+        `}</style>
+        <div id="blog-cover">
           <Image
-            src='/assets/authorImg/codabool.jpg'
-            alt='CodaBool'
-            className="rounded-circle"
-            layout="fixed"
-            width={100}
-            height={100}
-            quality={30}
+            src={meta.cover}
+            alt="Cover Image"
+            width={1200}
+            height={600}
+            style={{ width: '100%', height: 'auto' }}
+            sizes="100vw"
           />
         </div>
-        <div className="ms-3 mt-4">
-          <h2 style={{fontWeight: '300'}}>CodaBool</h2>
+        <div className="d-flex mt-3 ms-4">
+          <div id="author-img">
+            <Image
+              src='/assets/authorImg/codabool.jpg'
+              alt='CodaBool'
+              className="rounded-circle"
+              width={100}
+              height={100}
+              quality={80}
+            />
+          </div>
+          <div className="ms-3 mt-4">
+            <h2 style={{fontWeight: '300'}}>CodaBool</h2>
+          </div>
         </div>
-      </div>
-      <div className="blog">
-        <div className={mdCSS.markdown}>
-          {children}
+        <div className="blog">
+          <div className={mdCSS.markdown}>
+            {children}
+          </div>
         </div>
-      </div>
-      <BlogNav total={NUM_OF_BLOGS} current={meta.number} />
-    </MDXProvider>
+        <BlogNav total={NUM_OF_BLOGS} current={meta.number} />
+      </MDXProvider>
+    </Suspense>
   )
 }
