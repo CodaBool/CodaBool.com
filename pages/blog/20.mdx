@@ -15,7 +15,7 @@ export default ({ children }) => {
 >> This is a live project which can be visited [here](https://spinner-codabool.vercel.app) (it takes about 2 minutes to load)
 
 After seeing many [examples](https://threejs.org/examples/) online and checking out the docs.
-I got inspired to createa a Three.js project.
+I got inspired to create a Three.js project.
 There are helper packages like [Fiber](https://docs.pmnd.rs/react-three-fiber) and [Drei](https://github.com/pmndrs/drei) which make the process very simple.
 If you view [my repository](https://github.com/CodaBool/spinner) you can see that
 rendering a model to the canvas can be as light as 25 lines of code. 
@@ -78,13 +78,13 @@ I was able to achieve this in Blender and export as glb which seemed like the be
 
 Now I just needed to fix the texture which printed out "Wheel of Fortune" on the top. This was something I was able to do in photoshop by downloading the file which is read for the texture. Then editing it to replace the top of it a plain wood texture which surrounds it. Then reuploading that to Blender. 
 
-Or so I thought. I noticed that the reflection of the stand still had the outline of the "Wheel of Fortune" so I looked back and noticed the other files involved in the model. There was a metallic roughness and also a normal map which gave the texture data about how to relfect light. I went ahead and did the same process of removing the "Wheel of Fortune" there.
+Or so I thought. I noticed that the reflection of the stand still had the outline of the "Wheel of Fortune" so I looked back and noticed the other files involved in the model. There was a metallic roughness and also a normal map which gave the texture data about how to reflect light. I went ahead and did the same process of removing the "Wheel of Fortune" there.
 
 <Img src="/assets/byPost/20/texture.jpg" size="lg" />
 
 # > Write Code
 
-Once that was all done. I had finished the model work and had all the assets to continue to code. I used the helper tool I mentioned at the begining and imported the glb models. From there I altered the scale and rotation to get everything lined up how I would want in the scene. I added a OrbitControls, PerspectiveCamera, and PositionalAudio to the scene. This allowed me to move circle around the object and load in my audio file.
+Once that was all done. I had finished the model work and had all the assets to continue to code. I used the helper tool I mentioned at the beginning and imported the glb models. From there I altered the scale and rotation to get everything lined up how I would want in the scene. I added a OrbitControls, PerspectiveCamera, and PositionalAudio to the scene. This allowed me to move circle around the object and load in my audio file.
 
 
 ## Handling user input
@@ -125,7 +125,7 @@ Let's next look at how React state can get connected to a real 3D model in the b
 
 Here we take the event click and use it as an indicator that the user wants to edit the green input state. Which will be used later to write text over the green mesh.
 
-> Text rendered in front of the green quater of the spinner
+> Text rendered in front of the green quarter of the spinner
 
 ```js
 <Text 
@@ -179,6 +179,6 @@ useFrame(() => {
 })
 ```
 
-Once that is in place I just needed to have an handle an event from the button press with a `onClick={spin}` and it was done. Once again this is a live application and you can try it out yourself [here](https://spinner-codabool.vercel.app). There is no optimization work done so it will talke a few minutes to load. Also if you want to see most of the code is written in the [App.js](https://github.com/CodaBool/spinner/blob/main/src/App.js) file of my repo.
+Once that is in place I just needed to have an handle an event from the button press with a `onClick={spin}` and it was done. Once again this is a live application and you can try it out yourself [here](https://spinner-codabool.vercel.app). There is no optimization work done so it will take a few minutes to load. Also if you want to see most of the code is written in the [App.js](https://github.com/CodaBool/spinner/blob/main/src/App.js) file of my repo.
 
 # Thanks for reading 👍

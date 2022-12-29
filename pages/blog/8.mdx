@@ -14,26 +14,24 @@ export default ({ children }) => {
 # My first blog, and main website
 > The source code for this site can be viewed [here](https://github.com/codabool/CodaBool.com)
 
-&emsp;
 I have purchased a domain before and attempted to create a hub for my work. 
 However, there was just too many new things to learn. 
 Now, I have gotten a good understanding for the technologies involved in building a website. 
 This blog is built in React, using the NextJS framework. 
-This allows for serverside rendering, routing and better SEO (search engine optimization). 
+This allows for server-side rendering, routing and better SEO (search engine optimization). 
 I am using NextJS's hosting service Vercel (previously Ziet Now). 
 The technologies involved are overkill for a simple blog but I know them and do get some benefits from them. 
 This works as a good practice to make sure I really know what I am doing when building websites. 
 I am using markdown to write these blog posts. 
 This is accomplished using remark, remark-html and gray-matter. 
 I can setup a heading where I define the title, date and cover image. 
-Then that data is interpretted using gray-matter. 
+Then that data is interpreted using gray-matter. 
 The markdown is processed to assign proper element tags. 
 This allows me to write paragraphs and paragraphs without creating hundreds of tags. 
 The styling was simple, I am using the same markdown styling from Github. 
 If you have seen how Github styles their README.md files, that is what is being used here. 
 This bloated the CSS file at nearly 1000 lines but css modules help keep things from getting messy.
 
-&emsp;
 NextJS has allowed me to easily setup the different pages to the application. 
 If you are unfamiliar to the framework, unlike normal React applications. 
 Where you need to establish a router with many attributes.
@@ -65,7 +63,6 @@ pages/
 └── index.js
 ```
 
-&emsp;
 Something new is the use of React-Bootstrap for this project. 
 I have used Bootstrap but the use of Bootstrap components is completely new. 
 Instead of creating a div with class container, I import Container from 'react-bootstrap/Container'.
@@ -97,7 +94,6 @@ I learned ways to get the styling I wanted through the documentation online.
 </Container>
 ```
 
-&emsp;
 A part which took some work was setting up a grid system for the posts in the blog page and a filter system for the posts. 
 Grid systems have been a sticking point for my development. 
 They never seem to work quickly and easily. 
@@ -135,22 +131,19 @@ export default function MoreStories({ cols, posts }) {
 }
 ```
 
-&emsp;
 Then using map I iterate over the rows of 2 posts each being its own column. 
 The column is created by using map on the row and you have your posts. 
 There I have a component for the post where I pass all the data to render a post within the grid. 
 I also make use of another npm package in that same file called timeago.js which displays dates in a human readable fashion. 
 This post was created 2020-06-22 but you will likely read it as something like "x years ago". 
 
-&emsp;
 My most recent update has been adding _Syntax_ _Highlighting_. This combined with clean styling for code blocks allow me to share code easily in the page. I had some friction with these blogs being written in markdown and passing into a converter which outputs the html into a string which is passed as a child to a outter div tag. Syntax highlighting was done through a downloaded js and css file from [Prism](https://prismjs.com/index.html). I added some other functionality that I thought was interesting like the ability to replicate the styling of a terminal and its output. Some other plugins were for a easy copy button, line-numbers and a treeview language for showing file structures like I did in this post. 
 
-&emsp;
 The website is mostly finished I have gotten all the pages finished except the main index page.
 There I want a interactive experience where the user can scroll and there will be a clean aesthetic presentation. 
 I would want a hacker kind of look with a fake terminal and using ASCII art. 
 Until I complete that I want to keep this website as a top priority outside of my job. 
-I will make another post dealing with exculsively the main presentation index page once I have it completed. 
+I will make another post dealing with exclusively the main presentation index page once I have it completed. 
 
 * * *
 
@@ -166,7 +159,6 @@ I have completed the landing page. There are several technologies involved and I
 ### Update
 > 6 Months Later
 
-&emsp;
 I have gone through several changes to this blog page.
 I wanted to add comments and a feature to log the views on the posts.
 This is persistent data and requires a backend.
@@ -184,7 +176,7 @@ If I reached the 1000 hour limit all hosts would not be reachable until the next
 Not ideal, so, I switched back to Vercel as a hosting platform and cleverly connected a dedicated database bouncer to another Heroku account which has an always on node server.
 This node server does database pooling for all my backends and performs the query.
 Of course this would be a major security concern if these endpoints were public.
-So, I require an API key which all my applications serverside will know and pass with their requests.
+So, I require an API key which all my applications server-side will know and pass with their requests.
 Ultimately I should have scalable, performant, and best of all free applications now.
 The biggest limitation I have is the Heroku PostgresQL limitation of 10,000 rows for Hobby free tier.
 This can be expanded to 10 million rows for $9 a month if needed. 

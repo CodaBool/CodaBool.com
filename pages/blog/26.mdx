@@ -2,7 +2,7 @@ import Layout from '../../components/Layout'
 export default ({ children }) => {
   const meta = {
     "title": "Final for Data Analytics and Security class",
-    "excerpt": "I learned a lot this semester and worked with a group to analyse some real work data for my final. I used this to create a Python script which did data analysis. Popular Python libraries like pandas and matplotlib were essential for our final.",
+    "excerpt": "I learned a lot this semester and worked with a group to analyze some real work data for my final. I used this to create a Python script which did data analysis. Popular Python libraries like pandas and matplotlib were essential for our final.",
     "created": "2022-11-10 22:20:00",
     "cover": "/assets/coverImg/cover-fall-2022.jpg",
     "tags": "react bootstrap three.js fiber react-router",
@@ -35,7 +35,7 @@ We ended up following three different hypothesis.
 With these questions in mind I was able to write a Python script which pulled these relevant values out of the 300,000 line JSON files we were provided. 
 Each JSON file typically contained security scans for two applications.
 Here is some example output from my Python script.
-I am censoring the name of the applications due to the specifics of the findings being private information for this class.
+I removed the name of the applications.
 
 ```sh
 fb245f76-b90f-4a03-af9e-96bb7f457164.json
@@ -72,7 +72,7 @@ correlation between being a game and security -0.3589489598292062
 ```
 
 There is a print out of the correlation which summarizes our findings.
-To fully interpret the correltation data you could say that:
+To fully interpret the correlation data you could say that:
 
 - Apps that request more URLs are weakly more secure
 - Apps that ask for more permissions are very weakly more secure

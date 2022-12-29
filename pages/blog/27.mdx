@@ -11,4 +11,80 @@ export default ({ children }) => {
   return <Layout meta={meta}>{children}</Layout>
 }
 
-# Coming Soon
+## Who would have thought that scrapers break easily
+About a year and a half ago I created a Lambda function which would scrape a couple sites and store that info in a database.
+Namely it would gather information on the following subjects:
+
+- upcoming movies from IMDB
+- popular movies from IMDB
+- popular tv shows from IMDB
+- top selling games from Steam
+- popular npm packages from npmjs.com
+- popular Python packages from hugovk.github.io/top-pypi-packages
+
+<Img src="https://raw.githubusercontent.com/CodaBool/p09-web-scraper/main/commands.jpg" size="md" float />
+
+
+The changes I made were to remove a scraping of a npmjs.com alternative site which was giving very slow response times.
+The Python scrape is completely new and is mainly due to my use of Python at my work.
+I updated the games scrape to no longer scrape upcoming games but instead the top selling games and if they are discounted.
+I altered some of the readability in the posts which are made from the bot. 
+
+## Infrastructure
+A larger change I made is to move away from Serverless framework and towards Terraform.
+I realized I can get a much more reliable experience with Terraform than the Serverless framework and I won't be reminded to buy Serverless subscription.
+To make this work I did need to write out extensive modules but this should be something I can use for any future projects now.
+I will be keeping all my Terraform infrastructure in a [AWS repo](https://github.com/CodaBool/AWS).
+
+With this change I removed the use of an AWS API gateway.
+I was running into issues with API gateway as I described in my first blog post about this.
+Basically API gateway only allows a short amount of time until it will assume a request is timing out.
+This makes sense, but since I tried to build the Lambda in a unconventional way it caused issues.
+I was trying to scrape a page and give back a positive response before the request timed out.
+This is too little time and I ended up being better suited to run a solution with AWS SQS.
+SQS is a queue system where you can put out a task and have a Lambda pick it up.
+This is completely asynchronous and works much better.
+
+
+## Promises
+
+I also got to try out the strength of JavaScript asynchronous functions.
+You can see the [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) page on how this works.
+The purpose of this is to gather the descriptions of all Python packages that show up in my initial JSON of data.
+The data shows the number of downloads and the name of the package but without a description I don't find it all that interesting.
+
+```js
+// keep our promises in an array which we can wait on later
+const promises = []
+for (const name in data) {
+  // create a new promise which is pypi-info requesting out with the package name
+  promises.push(new Promise((resolve, reject) => {
+    pypi.getPackage(name)
+      .then(res => {
+        // once info about a package is obtained, return its name and its description
+        resolve({ name, description: res?.info?.summary })
+      })
+      .catch(err => reject(name))
+  }))
+}
+
+// all promises are started, now we wait for them all to resolve
+await Promise.allSettled(promises)
+  .then(results => results.forEach(res => {
+    // promises will either have a status of fulfilled or rejected
+    if (res?.status == 'fulfilled') {
+      data[res?.value?.name]['description'] = res?.value?.description
+    }
+  }))
+```
+
+I used this to gather the Python package descriptions of the top 100 Python packages.
+This uses a npm package called [pypi-info](http://npmjs.com/package/pypi-info) to send out the request for.
+
+
+I used the promises allSettled method again on the discord bot side to send out 6 SQS for the Lambda to update.
+
+- scraper [code](https://github.com/CodaBool/AWS)
+- discord bot [code](https://github.com/CodaBool/p09-web-scraper)
+
+# Thanks for reading 👍

@@ -2,7 +2,7 @@ import Layout from '../../components/Layout'
 export default ({ children }) => {
   const meta = {
     "title": "Creating the Landing Page",
-    "excerpt": "This applications landing page simulates a terminal with unix commands. Here I break down how I made it",
+    "excerpt": "This applications landing page simulates a terminal with Unix commands. Here I break down how I made it",
     "created": "2020-09-8 23:20:00",
     "cover": "/assets/coverImg/landing-page-cover.jpg",
     "tags": "webdev",
@@ -15,17 +15,15 @@ export default ({ children }) => {
 
 > This is a live project which can be seen at the home page [here](https://codabool.com)
 
-&emsp;
 For my website I wanted links to all my projects as well as blog posts
 explaining how everything was done. However, there is an important piece that every
 portfolio page needs. An attractive landing page. A landing page is the introductory page to the website.
 This can be purely showy or just bare html with links to the common uses of the website.
 I wanted to make something which was mostly performance but would not get in the way.
 This was my attempt at making something
-interactive but also allow for some functionallity as far as linking to the rest of the pages.
+interactive but also allow for some functionality as far as linking to the rest of the pages.
 
-&emsp;
-My first steps in building this page and with many pages where I put several days of work into was reasearch.
+My first steps in building this page and with many pages where I put several days of work into was research.
 I wanted a landing page that would feel like a terminal.
 I found several other sites which had the aesthetic I was looking for.
 When researching I make notes of the websites I like and what I like about them.
@@ -42,24 +40,22 @@ When researching I make notes of the websites I like and what I like about them.
 - beautiful live changing text [link](https://ertdfgcvb.xyz/)  
 - auto typing, nice colored font, provides helpful navigation links [link](https://pradyuman7.github.io/)
 
-&emsp;
 As you can see there are a lot of different ways to build a terminal in the browser.
 I ended up liking too many things and decided to expand the project.
 First I tried to create a input tag which would responsively only be on the latest block.
 After every command the last command and output would be created through React jsx component.
-I wanted there to be a block carot for writing the code.
+I wanted there to be a block caret for writing the code.
 This is extremely difficult and is even more hacky than the terminal.
-Basically you would need to overide the browser code for how it renders the input carot.
+Basically you would need to override the browser code for how it renders the input caret.
 One solution was to have hidden html div tag behind where the user is writing.
-Then put a span tag which appears like a block carot near where the user is typing.
+Then put a span tag which appears like a block caret near where the user is typing.
 This ended up working but would become offset by too much once the input went on too long.
 After that roadblock I rethought the entire structure
 
-&emsp;
-I came accross some interesting CSS to allow for a old TV style effect on the page.
-While I could not easily get a block carot. I did keep this CSS into the final result.
+I came across some interesting CSS to allow for a old TV style effect on the page.
+While I could not easily get a block caret. I did keep this CSS into the final result.
 What this does is creates small horizontal bars which are mostly transparent.
-These are static applyed on top of the page using its full height.
+These are static applied on top of the page using its full height.
 Then the flicker animation changes the opacity of the bar effect.
 This makes the bars flicker similar to an old time TV.
 
@@ -146,7 +142,6 @@ useEffect(() => {
 }, [])
 ```
 
-&emsp;
 The landing page is confusing and can feel overwhelming to many users.
 For this reason I added a neat CSS trick to add a loading bar to the border of the terminal.
 
@@ -177,7 +172,6 @@ For this reason I added a neat CSS trick to add a loading bar to the border of t
 }
 ```
 
-&emsp;
 Lastly I added about 50 lines to the terminal-in-react npm package and uploaded my own version of it to npm.
 This was my first time creating an npm package and it was actually very painless.
 Adding these lines allowed me to have an option to edit the `help` command.

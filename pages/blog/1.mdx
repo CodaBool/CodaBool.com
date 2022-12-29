@@ -203,7 +203,7 @@ Now if I call `applyFilters()`, images are added to the page in a nice grid. Tak
 
 <Img src="/assets/byPost/photography/gallery-basic.jpg" size="lg" />
 
-But let's implement filtering decisions. I created checkboxes for allowing the user to filter the images. These have an onchange property which calls the handleChange method. This is passed the event where the information about which select input it was can be discovered. I use the input's id property which I conviently name the same as what I expect the name of the filters to be. Here I am using the array.splice method ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)) to remove the filter if the checkbox was unchecked. Otherwise I push the category name onto the active filter array. 
+But let's implement filtering decisions. I created checkboxes for allowing the user to filter the images. These have an onchange property which calls the handleChange method. This is passed the event where the information about which select input it was can be discovered. I use the input's id property which I conveniently name the same as what I expect the name of the filters to be. Here I am using the array.splice method ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)) to remove the filter if the checkbox was unchecked. Otherwise I push the category name onto the active filter array. 
 
 > JS
 ```js
@@ -219,7 +219,7 @@ function handleChange(event) {
 }
 ```
 
-Ok, so we can add filters and remove them but none of the images are getting removed. We need a way to remove the src URLs from the image tags if they are from categories in the filter array. I will take the easier but more wreckless route of setting all images in the gallery to blank src URLs and then adding back the ones which are not filtered. 
+Ok, so we can add filters and remove them but none of the images are getting removed. We need a way to remove the src URLs from the image tags if they are from categories in the filter array. I will take the easier but more reckless route of setting all images in the gallery to blank src URLs and then adding back the ones which are not filtered. 
 
 > Reset image tags
 ```js

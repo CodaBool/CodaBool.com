@@ -14,21 +14,19 @@ export default ({ children }) => {
 # Type fast to win
 > This is a live project! play [here](https://p8.codabool.com)
 
-> The source code can be at my repo on [github](https://github.com/CodaBool/p08-type-racer)
+> The source code can be at my repo on [GitHub](https://github.com/CodaBool/p08-type-racer)
 
-&emsp;
 This was a project I took up between jobs and had a lot of fun with. 
 I first followed a YouTube guide from [Coding with Chaim](https://www.youtube.com/watch?v=E4V6nbP_NoQ) on how to setup a socket.io which allowed for a chat socket in React.
 I then followed a YouTube guide from [NoobCoder](https://www.youtube.com/watch?v=YHmrPd5ZIuo) which sets up a working Socket.io type racing game. 
 I forked off from his code and used styling from [Web Dev Simplified](https://www.youtube.com/watch?v=R-7eQIHRszQ).
-This made for all the basic features of the app, a type race, using styling to show progress and finally a chat embeded within the same socket for the game data.
+This made for all the basic features of the app, a type race, using styling to show progress and finally a chat embedded within the same socket for the game data.
 
-&emsp;
 I wanted the application to have cars similar to the popular type racing game [play.typeracer.com](https://play.typeracer.com).
 So, created art for different color cars and a traffic light to indicate if you were ready to start or not. 
-I did try to find a way to access popular media quotes through the use of an api.
+I did try to find a way to access popular media quotes through the use of an API.
 However, I could not find any which were free so I decided to solve the issue with some web scraping. 
-I used chrome browser extenstion [Web Scraper - Free Web Scraping](https://chrome.google.com/webstore/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn) which allowed me to scrape data programmatically from pages.
+I used chrome browser extension [Web Scraper - Free Web Scraping](https://chrome.google.com/webstore/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn) which allowed me to scrape data programmatically from pages.
 I was able to find the source form which the popular typeracer.com game pulled from. 
 They use user submitted quotes and they are viewable on these pages found [here](https://data.typeracer.com/pit/text_info?id=4790331).
 So selecting the elements of relevant data I was able to scrape 4000 lines of JSON to use as quote data. 
@@ -36,7 +34,6 @@ This was actually ideal since it came with average word per minute speed for the
 This is a bit of data I was able to use in the end of round screen. 
 
 ## Challenges
-&emsp;
 I did run into a couple issues related to building the socket. 
 The biggest issue I had was with the timer for the round. 
 I could not find a easy way to emit to the socket that the host should clear the timeout that the server is running. 
@@ -85,20 +82,18 @@ socket.on('join-game', async ({ gameID, name }) => {
 })
 ```
 
-&emsp;
 Another issue I ran into which was kind of hilarious was that if you refreshed the page you could join the game repeatedly.
-This was due to the join logic happening by the content of the url query. 
+This was due to the join logic happening by the content of the URL query. 
 Meaning if you join a game you will be pushed to the route of /online?gameID=GAME_ID and refreshing will attempt the same join game logic.
 This is fine but there needed to be validation on if the player was already in the game. 
-I did not have accounts or want to add authenication to the app. 
+I did not have accounts or want to add authentication to the app. 
 However, what I did have was a requirement for entering a username. 
 I used this to validate. Usernames need to be unique to join the game.
 This is not fool proof but should work fine for the scope of this game. 
 
 ## What I learned
-&emsp;
 I learned a lot, too many things to write out here but a neat thing which I learned was how to automatically delete data on the database.
-Everytime a game was created it would be stored and this can quickly lead to a overfilled database with no reason for keeping most of its collections.
+Every time a game was created it would be stored and this can quickly lead to a overfilled database with no reason for keeping most of its collections.
 So, there is a feature in mongoose (NPM MongoDB driver wrapper) where you can have documents delete after a select time.
 
 ```js

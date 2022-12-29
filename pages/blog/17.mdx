@@ -14,26 +14,24 @@ export default ({ children }) => {
 # A changing web
 &emsp;
 The web has moved away from building and maintaining RSS feeds.
-RSS feeds make sense from a data distribuition perspective but offer little options in the way of monitization.
+RSS feeds make sense from a data distribution perspective but offer little options in the way of monetization.
 For this reason strict APIs are the future of major services. 
 There is a harsh limit to what outside users can develop with for most products. 
 Again this makes total sense from a fiscal as well as security perspective. 
 
 &emsp;
-There is little benefit to YouTube for example to make their core API functions public and mass distrutable. 
+There is little benefit to YouTube for example to make their core API functions public and mass distributable. 
 For example NewPipe, an android app not available on the Play Store, scrapes YouTube videos (against their terms of service) for an ad free experience. 
 These applications cut the major stream of money to these social media sites by bypassing their ad revenue.
-For this reason Google is actively putting in measures to stop things like NewPipe from working and the app developers constantly need to do an arms race of updates to curcumvent barriers put in place by Google.
+For this reason Google is actively putting in measures to stop things like NewPipe from working and the app developers constantly need to do an arms race of updates to circumvent barriers put in place by Google.
 
 ## Legal stuff
-&emsp;
 While on the subject of scraping and terms of service. 
 The code which I have written is not for any commercial application. 
 This was built purely for a personal proof of concept and is in no way meant to be used in violation of these websites terms and conditions. 
 If you have any interest in web scraping please read the TOS of the website you intent to scrape first, it is their right to state their terms of use.
 
 ## What I wanted to do
-&emsp;
 I find myself going to a couple sites occasionally for small updates and leaving. 
 I thought a cool project might be to see if I can use Node.js to deliver these small updates through a web scraper. 
 A web scraper will perform a request like any person might with their browser, then it will take the data and parse through it.
@@ -49,14 +47,12 @@ But for me personally these are some things I enjoy to know about and that I wan
 - find trending node package manager 
 
 ## Tool options
-&emsp;
 There are a lot of good competing tools on npm for doing this with Node.js.
 A lot of overlap happens in testing and web scraping. 
 They use similar technology and if you have experience in JavaScript testing these might sound familiar. 
 I came across Puppeteer, Cypress, Selenium, Phantomjs, Chromeless and JSDOM. 
 
 ### JSDOM
-&emsp;
 I tried Cypress first due to its popularity but after a few roadblocks I decided to try out JSDOM since it was light and could do what I needed.
 This ended up working out, you basically interact with the DOM as you would with vanilla JavaScript. 
 Meaning I could use snippets like the one below to grab a id by the name of `answer`
@@ -72,7 +68,6 @@ async function isChristmas() {
 }
 ```
 
-&emsp;
 Once I have the element from the DOM that I want I can then either get its content or if there was a list of items I would loop over them like this.
 
 ```js
@@ -82,7 +77,6 @@ for (const row of list.getElementsByTagName('a')) {
 }
 ```
 
-&emsp;
 Or if the element is a child of the currently selected tag. 
 I could use childNodes to select the index.
 Or if I wanted an element by its tag name I simply use the getElementsByTagName like I have here and in the previous example. 
@@ -95,16 +89,14 @@ for (const row of list.getElementsByTagName('a')) {
 ```
 
 ## Bringing it to the cloud
-&emsp;
 Getting AWS Lambdas uploaded and tested is time consuming.
 Not to mention, for the scope of this project I wanted to see if I could utilize an API gateway to provide me a url to perform requests to. 
 Creating an automated AWS stack through CloudFormation is cumbersome and error prone.  
 So for this I used the [Serverless](https://github.com/serverless/serverless) framework to quickly test and deploy my code.
-I also have built the habbit of creating ci/cd pipelines for my repositories to make my work as easy as a git push and the code is deployed. 
+I also have built the habit of creating ci/cd pipelines for my repositories to make my work as easy as a git push and the code is deployed. 
 For this I used github actions to run a Serverless deploy which creates the lambda. 
-Lastly I have my pipeline use the aws cli to get the CloudFormation stack output of the API gateway url and append that to the github readme for my convience.
+Lastly I have my pipeline use the aws cli to get the CloudFormation stack output of the API gateway url and append that to the github readme for my convenience.
 
-&emsp;
 So, even with the great tools I was utilizing that ends up being a lot of code.
 A lambda handler to do the logic.
 A Github action pipeline yaml file to make for super easy code deploys on every git push.
@@ -112,23 +104,19 @@ Then lastly a Serverless yaml file to build the infrastructure from the pipeline
 This is a high level view and if you want a finer look at any of this code please checkout my [repo](https://github.com/CodaBool/p09-web-scraper)
 
 ## We have the data, what now?
-&emsp;
 I have always wanted to try building a scraper to perform a task like this.
 I also wanted to built a Discord bot around this time. 
 So, I combined the ideas since I had no idea how I wanted to test out using the data in a front-end setting.
 I set out to have a discord bot which could be commanded with something like `/github-trending`.
 Then the bot would respond with a table of the trending github repositories. 
 
-&emsp;
 For this I used a module called Discord.js it worked fantastic.
 They seem to have a great coverage of the api wrapped in their module so I would definitely recommend to anyone. 
 With the access to my Discord channel and permissions setup I was able to start the bot. 
 using a simple call I had the bot activate on messages 
 
-&emsp;
 `client.on('message', () => {} )`
 
-&emsp;
 From there it was just a matter of having the bot call the appropriate url and then write its result.
 Here is an example of what that looks like
 
@@ -175,14 +163,12 @@ client.on('message', msg => {
   }
 ```
 
-&emsp;
 This takes the data and prints it using a helpful table printing module.
 The module is called [as-table](https://www.npmjs.com/package/as-table) and was a character efficient way to fill the discord codeblock. 
 
 > The result
 <Img src="/assets/byPost/17/embeds.PNG" size="lg" float />
 
-&emsp;
 This is one of many commands and you can checkout more of what the result looks like by going to my complimentary front-end I made for anyone to explore what the back-end provides.
 Please take a look at what the results of the scraper end up looking like [here](https://codabool.com/projects#9)
 

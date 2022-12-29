@@ -14,7 +14,6 @@ export default ({ children }) => {
 # E-Commerce market with Stripe
 > This is a live project which can be seen [here](https://codabool.com/projects#7)
 
-&emsp;
 I was given an open ended project for school assignment.
 I could pick what I wanted to develop.
 I decided on building a full-stack application.
@@ -28,18 +27,16 @@ This uses a JWT session.
 I used React Hook Form for the forms and a package to help with storing shopping cart.
 Lastly I use Bootstrap for styling the page.
 
-&emsp;
 I went through many iterations of how to store the cart.
 I first created my own method which used localstorage.
 I then played with the idea of storing it into cookies but quickly disbanded that idea.
-I ended up using a package to reduce the amount of code maintanence I need to do.
+I ended up using a package to reduce the amount of code maintenance I need to do.
 I installed Use Shopping Cart which uses localstorage underneath.
 The package was made for Stripe. 
 It does have some opinionated ways to enter in the data.
 However, the functions added to increment shopping cart are very useful.
 There is also an included method to validate the cart.
 
-&emsp;
 The features of the site are a signup/login page.
 Once authenticated you can browse the store and add items to your cart.
 There is then a process for checking out.
@@ -50,7 +47,6 @@ In React this means that a reference needs to be created and assigned for each i
 Removing items can also be done on this page.
 Once all the items are all properly adjusted and the total is understood you can proceed to the shipping page.
 
-&emsp;
 The shipping area went through lots of changes.
 I am proud of how well the last version looks.
 Bootstrap styling makes if difficult to generally have things next to each other compared to vertical.
@@ -58,24 +54,21 @@ For me to get the styling I wanted I created a hook for finding the size of the 
 React Hook Form provides great error handling which helps you fill out the form.
 I also use it to hookup a form of autofill where once the zip code is put in then the state is filled out.
 Once filled out the stored address is compared with the new address.
-If there is no difference no change is made otherwise a helpful dialoge is shown to confirm the address change.
+If there is no difference no change is made otherwise a helpful dialogue is shown to confirm the address change.
 Then the address is conditionally saved and you can move to the payment page.
 
-&emsp;
 The payment page uses components provided by Stripe.
 Stripe calls for something called a payment intent where a lot of properties can be defined like the price and shipping address.
 While the backend handshake which creates and then confirms a payment proceeds helpful loading message indicators when checking out.
 After the completion of the payment you land at a confirmation page.
 
-&emsp;
 I was able to hookup to a api called Now which can provide an image of an address.
 I was not able to properly send the image back through node but if I work on any other features I want want to finish this feature.
 Once complete the new order can be seen in the orders page.
 Another feature that I would want to build out next would be for a webhook which gets called when new payments get through.
-I tested the webhook functionality out and it properly recieves and can deconstructure the request.
-Then next step would be to email out the reciept which Stripe makes and to store the order under my own copy in PostgresQL.
+I tested the webhook functionality out and it properly receives and can deconstruct the request.
+Then next step would be to email out the receipt which Stripe makes and to store the order under my own copy in PostgresQL.
 
-&emsp;
 There is also an admin panel which connects to all the Stripe CRUD functions.
 This allows a site admin to manage the products on the site.
 Helpful toasts are displayed when any operation is performed.
@@ -84,7 +77,6 @@ Lastly there is an account page which does not have much styling and works as a 
 ### Update
 > 10 Months Later
 
-&emsp;
 I have expanded and since rewrote the application. I switched it to a fully Serverless application.
 I moved the database over to MongoDB which simplified my need for connection pooling that I needed with a PostgresQL implementation.
 I added support for PayPal as well as Reviews. I also expanded out an account page which you can see your orders as well as your reviews.

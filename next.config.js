@@ -15,6 +15,16 @@ module.exports = withMDX({
       }
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  },
   // async headers() {
   //   return [
   //     {
