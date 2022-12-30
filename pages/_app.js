@@ -42,7 +42,7 @@ export default function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </Container>
       </main>
-      <Footer />
+      {router.asPath.includes('/blog') ? null : <Footer />}
     </div>
   )
 }
