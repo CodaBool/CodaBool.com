@@ -3,12 +3,24 @@ import Container from 'react-bootstrap/Container'
 import { useRouter } from 'next/router'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
+import { useEffect } from 'react'
+import Script from 'next/script'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/global.css'
 import '../styles/prism.css'
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  
+  useEffect(() => {
+    if (router.asPath.includes('/blog/')) {
+      const el = document.querySelector('.utterances')
+      if (el) el.style.display = 'block'
+    } else {
+      const el = document.querySelector('.utterances')
+      if (el) el.style.display = 'none'
+    }
+  }, [router])
 
   if (router.asPath === '/') {
     return (
@@ -42,7 +54,15 @@ export default function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </Container>
       </main>
-      {router.asPath.includes('/blog') ? null : <Footer />}
+      {router.asPath.includes('/blog/') ? null : <Footer />}
+      <Script 
+        src="https://utteranc.es/client.js" 
+        repo="codabool/CodaBool.com"
+        issue-term="pathname"
+        crossOrigin="anonymous"
+        lazyOnload
+        async
+      />
     </div>
   )
 }

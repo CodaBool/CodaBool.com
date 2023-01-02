@@ -3,15 +3,15 @@ import Nav from 'react-bootstrap/Nav'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+const style = {
+  cursor: 'pointer',
+  fontSize: '2rem',
+  lineHeight: '1',
+  margin: '0 2rem 0 2rem'
+}
+
 export default function Navigation() {
   const router = useRouter()
-  const style = {
-    cursor: 'pointer',
-    fontSize: '2rem',
-    lineHeight: '1',
-    margin: '0 2rem 0 2rem'
-  }
-  
   return (
     <Navbar bg="dark" variant="dark" collapseOnSelect expand="lg">
       <Navbar.Brand onClick={() => router.push('/blog')} style={style}>CodaBool</Navbar.Brand>

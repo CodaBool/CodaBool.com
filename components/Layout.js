@@ -8,7 +8,6 @@ import { format } from 'timeago.js'
 import { NUM_OF_BLOGS } from '../constants'
 import mdCSS from '../styles/markdown.module.css'
 import { Suspense, useRef, useEffect } from 'react'
-import Script from 'next/script'
 import Spinner from 'react-bootstrap/Spinner'
 
 // found an alternative way of parsing and using remark with next-mdx-remote
@@ -234,12 +233,6 @@ export default function Layout({ children, meta }) {
           </div>
         </div>
         <BlogNav total={NUM_OF_BLOGS} current={meta.number} />
-        <Script src="https://utteranc.es/client.js" 
-          repo="codabool/CodaBool.com"
-          issue-term="pathname"
-          crossOrigin="anonymous"
-          async
-        />
       </MDXProvider>
     </Suspense>
   )
