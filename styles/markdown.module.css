@@ -1022,6 +1022,10 @@
   .markdown p {
     font-size: 1.3rem;
   }
+  .markdown ul {
+    font-size: 1.2rem;
+    padding-left: .75rem;
+  }
 
   .markdown blockquote {
     padding: 0 6px;

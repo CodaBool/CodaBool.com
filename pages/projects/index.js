@@ -91,7 +91,7 @@ export default function Projects() {
         <ProjectBox
           title="Financial Tracker"
           description="A group financial tracker. Signup and enter your contribution towards a goal. Complete with pie and bar graphs as well as a detailed history."
-          link="https://stat-sample.codadash.com.s3-website-us-east-1.amazonaws.com"
+          link="https://p7.codabool.com"
           tags={['ChartJS', 'React', 'MongoDB', 'Serverless', 'Docker', 'next-auth']}
           delay={0}
           year={2021}
