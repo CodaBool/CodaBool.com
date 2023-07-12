@@ -1,0 +1,166 @@
+import Layout from '../../components/Layout'
+export default ({ children }) => {
+  const meta = {
+    "title": "Finding RDS End of Life Data from AWS (My first FOSS contribution)",
+    "excerpt": "There is no API to gather data about when AWS RDS service will enter into end of life in advance. I went about finding a way to gather it programmatically",
+    "created": "2023-07-11 14:20:00",
+    "cover": "/assets/coverImg/rds.jpg",
+    "tags": "node",
+    "number": "31"
+  }
+  return <Layout meta={meta}>{children}</Layout>
+}
+
+# End of Life Data
+AWS only offers an API to get database maintenaince events which are a week in advance. 
+There is a lot to know when it comes to RDS maintenance. 
+Despite RDS being a managed service.
+Meaning you do not need to actually interact with the PostgreSQL or MySQL startup on a server.
+
+# How RDS maintenance works
+In order to get the most accurate information about the topic there are sever AWS docs which help answer the following questions
+
+- When do deprecations happen? [docs](https://aws.amazon.com/rds/faqs/#What_happens_when_an_Amazon_RDS_DB_engine_version_is_deprecated.3F)
+- What are maintenance windows? [docs](https://aws.amazon.com/premiumsupport/knowledge-center/rds-maintenance-window/)
+- How does Multi-AZ RDS work? [docs](https://aws.amazon.com/rds/features/multi-az)
+- What are the postgresql versions? [docs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html#USER_UpgradeDBInstance.PostgreSQL.VersionID)
+- What are the mysql versions? [docs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Concepts.VersionMgmt.html)
+
+When an RDS instance enters its maintenance windows it will upgrade the minor version (this can be automated by setting the auto minor upgrade property on an instance). Downtime can be significantly reduced (typically less than 60 seconds) with multi-AZ instances. Compared to the expected 30 minutes of a regular maintenance. When using this approach the process will work as follows:
+
+1. the standby will have maintenance. 
+2. Once maintenance is finished on the standby it will be promoted to primary
+3. The original primary will become standby and go into maintenance
+
+### State
+A RDS instance could go into maintenance for several reasons. This could be an OS update, or a deprecated database engine version. This will eventually happen as new versions release and current versions eventually are no longer supported. 
+
+To see the state of the pending maintenance you can visit RDS in the AWS console. There you can find a maintenance column for RDS which can have the following maintenance states:
+- `required` The maintenance action will be applied to the resource and can't be deferred indefinitely.
+- `available` The maintenance action is available, but won't be applied to the resource automatically. You can apply it manually.
+- `next window` The maintenance action will be applied to the resource during the next maintenance window.
+- `In progress` The maintenance action is in the process of being applied to the resource.
+
+Maintenance windows are randomly assigned to a day of the week unless otherwise specified on creation of the DB. These windows usually last 30 minutes. The region us-east-1 defaults to maintenance window at of 03:00-11:00 UTC for whatever day it enters maintenance.
+
+## Three RDS deployment options
+### Multi-AZ DB cluster
+Creates a DB cluster with three DB instances. Each DB instance is in a different Availability Zone. A Multi-AZ DB cluster has one primary DB instance and two readable standby DB instances. Using a Multi-AZ DB cluster provides high availability, increased capacity for read workloads, and lower latency.
+
+### Multi-AZ DB instance
+Creates a primary DB instance with one standby DB instance in a different Availability Zone. Using a Multi-AZ DB instance provides high availability, but the standby DB instance doesn't support connections for read workloads.
+
+### Single DB instance
+Creates a single DB instance with no standby instances.
+
+
+# 📅 Deprecation
+If you want to know more than a week ahead of time when a RDS instance will deprecate you will need to go to the respective AWS docs page.
+I wanted to write automation which would message to Slack if it detected that a deprecation was happening within a set amount of days (e.g. 90 days from now). This would allow a coordination between Ops and App teams to schedule windows of maintenance where the upgrade could take place.
+
+I wrote a [JavaScript file](https://github.com/oddballteam/eol) which scraped the AWS docs for both PostgreSQL and MySQL on a monthly schedule.
+It uses JSDOM to scrape both pages and writes them to a local file in a data folder
+
+
+```js
+const data = []
+const dbs = {
+  'mysql': 'https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Concepts.VersionMgmt.html',
+  'postgres': 'https://docs.aws.amazon.com/AmazonRDS/latest/PostgreSQLReleaseNotes/postgresql-release-calendar.html',
+}
+for (const [db, url] of Object.entries(dbs)) {
+  // ...
+  // scrape code here
+  // ...
+}
+const filename = format(new Date()).slice(0, -3) + '.json'
+fs.writeFileSync('data/' + filename, JSON.stringify(data, null, 2))
+```
+
+
+I have pipeline code in GitHub Actions which will run this and commit the generated file to the repo
+
+```yml
+- name: scrape
+  run: |
+    npm ci
+    npm start
+
+- name: commit
+  run: |
+    git config user.name github-actions
+    git config user.email github-actions@github.com
+    git add .
+    git commit -m "#${{ env.run }}"
+    git push
+```
+
+### Now we have the Data
+I then use a Python lambda function which will clone the repo and combine all known End of Life data which has been scraped.
+
+```py
+Repo.clone_from("https://github.com/oddballteam/eol", "/tmp/eol")
+combined_json = list()
+for subdir, dirs, files in os.walk('/tmp/eol/data'):
+  for file in files:
+    filepath = subdir + os.sep + file
+    if filepath.endswith(".json"):
+      with open(filepath) as f:
+        combined_json.extend(json.load(f))
+eol_data = remove_duplicate_items(combined_json)
+```
+
+There is a lot of duplicate data from previous months of scraping so I wrote a way to combine the different JSON files into one.
+This will only have unique id values which filters out all duplicates.
+
+```py
+def remove_duplicate_items(_api_data):
+  unique_elements = []
+  all_data = []
+  # get unique ids
+  for i, j in enumerate(_api_data):
+    if j['id'] not in unique_elements:
+      unique_elements.append(j['id'])
+  # only use the latest scraped data
+  for id in unique_elements:
+    scrape_dates = []
+    for i, j in enumerate(_api_data):
+      if j['id'] == id:
+        scrape_dates.append(j['scraped'])
+    scrape_dates = sorted(scrape_dates, key=lambda x: datetime.strptime(x, '%Y-%m-%d'))
+    for i, j in enumerate(_api_data):
+      if j['scraped'] == scrape_dates[-1] and id == j['id']:
+        all_data.append(j)
+  return all_data
+```
+
+I will then loop over the data and add them to a Slack attachments list.
+Only if the deprecation is less than the `DAYS_NOTICE` integer will it add them to the list.
+
+```py
+if delta.days < DAYS_NOTICE and delta.days > 0:
+  text = f"• {i['engine']} {i['version']} dep. in {delta.days} days\n"
+  print(f"`{i['id']}` {i['engine']} {i['version']} deprecates in {delta.days} days")
+  attachment_text_warn += text
+```
+
+Once a full Slack message is constructed I then post it to an appropriate channel where everyone can get notified of an upcoming deprecation weeks in advance.
+
+<Img src="/assets/byPost/31/dep.png" size="lg" />
+
+# Open Source Contribution
+I mentioned in the title that I merged a PR to a free and open source software repository.
+I contributed to have two new API endpoints in the endoflife.date community.
+I wrote the data and script to help automate the process of posting to RDS PostgreSQL and MySQL pages.
+
+- The new [AWS MySQL for RDS page](https://endoflife.date/amazon-rds-mysql) 
+- The new [AWS PostgreSQL for RDS page](https://endoflife.date/amazon-rds-postgresql)
+
+I worked with them to merge in the following PRs
+
+- [MySQL PR](https://github.com/endoflife-date/endoflife.date/pull/2626)
+- [PostgreSQL PR](https://github.com/endoflife-date/endoflife.date/pull/2624)
+- [automatic data PR](https://github.com/endoflife-date/release-data/pull/86)
+
+This project creates a collective API where end of life data can be freely accessed. 
+For anyone hoping to find similar RDS end of life data for programmatic use I would recommend they use the data from this community.

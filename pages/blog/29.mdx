@@ -1,0 +1,25 @@
+import Layout from '../../components/Layout'
+export default ({ children }) => {
+  const meta = {
+    "title": "TampaDevs event page fly through",
+    "excerpt": "I created the landing page for the TampaDevs Bayhacks hack-a-thon. Fly through a 3D environment to get the latest info on the event",
+    "created": "2023-07-11 12:20:00",
+    "cover": "/assets/coverImg/bayhacks.jpg",
+    "tags": "threejs vite tampadev",
+    "number": "29"
+  }
+  return <Layout meta={meta}>{children}</Layout>
+}
+
+# 🏴‍☠️ Tampa Devs
+> A live version of the site can be seen [here](https://p15.codabool.com)
+
+Vincent allowed me to write the landing page for the upcoming hack-a-thon in the Tampa area.
+His organization TampaDevs is hosting it and a page is needed to get out information on the event.
+
+### Theatre
+I used a package called theatre which allowed me to create the fly through effect. 
+I mainly followed the guide found [here](https://tympanus.net/codrops/2023/02/14/animate-a-camera-fly-through-on-scroll-using-theatre-js-and-react-three-fiber/) to get that to work.
+
+Take a look at the event page and let me know if you experience any issues.
+Easiest way is you can comment at the bottom of this blog post.

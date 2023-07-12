@@ -85,6 +85,50 @@ This uses a npm package called [pypi-info](http://npmjs.com/package/pypi-info) t
 I used the promises allSettled method again on the discord bot side to send out 6 SQS for the Lambda to update.
 
 - scraper [code](https://github.com/CodaBool/AWS)
-- discord bot [code](https://github.com/CodaBool/p09-web-scraper)
+- discord bot [code](https://github.com/CodaBool/AWS)
+
+
+# 2023 Update
+I have since rewritten everything 😂 from scratch.
+There are now 2 lambdas which can be found in my [AWS repo](https://github.com/CodaBool/AWS).
+The scraper lambda rewritten in Golang will use the Colly package to scrape the data from 8 different sources.
+I liked my solution because it used Golangs multithreading to scrape several sites at once (totaling over 144 requests when its done)
+
+```go
+wg.Add(8)
+go scrapePY()             // +100 rows | 101 req (needs a req / row for description data)
+go scrapeGames()          // +49  rows | 1 req
+go scrapeGithub()         // +100 rows | 1 req
+go scrapeGo()             // +120 rows | 30 req
+go scrapeUpcomingMovies() // +171 rows | 1 req
+go scrapeTV()             // +100 rows | 1 req
+go scrapeTrendingMovies() // +100 rows | 1 req
+go scrapeJS()             // +160 rows | 8 req
+wg.Wait()
+```
+
+I also really like the ORM I used. It is called `GORM` and it will auto migrate your schema for correct types at all times.
+Once the data is scraped it is available to the discord lambda which also runs monthly a few hours after the scrape lambda runs.
+
+The discord lambda also rewritten in Golang will post the data to seperate channels.
+There is no longer an active discord bot and only a single
+
+I really like to deploy lambdas as containers now because I can predicitably test locally and also Golang images. Which are incredibly small when using Google's distroless based on Debian. Basically just scratch but with timezone, barebones linux filesystem, and certificate data.
+
+> this will generate a lambda image that is under 5Mb 🤯
+```dockerfile
+FROM golang:alpine AS build
+WORKDIR /
+COPY go.* ./
+RUN go mod download
+COPY *.go ./
+RUN GOARCH=arm64 go build -ldflags='-s -w'
+
+FROM gcr.io/distroless/static
+COPY --from=build /main /main
+CMD ["/main"]
+```
+
+
 
 # Thanks for reading 👍

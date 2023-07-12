@@ -59,6 +59,26 @@ export default function Projects() {
       <hr />
       <Row>
         <ProjectBox
+          title="BayHacks"
+          description="This was a website made to advertise and have embed RSVP signup for a Tampa Hack-a-thon called bayhacks 2023. It uses Threejs to render a 3D scene which can be moved through by scrolling"
+          link="https://p15.codabool.com"
+          tags={['Three.js', 'vite', 'theater', 'react']}
+          delay={0}
+          year={2023}
+          id={15}
+          image="/assets/coverImg/bayhacks.jpg"
+        />
+        <ProjectBox
+          title="Slap"
+          description="Play the fast paced Slap card game directly in your browser. This is a multiplayer game and can be played with up to 3 friends."
+          link="https://p12.codabool.com"
+          tags={['Three.js', 'nextjs', 'socket.io']}
+          delay={0}
+          year={2023}
+          id={14}
+          image="/assets/coverImg/slaps.jpg"
+        />
+        <ProjectBox
           title="Nikola Assistant"
           description="I attended TadHack 2022 in Tampa, Florida. We were tasked with using a speech to text API for a project. We built a drive with your voice game that can be very challenging."
           link="https://p11.codabool.com"
@@ -81,7 +101,7 @@ export default function Projects() {
         <ProjectBox
           title="Three.js Spinner"
           description="Create a 1 in 4 chance of anything happening. This is a 3D model with editable text all within your browser. Give it a spin!"
-          link="https://spinner-codabool.vercel.app"
+          link="https://p13.codabool.com"
           tags={['Three.js', 'React']}
           delay={0}
           year={2021}
@@ -91,7 +111,7 @@ export default function Projects() {
         <ProjectBox
           title="Financial Tracker"
           description="A group financial tracker. Signup and enter your contribution towards a goal. Complete with pie and bar graphs as well as a detailed history."
-          link="https://p7.codabool.com"
+          link="https://p14.codabool.com"
           tags={['ChartJS', 'React', 'MongoDB', 'Serverless', 'Docker', 'next-auth']}
           delay={0}
           year={2021}
@@ -131,7 +151,7 @@ export default function Projects() {
         <ProjectBox
           title="Serverless E-Commerce Website"
           description="Fullstack Nextjs e-commerce project. My most complete project yet. Connects to Stripe and a MongoDB database to allow for products to be added to cart and checked out. Many different tools involved here. Check it out!"
-          link="https://p07-market.vercel.app"
+          link="https://p7.codabool.com"
           tags={['Nextjs', 'Stripe', 'MongoDB', 'PayPal', 'Websockets']}
           delay={0}
           year={2020}
