@@ -34,6 +34,16 @@ export default function Module() {
         )}
       </Fade>
       <h4 className="my-5">If you're not sure where to go to even find that button. You can find it by going to your <a href="https://itch.io/my-purchases">purchases</a> page at itch.io</h4>
+      
+      <h1 className="display-1 my-5">🔐 Where to use your key</h1>
+
+      <h4>If you have your key you can now activate it at <a href="https://foundryvtt.com/article/premium-content">foundry.com</a> by going to your account's "Purchased Content" section. Entering your key from itch.io and activating it. This will permanently link access to the module to your Foundry account. You can now install the module at the setup screen of your Foundry instance.</h4>
+
+      <img className="w-100 my-3"  src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/premium-content-activation-2021-02-25.webp" />
+
+      <h4 className="mb-3 text-center" style={{color: "grey"}}>Enjoy your new module ❤️</h4>
+
+      <h4 style={{marginBottom: "10em"}}>If you run into any issues you can <a href="mailto:codabool@pm.me">email me</a> or message me on Discord at <span style={{color: "darkblue"}}>@codabool</span></h4>
     </>
   )
 }
