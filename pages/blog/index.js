@@ -25,9 +25,9 @@ export default function blog({ blogs }) {
           <Row key={index}>
             {cols.map(blog => (
               <Col sm={12} md={6} key={blog.meta.title}>
-                <Fade triggerOnce direction="up">
+                {/* <Fade triggerOnce direction="up"> */}
                   <Blog meta={blog.meta} />
-                </Fade>
+                {/* </Fade> */}
               </Col>
             ))}
           </Row>

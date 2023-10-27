@@ -32,12 +32,12 @@ const ProjectBox = ({ description, link, delay, tags, year, image, id, title }) 
         <div>
           <Img src={image} alt="project" width={634} height={317} style={{ width: '100%', height: 'auto' }} sizes="100vw" />
         </div>
-        <Fade triggerOnce delay={delay}>
+        {/* <Fade triggerOnce delay={delay}> */}
           <Card.Body>
             <h4>{title}</h4>
             <p>{description}</p>
           </Card.Body>
-        </Fade>
+        {/* </Fade> */}
         <Card.Footer>
           <small className="me-2 text-muted">{year}</small>
           {tags && tags.map(tag => (

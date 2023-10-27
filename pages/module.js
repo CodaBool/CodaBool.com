@@ -26,13 +26,13 @@ export default function Module() {
       <h1 className="display-1 my-5">🗺️ Your key is back at itch.io</h1>
       <h4 className="my-5">itch.io doesn't allow me to customize the way I distribute keys. This page is just to get you back on track. </h4>
       <h4 className="my-5">You'll want to go back to whatever page opened this and click the "Get download key" button instead.</h4>
-      <Fade triggerOnce>
+      {/* <Fade triggerOnce> */}
         {isMobile ? (
           <img src="/assets/images/module_mobile.png" className="w-100" alt="Mobile" />
         ) : (
           <img src="/assets/images/module_desktop.png" className="w-100" alt="Desktop" />
         )}
-      </Fade>
+      {/* </Fade> */}
       <h4 className="my-5">If you're not sure where to go to even find that button. You can find it by going to your <a href="https://itch.io/my-purchases">purchases</a> page at itch.io</h4>
       
       <h1 className="display-1 my-5">🔐 Where to use your key</h1>

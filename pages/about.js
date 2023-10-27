@@ -61,23 +61,23 @@ export default function About() {
           </div>
         </Col>
         <Col lg={6} className="mb-4">
-          <Fade triggerOnce direction="up">
+          {/* <Fade triggerOnce direction="up"> */}
             <h1 className="display-4 m-2">Hello, <div className="d-inline-block" style={{animation: 'sway 5s infinite'}}>👋</div></h1>
-          </Fade>
-          <Fade triggerOnce delay={500}>
+          {/* </Fade> */}
+          {/* <Fade triggerOnce delay={500}> */}
             <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I am a DevOps engineer, but I also do full-stack development outside of work. I mainly work with AWS and for my full stack projects I enjoy Next.js  which uses serverless technology for its backend. I like to use PostgreSQL + Prisma for my database solutions. Please feel free to look around at my projects, blog or reach out to me. Thanks for visiting. </p>
-          </Fade>
+          {/* </Fade> */}
         </Col>
       </Row>
       <br/>
       <Row>
         <Col lg={6} className="mb-4">
-          <Fade triggerOnce direction="up" delay={1000}>
+          {/* <Fade triggerOnce direction="up" delay={1000}> */}
             <h1 className="display-4 m-2">About me. 💻</h1>
-          </Fade>
-          <Fade triggerOnce delay={1300}>
+          {/* </Fade> */}
+          {/* <Fade triggerOnce delay={1300}> */}
             <p className="m-1" style={{fontSize: '1.3rem'}}>&emsp;I graduated December of 2020. My Bachelor's is in Computing Technology and Software Development. I am pursuing my Master's degree in Computer Science at Georgia Tech Online. I put all my projects as public open source on github under <a href="https://github.com/CodaBool?tab=repositories" style={{textDecoration: 'none', color: 'black'}}>CodaBool</a>, so take a look. </p>
-          </Fade>
+          {/* </Fade> */}
         </Col>
         <Col lg={6} className="group-img-container">
           <Img
