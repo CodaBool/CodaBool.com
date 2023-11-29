@@ -24,7 +24,7 @@ export default function Module() {
   return (
     <>
       <h1 className="display-1 my-5">🗺️ Your key is back at itch.io</h1>
-      <h4 className="my-5">itch.io doesn't allow me to customize the way I distribute keys. This page is just to get you back on track. </h4>
+      <h4 className="my-5">itch.io requires that download button, which does nothing. This page is just to get you back on track.</h4>
       <h4 className="my-5">You'll want to go back to whatever page opened this and click the "Get download key" button instead.</h4>
       {/* <Fade triggerOnce> */}
         {isMobile ? (
@@ -33,7 +33,7 @@ export default function Module() {
           <img src="/assets/images/module_desktop.png" className="w-100" alt="Desktop" />
         )}
       {/* </Fade> */}
-      <h4 className="my-5">If you're not sure where to go to even find that button. You can find it by going to your <a href="https://itch.io/my-purchases">purchases</a> page at itch.io</h4>
+      <h4 className="my-5">If you made an account with Itch.io your purchases can be viewed <a href="https://itch.io/my-purchases">here</a></h4>
       
       <h1 className="display-1 my-5">🔐 Where to use your key</h1>
 
@@ -43,7 +43,7 @@ export default function Module() {
 
       <h4 className="mb-3 text-center" style={{color: "grey"}}>Enjoy your new module ❤️</h4>
 
-      <h4 style={{marginBottom: "10em"}}>If you run into any issues you can <a href="mailto:codabool@pm.me">email me</a> or message me on Discord at <span style={{color: "darkblue"}}>@codabool</span></h4>
+      <h4 style={{marginBottom: "10em"}}>If you run into any issues you can <a href="mailto:codabool@pm.me">email me</a> or message me on Discord at <span style={{color: "darkblue"}}>codabool</span></h4>
     </>
   )
 }
