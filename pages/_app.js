@@ -48,13 +48,13 @@ export default function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.gif" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.gif" />
       </Head>
-      {router.asPath.includes('/module') ? null : <Navigation />}
+      {router.asPath.includes('/module') || router.asPath.includes('/maps') ? null : <Navigation />}
       <main style={{flex: 1}}>
         <Container>
           <Component {...pageProps} />
         </Container>
       </main>
-      {router.asPath.includes('/blog/') || router.asPath.includes('/module') ? null : <Footer />}
+      {router.asPath.includes('/blog/') || router.asPath.includes('/module') || router.asPath.includes('/maps') ? null : <Footer />}
       <Script 
         src="https://utteranc.es/client.js" 
         repo="codabool/CodaBool.com"
