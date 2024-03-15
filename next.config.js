@@ -25,6 +25,19 @@ module.exports = withMDX({
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/rss.xml',
+        headers: [
+          {
+            key: 'content-type',
+            value: 'text/xml',
+          },
+        ],
+      },
+    ]
+  },
   // async headers() {
   //   return [
   //     {
