@@ -1,9 +1,6 @@
 permissions:
   contents: write
-on:
-  push:
-    branchs:
-      - main
+on: push
 jobs:
   release:
     runs-on: ubuntu-latest
