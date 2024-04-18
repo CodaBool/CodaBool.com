@@ -4,7 +4,7 @@
         <description><![CDATA[test]]></description>
         <link>http://github.com/dylang/node-rss</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 18 Apr 2024 08:43:24 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 18 Apr 2024 08:51:32 GMT</lastBuildDate>
         <atom:link href="https://codabool.com/rss" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Using Linux as a daily driver]]></title>
