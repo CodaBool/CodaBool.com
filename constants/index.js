@@ -1,1 +1,1 @@
-export const NUM_OF_BLOGS = 31
+export const NUM_OF_BLOGS = 32
