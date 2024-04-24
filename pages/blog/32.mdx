@@ -334,6 +334,7 @@ function write_versions() {
 # move previous to a backup
 mv $BACKUP_LOCATION "$BACKUP_LOCATION.old"
 
+echo $(date) >> $BACKUP_LOCATION
 echo -e "====== Pre-update ======" >> $BACKUP_LOCATION
 write_versions
 
@@ -341,8 +342,10 @@ write_versions
 sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Su --noconfirm
 
 # update packages
-paru -Syu --skipreview --removemake --nocleanafter --pgpfetch --noconfirm
+echo -e "\n====== updating official and AUR packages ======\n" >> $BACKUP_LOCATION
+paru -Syu --skipreview --removemake --nocleanafter --pgpfetch --noconfirm >> $BACKUP_LOCATION
 
+echo -e "\n====== updating flatpaks ======\n" >> $BACKUP_LOCATION
 /usr/bin/flatpak update --noninteractive --assumeyes
 
 echo -e "\n\n====== Post-update ======" >> $BACKUP_LOCATION
