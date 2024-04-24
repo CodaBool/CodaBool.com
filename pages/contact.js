@@ -9,7 +9,7 @@ export default function Contact() {
         <h1 className="display-1">Email. ✉️</h1>
         {/* <Fade triggerOnce direction="up"> */}
           <h2>Business email</h2>
-          <h2><a href="mailto:CodaBool@pm.me">CodaBool@pm.me</a></h2>
+          <h2><a href="mailto:contact@codabool.com">contact@codabool.com</a></h2>
         {/* </Fade> */}
       </Col>
       <Col lg={6}>
