@@ -1,0 +1,273 @@
+---
+title: "Introduction to Health Informatics"
+description: "My first course at Georgia Tech, this shows a final project for Introduction to Health Informatics. I chose to create a web app which assists users to manage their obesity. This uses charts as well as 3D models to make tracking weight progress fun."
+publishedTime: "2022-05-10"
+cover: "/coverImg/obesity-cover.jpg"
+tags: "chart.js, next-auth, prisma, postgresql, nextjs"
+id: 24
+---
+
+# Managing Obesity
+> This is a live project which can be seen at the home page [here](https://p10.codabool.com)
+
+US obesity prevalence was 42% in 2017 - 2018 ([source](https://www.cdc.gov/obesity/data/adult.html)).
+This app seeks to provide a tool to manage obesity.
+This was done for a school project, I worked as a solo team on this application.
+
+## The Project
+This app uses Next.js, PostgreSQL, Prisma, and next-auth for authentication. 
+I also use a nice npm package called chart.js to make pretty charts 😎.
+There is also some Three.js which I was happy to include.
+
+> Exercise chart with colored bars for intensity
+<Img src="/posts/24/chart.jpg" size="lg" />
+
+I had a lot of fun using Three.js it was used to make for some fun buttons for which to navigate with.
+As you can see on the performance page there are 3 categories by which to track progress.
+There is Diet, Exercise and Weight. These are all models I was able to use from SketchFab.
+They were under a creative commons license and I provided all the necessary credit to use them.
+I did do some small alterations to have the Diet model fit better.
+I also cut down on the polygons for the Weight model.
+I was surprised to see how small some models could be. The bike model for example is just 10KB in size.
+This makes for an efficient page which can easily download all the data quickly and make for a better user experience.
+
+> Three.js models for navigation
+<Img src="/posts/24/models.jpg" size="lg" />
+
+There was a requirement to use some form of health data for the application.
+I chose to use a BMI dataset collected by the CDC.
+This BMI data is then used for a histogram which places the users own data on top of.
+Thi can be seen with the small blue dot on the chart below at the 46 mark.
+The dataset can be found in CDCs [National Health and Nutrition Examination Survey (NHANES) page](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Examination&Cycle=2017-2020) under the "Body Measures" Data file. 
+This uses an XPT file format, which may require downloading software. For this the software "Datasly" can be used. 
+The column Body Mass Index (BMXBMI) was used, filtering out empty values and rows which contained any value for BMI Category - Children/Youth (BMDBMIC).
+Filtering out rows which contain BMDBMIC effectively removes all data collected from youth ages 1-18. 
+This leaves 8388 usable rows of adult data which was then processed to generate a BMI histogram viewable within the application.
+
+> BMI dataset
+<Img src="/posts/24/histogram.jpg" size="lg" />
+
+# Vanilla still works
+There was an interesting problem of how to make multiple lines in a table editable.
+I was able to accomplish this with the use of some vanilla JS.
+This is why you should always learn some JS before React.
+There are just always going to be times when the simplest approach is the one outside of the library.
+
+
+## The problem
+I wanted to have a table which could change from showing data to have editable data.
+This proved difficult since it would require juggling a lot of input elements.
+Also they are being added and removed from the page so its easy to lose track of the reference and the data.
+
+```js
+<Button variant="light" className="darken-on-hover mb-3 ms-5" style={{width: '220px'}} onClick={() => alert("Edit Mode Toggled")}><PencilFill className="ml-2 mb-1" size={14} /> Edit</Button>
+<Table striped bordered hover className="mx-auto ms-5">
+  <thead className="w-100">
+    <tr>
+      <th>Date</th>
+      <th>Weight</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 1))}</td>
+      <td>220</td>
+      <td>lb</td>
+    </tr>
+    <tr>
+      <td>{new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 2))}</td>
+      <td>218</td>
+      <td>lb</td>
+    </tr>
+    <tr>
+      <td>{new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 3))}</td>
+      <td>216</td>
+      <td>lb</td>
+    </tr>
+    <tr>
+      <td>{new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 4))}</td>
+      <td>214</td>
+      <td>lb</td>
+    </tr>
+    <tr>
+      <td>{new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 5))}</td>
+      <td>212</td>
+      <td>lb</td>
+    </tr>
+  </tbody>
+</Table>
+<ArrowDownSquareFill className="" style={{marginLeft: '130px'}} size={80} />
+<br />
+{/* <Button variant="outline-success" className="darken-on-hover my-5 ms-5" style={{width: '220px'}} onClick={() => alert("Save + End edit mode")}><PencilFill className="ml-2 mb-1" size={14} /> Save</Button> */}
+<Table striped bordered hover className="mx-auto ms-5 mt-3">
+  <thead className="w-100">
+    <tr>
+      <th>Date</th>
+      <th>Weight</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input value={new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 1))} />
+      </td>
+      <td><input type="number" defaultValue="220" /></td>
+      <td>
+        <Form.Select>
+          <option value="lb">lb</option>
+          <option value="kg">kg</option>
+        </Form.Select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input value={new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 2))} />
+      </td>
+      <td><input type="number" defaultValue="218" /></td>
+      <td>
+        <Form.Select>
+          <option value="lb">lb</option>
+          <option value="kg">kg</option>
+        </Form.Select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input value={new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 3))} />
+      </td>
+      <td><input type="number" defaultValue="216" /></td>
+      <td>
+        <Form.Select>
+          <option value="lb">lb</option>
+          <option value="kg">kg</option>
+        </Form.Select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input value={new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 4))} />
+      </td>
+      <td><input type="number" defaultValue="214" /></td>
+      <td>
+        <Form.Select>
+          <option value="lb">lb</option>
+          <option value="kg">kg</option>
+        </Form.Select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input value={new Intl.DateTimeFormat('en-US').format(new Date() - (86400000 * 5))} />
+      </td>
+      <td><input type="number" defaultValue="212" /></td>
+      <td>
+        <Form.Select>
+          <option value="lb">lb</option>
+          <option value="kg">kg</option>
+        </Form.Select>
+      </td>
+    </tr>
+  </tbody>
+</Table>
+```
+
+What I ended up doing was using some simple vanilla JS with the use of querySelector, getElementsByTagName and node iteration.
+I first assigned an id to every input when it is added to the page. This is done in a map in the render method (in the return since it is a functional component). 
+Then this makes setting the appropriate value to each input easy I have a useEffect hook which sets the initial value of all inputs on the table.
+This allows me to not need to mess with state for all the inputs, which would get messy. 
+I instead am just providing the initial value and then later extracting all final values.
+Whatever the user does to the input along the way I don't track here.
+
+> Set the value into the revealed input rows
+```js
+const [edit, setEdit] = useState(false)
+
+useEffect(() => {
+  if (edit) {
+    data.forEach(row => {
+      const weightInput = document.querySelector(`#in-weight-${row.id}`)
+      const unitInput = document.querySelector(`#in-unit-${row.id}`)
+      weightInput.value = row.weight
+      unitInput.value = row.unit
+    })
+  }
+}, [edit])
+```
+
+After the initial values have been set for all rows of input on the table. I will then only save the data once the user is done.
+Once the save button has been clicked. I begin on extracting the data from all the inputs in the table.
+I first use getElementsByTagName to get all row nodes.
+I then iterate with a for loop creating a temporary data object which will be send to the backend in an array of data objects.
+I search through the nodes by looking at their children and then their id which was assigned in the useEffect written above.
+Once I see an id that I recognize or alternatively a tagName of 'INPUT' / 'SELECT' I know I which of the three inputs I have found.
+I then extract the value of the element and push that with the id up to begin another loop over the table rows.
+
+> Posting the data from a table that has been edited
+```js
+function save() {
+  const tr = document.getElementsByTagName('tr')
+  const arr = []
+  for (const row of tr) {
+    let obj = {data: {}, id: ''}
+    for (const col of row.childNodes) {
+      if (col.childNodes[0].id) {
+        if (col.childNodes[0].id.includes('in-date')) { // date
+          obj.data.measuredAt = col.childNodes[0].value
+        }
+      }
+      if (col.childNodes[0].tagName === 'INPUT') { // weight
+        const fullId = col.childNodes[0].id
+        obj.id = fullId.split('-')[2]
+        obj.data.weight = col.childNodes[0].value
+      }
+      if (col.childNodes[0].tagName === 'SELECT') { // unit
+        if (col.childNodes[0].childNodes[1]) {
+          obj.data.unit = col.childNodes[0].value
+        }
+      }
+    }
+    if (obj.id) arr.push(obj)
+  }
+  axios.put('/api/weight', arr)
+    .then(res => {
+      setEdit(false)
+      mutate()
+    })
+    .catch(console.log)
+}
+```
+
+Once the data is posted I will have several promises to request to the database. 
+For that I use a for loop where I go over the data in the body of the request.
+I have an array of promises I am building which are requests to Prisma to update the data by the id.
+I already have the data formatted the way Prisma wants so all that is needed is some small validation on the date as well as number properties in the data.
+```js
+const promises = []
+for (const weight of body) {
+  // validate
+  if (weight.data.unit !== 'lb' && weight.data.unit !== 'kg') {
+    throw 'A unit other than lb or kg was found'
+  }
+  if (isNaN(Number(weight.data.weight))) {
+    throw 'Cannot cast a weight to Number'
+  }
+  // change from date String back to date obj
+  weight.data.measuredAt = new Date(weight.data.measuredAt)
+  weight.data.weight = Number(weight.data.weight)
+
+  promises.push(prisma.weight.update({
+    where: { id: weight.id }, data: weight.data
+  }))
+}
+await Promise.all(promises)
+```
+
+This will wait for all the requests to finish and have an updated database.
+Once the request is done it will return and the start a mutate call which means new data should be fetched.
+This completes the cycle and data has successfully been edited by the user.
+
+This is something which you can try out by going [here](https://p10.codabool.com/track/weight) and clicking the edit button.
+
+# Thanks for reading 👍

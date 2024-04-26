@@ -1,0 +1,177 @@
+---
+title: "TadHack 2022"
+description: "This is my 4rd hackathon event but my first time leading a team. I pitched an idea and was able to help put a team together to make it a reality. This Three.js project will finish what Elon Musk never could."
+publishedTime: "2022-10-10"
+cover: "/coverImg/tadhack-2022.jpg"
+tags: "react, bootstrap, three.js, fiber, react router"
+id: 25
+---
+
+>> This is a live project which you can check out (only works on Chrome) [here](https://p11.codabool.com)
+
+# TadHack
+I attended a different Tadhack back at the end of 2021. 
+This Tadhack was a unique experience for me since it is the first time that I was able to pitch an idea.
+If you have never been to a hackathon event, the structure of it is that people pitch ideas and form teams to build off that idea.
+There is usually also a theme or a set of sponsors your idea should involve.
+
+I pitched an idea of using a voice recognition api provided by a sponsor.
+The idea was that you would play the role of a GPS inside a car.
+You would provide voice commands on where to go to reach an end goal. 
+
+### The first day
+Most of the day was spent setting up the environment and me working on learning the newest version of react-router.
+I was surprised to find that many of my teammates have not had git, vs code, or node installed on their machines.
+So, this was something I walked a couple of them through. Most of them were freshmen at college. 
+I was in their shoes not long ago and I had the help of some super friendly people who made the whole experience so much better.
+I was happy to be able to fill that role for them for this. Since events like these can often be overwhelming 
+After they all had the essentials installed I directed them to the three.js fiber tutorial.
+This would be the first use of React for most of them and even the first use of JavaScript for one of them.
+This did limit the scale of what we could do but I think everyone there can say they contributed something and are happy with how things went.
+
+### Presentation day
+Like most hackathons our team needed to make a lot of compromises before we were ready to submit.
+For us, we luckily did not have any major compromise but there were several minor tweaks that needed to get made.
+Initially the idea was that you would have a top down view with arrows like directions.
+From there you would say the direction of the arrow or if the driver needed to stop.
+The challenge was to say it fast enough and in a way that the speech recognition software would understand.
+Unfortunately drawing directions onto the screen was going to take too much time.
+Instead I was able to easily make a quick array of random coordinates to place "pedestrians"
+
+> Creation of the coordinates for all objects but the player
+```js
+// create peds
+const arr = Array.from(Array(20).keys())
+for (const i of arr) {
+  let x = Math.random() * 3
+  let y = Math.random() * 3
+
+  // randomly determine if + or -
+  if (Math.random() > .5) {
+    x *= -1
+  }
+  
+  // randomly determine if + or -
+  if (Math.random() > .5) {
+    y *= -1
+  }
+
+  arr[i] = {x, y, goal: i === 0 ? true : false}
+}
+setPeds(arr)
+```
+
+Then from there you can just provide this data to Threejs Fiber which can render it to the screen.
+All that is needed is to pick a shape. I went with a circle and a red if it was a pedestrian and a green if it was the goal circle
+
+```js
+{peds && peds.map((ped, index) => (
+  <mesh position={[ped.x, ped.y, 0]} key={index}>
+    <circleGeometry args={[1, 8, 0]} />
+    <meshStandardMaterial color={goal ? 'green' : 'red'} />
+  </mesh>
+))}
+```
+
+The player is controlling a box which represents the car they are helping to direct.
+This has the movement options of up, right, left, down or stop.
+In order to move an object in Three.js you make use of the useFrame hook.
+This will run your logic every frame so it is important to be performant with whatever is placed inside.
+For this game we are changing the Box's position every frame. 
+
+```js
+useFrame((state, delta) => {
+  if (gameState !== 'play') return
+
+  // check endstate
+  goalCheck(peds, mesh.current.position)
+
+  // movement
+  if (cmd === 'right') {
+    if (mesh.current.position.x < 3.5) {
+      mesh.current.position.x += 0.01
+    }
+  } else if (cmd === 'left') {
+    if (mesh.current.position.x > -3.5) {
+      mesh.current.position.x -= 0.01
+    }
+  } else if (cmd === 'up') {
+    if (mesh.current.position.y < 3.5) {
+      mesh.current.position.y += 0.01
+    }
+  } else if (cmd === 'down') {
+    if (mesh.current.position.y > -3.5) {
+      mesh.current.position.y -= 0.01
+    }
+  }
+})
+```
+
+We perform a call to `goalCheck` here to check if the player has reached the end goal circle.
+This also will check if the player has hit a pedestrian and will result in a lost game.
+The rest of the useFrame hook is spent sending the players car in the correct direction.
+There is an additional conditional for ensuring the player can not go out of bounds.
+
+### Use your voice
+
+One of the more interesting parts of this application is that you can speak into a microphone and it will understand what words you said.
+The package that is used for this has made it easy to accomplish this. 
+The only down sides of it are that it must be used inside the Chrome browser and since it is using a microphone must be done over HTTPS.
+A browser check is done before the game starts and informs the user if they are able to play.
+
+The logic behind interpreting a person's voice can be found here.
+This will start recording continuously and at an interval of a minute clear the transcript since it gets to be very long.
+
+> As good React practice anytime you are creating an interval within the useEffect hook you should clear it in the return.
+```js
+useEffect(() => {
+  SpeechRecognition.startListening({ continuous: true })
+  const interval = setInterval(() => {
+    resetTranscript()
+  }, 1000 * 60) // in milliseconds
+  return () => clearInterval(interval)
+}, [])
+```
+
+The main difficulty was that the voice recognition wanted to output a continuous log.
+This is not a great match for how people are using it. 
+The issue is in that people would say many words which are not directions and it can be hard to find out which is the intended command.
+The simple solution for this was to only take the last word of what was said and check if it is one of the 5 possible commands.
+
+```js
+useEffect(() => {
+  const msg = transcript.split(' ').slice(-1)[0].toLowerCase()
+  if (msg.includes('left')) {
+    setCmd('left')
+  } else if (msg.includes('right')) {
+    setCmd('right')
+  } else if (msg.includes('up')) {
+    setCmd('up')
+  } else if (msg.includes('down')) {
+    setCmd('down')
+  } else if (msg.includes('stop')) {
+    setCmd('stop')
+  }
+}, [transcript])
+```
+
+In the opening modal for the game you can test out how well it is recognizing what you say.
+I think it does an impressive job for how easy to run it is.
+
+# Presentation
+To put the whole project together I needed a story for the game.
+While I really just started the pitch with you play as a GPS I realized that it could be way more interesting.
+So, I changed the direction and sold it as a company which Tesla can pickup which will help them drive their cars.
+This was pretty well received and made some laughs which is all I can really hope for.
+
+This was filmed as far of Vincent Tang's TampaDevs popular Meetup group and streamed live to Twitch.
+Afterword it was then uploaded to YouTube, which was amazing to see.
+Take a look at our group's presentation!
+
+> 5m YouTube presentation
+<iframe width="800" height="650" src="https://www.youtube-nocookie.com/embed/pWjcV4JdI08" frameBorder="0"  allowFullScreen></iframe>
+
+
+> Try out the game (only on Chrome) [here](https://p11.codabool.com)
+
+# Thanks for reading 👍

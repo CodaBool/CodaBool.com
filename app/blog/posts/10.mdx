@@ -1,0 +1,181 @@
+---
+title: "Creating the Landing Page"
+description: "This applications landing page simulates a terminal with Unix commands. Here I break down how I made it"
+publishedTime: "2020-09-8"
+cover: "/coverImg/landing-page-cover.jpg"
+tags: "webdev"
+id: 10
+---
+
+# Creating a Terminal in the browser
+
+> This is a live project which can be seen at the home page [here](https://codabool.com)
+
+For my website I wanted links to all my projects as well as blog posts
+explaining how everything was done. However, there is an important piece that every
+portfolio page needs. An attractive landing page. A landing page is the introductory page to the website.
+This can be purely showy or just bare html with links to the common uses of the website.
+I wanted to make something which was mostly performance but would not get in the way.
+This was my attempt at making something
+interactive but also allow for some functionality as far as linking to the rest of the pages.
+
+My first steps in building this page and with many pages where I put several days of work into was research.
+I wanted a landing page that would feel like a terminal.
+I found several other sites which had the aesthetic I was looking for.
+When researching I make notes of the websites I like and what I like about them.
+
+## The Websites I used as inspiration
+- great font and simple look [link](https://mikehodgson.com/)  
+- auto type terminal, feels empowering to anyone [link](http://hackertyper.com/)  
+- great style provides good functionality [link](https://aerolab.co/coding-challenge)  
+- amazing terminal, can play music provides feedback [link](https://cmd.to/fm)  
+- incredible live css editing [link](https://www.strml.net/)  
+- uses Block caret [link](https://www.masswerk.at/jsuix/index.html)  
+- selecting a link does terminal commands for you [link](https://www.robscanlon.com/encom-boardroom)  
+- Dated site but uses a static input box, which is the easiest implementation [link](https://brkmnd.com/)  
+- beautiful live changing text [link](https://ertdfgcvb.xyz/)  
+- auto typing, nice colored font, provides helpful navigation links [link](https://pradyuman7.github.io/)
+
+As you can see there are a lot of different ways to build a terminal in the browser.
+I ended up liking too many things and decided to expand the project.
+First I tried to create a input tag which would responsively only be on the latest block.
+After every command the last command and output would be created through React jsx component.
+I wanted there to be a block caret for writing the code.
+This is extremely difficult and is even more hacky than the terminal.
+Basically you would need to override the browser code for how it renders the input caret.
+One solution was to have hidden html div tag behind where the user is writing.
+Then put a span tag which appears like a block caret near where the user is typing.
+This ended up working but would become offset by too much once the input went on too long.
+After that roadblock I rethought the entire structure
+
+I came across some interesting CSS to allow for a old TV style effect on the page.
+While I could not easily get a block caret. I did keep this CSS into the final result.
+What this does is creates small horizontal bars which are mostly transparent.
+These are static applied on top of the page using its full height.
+Then the flicker animation changes the opacity of the bar effect.
+This makes the bars flicker similar to an old time TV.
+
+> Bars and Flicker
+```css
+#PageBody::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(rgba(0,0,0, 0.12), rgba(0,0,0, 0.1) , transparent 10px, transparent 12px );
+  pointer-events: none;
+  animation: flicker 2s infinite;
+}
+@keyframes flicker {
+  0% { opacity: 0.55; }
+  10% { opacity: 0.45; }
+  20% { opacity: 0.55; }
+  30% { opacity: 0.45; }
+  40% { opacity: 0.35; }
+  50% { opacity: 0.5; }
+  60% { opacity: 0.7; }
+  70% { opacity: 0.5; }
+  80% { opacity: 0.3; }
+  90% { opacity: 0.45; }
+  100% { opacity: 0.5; }
+}
+```
+
+&emsp;
+Another important CSS effect was to add a glow to the text within the body of the page.
+Old TVs have a significant amount of glow around their lettering and this emulates that effect.
+
+> Glow
+```css
+.glow {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 3px rgba(176, 196, 222, 0.2); }
+  to { text-shadow: 0 0 6px rgba(176, 196, 222, 0.3); }
+}
+```
+
+&emsp;
+On Reddit I found a post about a github repository which had a fascinating animation.
+The code was to create a picture and do an animation transitioning between to the next image.
+This was written by Tim Holman and takes in ASCII characters and creates the animation for you.
+I added in a couple of my own ASCII art using a [generator](https://www.coolgenerator.com/ascii-text-generator)
+I then placed this in its own component which lays behind the terminal.
+This took some work to convert it to React, since it was written in JavaScript and uses lots of querySelector.
+So if this seems interesting to you and you want to use it in a React project you can see the code in this [repo](https://github.com/CodaBool/nextjs-codabool).
+
+> ASCII Morph by Tim Holman [github](https://github.com/tholman/ascii-morph)
+
+<Img src="/posts/10/ascii-morph.gif" size="lg" />
+
+&emsp;
+While I tried to stay away from large packages I ended up using the npm terminal-in-react.
+This added extra bloat to the project but unless I want to end up spending a month on just this one page this was a necessity.
+There are many great features about this package and I would recommend it if you were to try and achieve the same look.
+This is their [github page](https://github.com/dongy7/react-animated-term). I also added another package to add an auto typing feature.
+This has the page look like the code is being typed out and will simulate command line output.
+That is a different package and is the one show first on the home page, found on github [here](https://github.com/rohanchandra/react-terminal-component).
+
+&emsp;
+That is all the major components I used the custom packages to add more terminal options and some custom configuration.
+I used a useEffect to create a timing when the navigation should show.
+I used the same method for timing when the terminal switching from the auto typing effect to a user interactable terminal.
+
+> State management for the switching of terminal and navigation
+```js
+const [showFakeTerminal, setShowFakeTerminal] = useState(true)
+const [showNav, setShowNav] = useState(false)
+useEffect(() => {
+  setTimeout(() => {
+    setShowFakeTerminal(false)
+  }, 28000) // wait for 28 seconds until switching to interactive terminal
+  setTimeout(() => {
+    setShowNav(true)
+  }, 9000) // wait for 9 seconds, to show the navigation bar
+}, [])
+```
+
+The landing page is confusing and can feel overwhelming to many users.
+For this reason I added a neat CSS trick to add a loading bar to the border of the terminal.
+
+> Progress bar border around the terminal timed to the 28 second terminal switch 
+```css
+.terminalBorder {
+  width: 80%;
+  margin: 2rem auto;
+  padding: 2em;
+  background-color: rgba(90, 134, 90, 0.05);
+  background-repeat: no-repeat;
+  background-image:   linear-gradient(to right, rgb(118, 180, 118) 100%, rgb(118, 180, 118) 100%),
+                      linear-gradient(to bottom, rgb(118, 180, 118) 100%, rgb(118, 180, 118) 100%),
+                      linear-gradient(to right, rgb(118, 180, 118) 100%, rgb(118, 180, 118) 100%),
+                      linear-gradient(to bottom, rgb(118, 180, 118) 100%, rgb(118, 180, 118) 100%);
+  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  animation: drawnBorder 28s cubic-bezier(0.5, 1, 0.6, 1) 1 , glowShadow 34s normal forwards ease-in-out;
+  overflow: hidden;
+  max-height: 80%;
+}
+@keyframes drawnBorder {
+    0% { background-size: 0 3px, 3px 0, 0 3px, 3px 0; }
+    25% { background-size: 100% 3px, 3px 0, 0 3px, 3px 0; }
+    50% { background-size: 100% 3px, 3px 100%, 0 3px, 3px 0; }
+    75% { background-size: 100% 3px, 3px 100%, 100% 3px, 3px 0; }
+    100% {  background-size: 100% 3px, 3px 100%, 100% 3px, 3px 100%; }
+}
+```
+
+Lastly I added about 50 lines to the terminal-in-react npm package and uploaded my own version of it to npm.
+This was my first time creating an npm package and it was actually very painless.
+Adding these lines allowed me to have an option to edit the `help` command.
+I also added the `help more` command. I wanted this to be a flag like `help --verbose` but flags were difficult to change.
+The easiest solution was to create a new command and I named it help more.
+
+> Used a npm package I published for an added `help more` command
+
+<Img src="/posts/10/help-more.PNG" size="lg" />
+
+# Thanks for reading 👍

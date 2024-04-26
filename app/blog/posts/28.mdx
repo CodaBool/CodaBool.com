@@ -1,0 +1,110 @@
+---
+title: "Multiplayer browser card game"
+description: "A new game where you can play with up to three friends. This is based on the classic Egyptian Ratscrew / Slap card game."
+publishedTime: "2022-12-22"
+cover: "/coverImg/slaps.jpg"
+tags: "socket.io, next.js, three.js, fiber, rapier"
+id: 28
+---
+
+# Slap card game
+> This is live and playable [here](https://p12.codabool.com)
+> The code can be seen [here](https://github.com/CodaBool/p12-slap)
+
+I have brought my favorite card game into the browser.
+You can play with up to three friends in one game.
+The game is not polished in anyway so forgive the flaws in presentation and experience.
+There is no available tutorial or instructions on how to play which makes it confusing at the moment.
+
+### The Development
+I wrote this in Three.js which uses the OpenGL library to render 3D scenes in the browser.
+I used React so that I could easily reuse components.
+The backend requires a websocket server which connects players in a lobby.
+The events are broadcasted from the server to other players in the same lobby.
+In this way you get live movement and actions from other players in game.
+
+I did write the server in Golang but ran into bugs.
+The support for socket.io is far behind in version.
+It seems most people that do websockets in Go just write without the socket.io wrapper.
+However, you lose some nice features such as auto-reconnections, broadcasting, and packet buffering.
+So, I ultimately switched back to a node socket.io server.
+
+### Using a single Texture
+Threejs does not have great support for using texture atlas.
+This is very useful in game development because you can load one image and section it for use with multiple objects.
+I have a single image with all card faces and use the code below to 
+
+
+```js
+export class TextureAtlas {
+  constructor(json, texture) {
+    this.textures = {};
+
+    const { frames } = json;
+
+    Object.keys(frames).forEach((name) => {
+      const t = texture.clone();
+      const data = frames[name].frame;
+      t.repeat.set(data.w / texture.image.width, data.h / texture.image.height);
+      t.offset.x = data.x / texture.image.width;
+      t.offset.y =
+        1 - data.h / texture.image.height - data.y / texture.image.height;
+      t.needsUpdate = true;
+      t.name = name
+
+      this.textures[name] = t;
+    });
+  }
+
+  getTexture(name) {
+    return this.textures[name];
+  }
+}
+```
+
+This will take a manifest object and the original texture atlas sheet.
+The output will be a the main texture but with a sepecific offset applied.
+This will effectively produce 52 unique textures from a single image.
+A section of the manifest object can be seen here:
+
+```js
+const manifest = {
+  "meta": {
+    "image": "cards-1200-w.png",
+    "size": { "w": 1200, "h": 527 },
+    "scale": "1"
+  },
+  "frames": {
+    "ace_of_diamonds": { "frame": { "x": 0, "y": 0, "w": 92, "h": 132 } },
+    "ace_of_hearts": { "frame": { "x": 0, "y": 132, "w": 92, "h": 132 } },
+    ...
+```
+
+This manifest object will have the name of the card as well as it's pixel location on the atlas sheet.
+I was really happy to get a solution for this working.
+This reduced the texture requests send from 52 to just one.
+This also is a great game performance optimization since loading in textures can be costly.
+
+Originally I tried to use the threejs method of using SVGs since normally those would be extremely smaller than image textures.
+However, the performance was horrible for whatever reason. 
+So, that approach was abandonded.
+
+
+#### Characters
+Another difficulty was in having 4 different characters with animations.
+I had to use the `three-stdlib` package for cloning skeletons from an original character.
+
+`const scene = useMemo(() => SkeletonUtils.clone(object), [object])`
+
+Which can successfully create four characters. 
+However, there is added difficulty in that I needed a map of the characters to interpret incoming peer multiplayer clients.
+This lead to a long file with plenty of conditionals which find the correct model in everyone's client and animate, position, rotate to the correct spot.
+
+Physics was surprisingly simple.
+I used the Rust based `Rapier` package which has plenty of great features.
+Would definitely recommend them over the popular cannonjs physics library.
+
+# Final Thoughts
+Overal the project was a huge learning experience.
+This definitely makes any future 3D web dev multiplayer projects way easier in the future.
+

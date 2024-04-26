@@ -1,0 +1,153 @@
+---
+title: "Senior Project Trafficking Spotters"
+description: "My Senior Project where I worked the full stack to assist in finding and getting help to those affected by human trafficking."
+publishedTime: "2020-10-15"
+cover: "/coverImg/traffick.jpg"
+tags: "express, next.js, heroku, mongodb, AWS"
+id: 12
+---
+
+# Senior Project, Social media for stopping human trafficking
+> A sample of this project which can be seen [here](https://codabool.com/projects#6)
+
+&emsp;
+For my senior project I worked with a team of 8 peers to build a social media site.
+The purpose of the site is to assist in finding and getting help to those affected by human trafficking.
+We were able to work with law enforcement to get insight into the problems that face those affect by this issue.
+They were able to inform us that most exchanges happen online and through advertisements.
+We also had an interview with someone whose senior project was to scrape (extract information) from Twitter posts for possible human trafficking advertisements.
+Scraping is difficult due to the friction with social media sites as well as being inherently prone to breaking due to having a constant need for updating.
+Also social media sites will often detect and limit automated activity.
+We decided to build a social media site since it would use relevant technologies and be more maintainable than scraping.
+
+&emsp;
+We split the team into front end and back end development.
+We did weekly meetings to set priorities and expectations.
+The technology stack was React front end, Express back end.
+The images for posts would be uploaded to an AWS S3 bucket (cloud storage).
+We stored the rest of our data into MongoDB.
+I rebuilt this application into a Nextjs application just for my own hosting.
+
+&emsp;
+I was able to learn a lot of different things for this application.
+I made two major decisions for the application and they worked out well.
+I chose against the popular choice for both solutions.
+The choices were in forms and global state.
+At the time of writing the popular solution for forms is to use formik (form) and yup (validation).
+The popular choice for global state is Redux.
+Both of these are the popularity winners for their purpose at the time of writing.
+
+## Redux vs Context
+&emsp;
+We knew authentication was needed and for that a global state is necessary.
+I was the only one with experience with Redux and React Context so I was tasked to chose the path here.
+While at the time of writing Redux is a major player in global context I decided against using it.
+I chose to use React Context because of the large overhead which Redux adds.
+The use of reducers and actions adds many new lines of code to an application and is not intuitive.
+Context is much more intuitive from a component perspective like React.
+While there are hooks provided like useReducer to perform complex state management we kept it simple and just used basic useContext.
+I also like to restrain from large packages if possible and take the simplest path.
+This makes the project more maintainable and more often than not is the more time efficient method.
+
+## formik + yup vs React Hook Form
+The other major decision was in forms and validation.
+At the time of writing Formik and Yup are the popular solution in React.
+However, I read an article which went into depth about the performance compared to React Hook Form.
+I found the results fairly convincing.
+React Hook Form is 4kB smaller with no dependencies and 270ms faster than Formik.
+Formik has 7 dependencies [see bundlephobia](https://bundlephobia.com/result?p=formik).
+
+Choosing against the popular choice can be disastrous.
+There is always a horrible moment as a developer when you realize there is no documentation or guide for something you need and you will need to walk on ground where no one has left guiding signs.
+Luckily I was not too far off any path and was able to find helpful guides for both state and forms.
+I did hit snags with both solutions but nothing which I would not have ran into if I picked differently.
+
+## Creating a Great Form.
+> Code for the signup page [github](https://github.com/CodaBool/p06-social/blob/main/pages/signup.js)
+
+Forms are a frustrating part of websites.
+
+>> Why is it not working?
+
+>> I've tried that already!
+
+>> I can't remember my password!
+
+Users should be informed why something is not working and be given hints as to what is needed.
+To reduce friction proper form validation is needed.
+
+> React Hook Form combined with Bootstrap Form.Control
+```js
+<Controller 
+  as={<Form.Control />} 
+  control={control} 
+  type="email"
+  name="email"
+  defaultValue=""
+  placeholder="name@example.com"
+  required
+  rules={{
+    validate: () => {
+      if (!/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/.test(getValues("email"))) return false
+    }
+  }}
+/>
+```
+
+This uses a hilariously large regex I found on StackOverflow, difficult to read (might as well be binary to me) but after some testing it has proven itself. 
+Searching again now, I only find shorter regex so, I am not entirely sure where I even found this regex from.
+
+But besides the rules property this is how React Hook Form works.
+While different from the regular use case as it uses a Controller to allow Bootstrap Component to pass as a child.
+You connect the control and fill the required properties of name and defaultValue.
+
+I did run into issues on trying to combine the styling of Bootstrap's Form.Control with React Hook Form.
+However, going through their documentation I was able to find the Controller which allows an as property which you can pass a component and all properties will get passed on to it.
+This was a great compatibility feature of React Hook Form and allowed for quick styling while getting great validation control.
+
+I added a package for displaying the strength of the current password.
+There is validation which informs the user if their passwords do not match or do not meet requirements if submitted and failed.
+
+> Password Strength bar & ReCaptcha v2
+<Video autoPlay loop muted src="/posts/12/form.mp4" size="lg" />
+
+I was able to work on the backend for it's authentication as well.
+Our application stores the session client side in the form of json web tokens.
+These are stored in http only cookies.
+
+> Passing around cookies and milk from server-side to client-side
+```js
+try {
+  const email = clientData.email
+  // use preferred db to select user data
+  const user = await getUser(email)
+  // use bcrypt compare to compare the plain text password to the db stored hash
+  const validPassword = await compare(clientData.password, user.password)
+  if (validPassword) {
+    // create a json web token which stores the email and is signed with a secret
+    const token = jwt.sign({ email }, process.env.JWT_SECRET)
+    // add as a response cookie, using httpOnly for security
+    // best to also security and sameSite properties here too
+    res.cookie('jwt', token, {
+      expires: new Date(Date.now() + 3600000),
+      httpOnly: true,
+    })
+    res.status(200).json({ token, email })
+  } else {
+    res.status(400).send('Invalid Password')
+  }
+} catch (err) {
+  res.status(400).send('Server error, Could not verify user')
+}
+```
+
+This code runs every time the user logs in and will store a session cookie which can only be read from the server.
+Our database was MongoDB and the `getUser` function makes a call to it to get the hashed user object with the needed password.
+Bcrypt is used for comparing those passwords with its `compare` function.
+Many tutorials use localstorage for their jwt (json web token) storage but I find the httpOnly cookies to be the most secure option.
+I do find localstorage quick and easy for configuration settings for the user.
+
+There is a lot more to this application and it was a great experience working on it.
+I was glad to work on so many new technologies like using AWS S3 for image storage and the experience I was able to get from working both ends of the tech. stack.
+I hope I can use this knowledge for any future social media type applications I built in the future
+# Thanks for reading 👍

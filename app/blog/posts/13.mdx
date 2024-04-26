@@ -1,0 +1,88 @@
+---
+title: "Senior Semester Final, E-commerce Site"
+description: "School Final to build a feature rich full stack application"
+publishedTime: "2020-11-15"
+cover: "/coverImg/market.jpg"
+tags: "postgresql, express, next.js, heroku, stripe"
+id: 13
+---
+
+# E-Commerce market with Stripe
+> This is a live project which can be seen [here](https://codabool.com/projects#7)
+
+I was given an open ended project for school assignment.
+I could pick what I wanted to develop.
+I decided on building a full-stack application.
+I wanted to develop something which used many new technologies for me to learn.
+The stack ended up being a e-commerce site connected to Stripe.
+I used PostgresQL for persistent data.
+Most of the store data is stored on Stripe like the products and images for them.
+I used NextJS deployed to Heroku for the server.
+Authentication is handled through an npm called next-auth.
+This uses a JWT session.
+I used React Hook Form for the forms and a package to help with storing shopping cart.
+Lastly I use Bootstrap for styling the page.
+
+I went through many iterations of how to store the cart.
+I first created my own method which used localstorage.
+I then played with the idea of storing it into cookies but quickly disbanded that idea.
+I ended up using a package to reduce the amount of code maintenance I need to do.
+I installed Use Shopping Cart which uses localstorage underneath.
+The package was made for Stripe. 
+It does have some opinionated ways to enter in the data.
+However, the functions added to increment shopping cart are very useful.
+There is also an included method to validate the cart.
+
+The features of the site are a signup/login page.
+Once authenticated you can browse the store and add items to your cart.
+There is then a process for checking out.
+First you go to the cart page.
+The cart page was tricky to design.
+This was due to how I wanted a dropdown created for each cart item which would readjust the storage.
+In React this means that a reference needs to be created and assigned for each iteration through the cart.
+Removing items can also be done on this page.
+Once all the items are all properly adjusted and the total is understood you can proceed to the shipping page.
+
+The shipping area went through lots of changes.
+I am proud of how well the last version looks.
+Bootstrap styling makes if difficult to generally have things next to each other compared to vertical.
+For me to get the styling I wanted I created a hook for finding the size of the screen and applying different classes for the screen size.
+React Hook Form provides great error handling which helps you fill out the form.
+I also use it to hookup a form of autofill where once the zip code is put in then the state is filled out.
+Once filled out the stored address is compared with the new address.
+If there is no difference no change is made otherwise a helpful dialogue is shown to confirm the address change.
+Then the address is conditionally saved and you can move to the payment page.
+
+The payment page uses components provided by Stripe.
+Stripe calls for something called a payment intent where a lot of properties can be defined like the price and shipping address.
+While the backend handshake which creates and then confirms a payment proceeds helpful loading message indicators when checking out.
+After the completion of the payment you land at a confirmation page.
+
+I was able to hookup to a api called Now which can provide an image of an address.
+I was not able to properly send the image back through node but if I work on any other features I want want to finish this feature.
+Once complete the new order can be seen in the orders page.
+Another feature that I would want to build out next would be for a webhook which gets called when new payments get through.
+I tested the webhook functionality out and it properly receives and can deconstruct the request.
+Then next step would be to email out the receipt which Stripe makes and to store the order under my own copy in PostgresQL.
+
+There is also an admin panel which connects to all the Stripe CRUD functions.
+This allows a site admin to manage the products on the site.
+Helpful toasts are displayed when any operation is performed.
+Lastly there is an account page which does not have much styling and works as a placeholder.
+
+### Update
+> 10 Months Later
+
+I have expanded and since rewrote the application. I switched it to a fully Serverless application.
+I moved the database over to MongoDB which simplified my need for connection pooling that I needed with a PostgresQL implementation.
+I added support for PayPal as well as Reviews. I also expanded out an account page which you can see your orders as well as your reviews.
+I added support for variants to the products, this was to help support products in different colors or with different features.
+This variant aspect supports differences in price and I was able to solve an issue I often face with Amazon shopping. 
+Often on Amazon reviews you can't see which variant was purchased by the customer and that can very relevant for making a decision on what variant to purchase. 
+So, I have reviews include which variant was purchased by the author of the review. 
+Lastly I added CI/CD to the application with the Serverless framework. This allowed me to create the lambdas and S3 for static hosting for all operations of the app. 
+This means the backend is built entirely on an API lambda.
+The webhook functions are also triggered through lambdas which is used to validate orders which come in and save the update to MongoDB.
+Although I implemented a custom AWS Serverless deploy, it does cost money to host so, I did end up cutting it in favor of a free Vercel deploy which works just as well and can be seen [here](https://codabool.com/projects#7).
+
+# Thanks for reading 👍

@@ -1,0 +1,116 @@
+---
+title: "DevOps Talk for TampaDevs"
+description: "I gave a talk to the community of TampaDevs about how to get started in DevOps"
+publishedTime: "2022-04-07"
+cover: "/coverImg/devops-talk.jpg"
+tags: "personal"
+id: 23
+---
+
+# My DevOps Talk in Tampa 
+
+> The full event
+
+<iframe width="800" height="650" src="https://www.youtube.com/embed/2AoRbNU1iNc?start=1078" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+## What was talked about
+
+I spoke about what DevOps is and the basics of getting started.
+The slides for this presentation can be found [here](https://docs.google.com/presentation/d/1rpbtEQIdGf7nMPmT6wnt9egBcMDMsdgpAC4D4EvNGfs/edit?usp=sharing).
+I mainly covered Terraform, Bash and Github Actions. 
+A resource that is helpful for those new to DevOps is a [roadmap](https://roadmap.sh/devops).
+
+## TampaDevs
+
+<Img src="/posts/23/2.jpg" size="lg" />
+
+I have not given any technical talks like this before and I did find that I over prepared for the event.
+I had about double the amount of material than what I had time for. 
+Thankfully the event ended right on the final deploy of my first of two demos I set for the night.
+This was done by creating a Terraform pipeline on Github Actions which would deploy a EC2 instance.
+
+> Terraform
+
+```js
+resource "aws_instance" "al2" {
+  ami           = var.al2_ami
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.pub_key.key_name
+  vpc_security_group_ids = [aws_security_group.tampadev.id]
+  tags = {
+    Name = "al2"
+  }
+}
+```
+
+<Img src="/posts/23/3.jpg" size="lg" />
+
+This Terraform was ran by Github Actions which was simply running a `terraform apply` command
+
+> Github Actions
+```yml
+- name: Run Terraform
+  working-directory: ./terraform
+  run: |
+    terraform init
+    terraform apply -auto-approve
+```
+
+<Img src="/posts/23/1.jpg" size="lg" />
+
+
+However, this is just a bare Amazon Linux 2 AMI with nothing on it. 
+For the demo I wanted to show something so I have a [repository](https://github.com/CodaBool/tampa-dev) with a small Three.js application.
+So, I would install git, node and nginx to download and serve the application.
+I used a Github Actions Marketplace action called appleboy/ssh-action. 
+If I were to redo this demo I would replace this with a more reputable configuration tool like Ansible.
+The bash script ran can be seen here to startup a web server of the application.
+
+> Configuration Bash script
+```bash
+curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+sudo yum install nodejs -y
+sudo yum install git -y
+sudo amazon-linux-extras install nginx1 -y
+sudo systemctl enable nginx
+sudo systemctl start nginx
+git clone https://github.com/CodaBool/tampa-dev.git
+cd tampa-dev
+npm ci
+npm run build
+sudo cp -TR build /usr/share/nginx/html
+```
+
+That completed the first demo and I had ran out of time.
+I prepared a much more advanced demo which involved Docker and a scalable usage with Fargate however, it would have ran over the event time.
+
+## Looking back
+
+<Img src="/posts/23/6.jpg" size="lg" />
+
+
+I had a lot of fun after the event talking with people.
+I got to talk about Git for a good amount of time with someone and actually enjoyed it.
+They had given a talk on the tool and had lots of knowledge on Git.
+It was fun to be around developers who know their stuff.
+I like to be in a room with a ton of smart people.
+It helps me learn and also the environment there was uplifting.
+
+<Img src="/posts/23/5.jpg" size="lg" />
+
+So many of the people I talked to just love to learn things.
+Which is exactly how I would describe myself.
+So, finding people just like myself was absolutely a highlight of the visit to Tampa for this talk.
+
+## The Community
+
+> Vincent and me
+> <Img src="/posts/23/4.jpg" size="lg" float />
+
+I got to also spend time with Vincent.
+His TampaDevs community has grown extremely fast and it is all thanks to his effort into the community.
+He is such a likeable guy and I would be happy to help out at any of his future events.
+I already asked him to give another talk on Docker.
+So, maybe by the end of this year I will be in Tampa again to do another event.
+
+# Thanks for reading 👍

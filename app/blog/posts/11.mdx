@@ -1,0 +1,70 @@
+---
+title: "eCRM Dashboard"
+description: "A finer look into the work done for a React Dashboard for my job"
+publishedTime: "2020-09-10"
+cover: "/coverImg/ecrm-dashboard.jpg"
+tags: "react, webdev"
+id: 11
+---
+
+# Production Dashboard
+> A sample of this project which can be seen [here](https://codabool.com/projects#4)
+
+Starting this job around when COVID hit was difficult.
+I was used to walking over to someone's desk when I needed help.
+Now if I needed help, I sent out a message on our Slack app.
+Responses were delayed and it was difficult to know if you were going to get the help you need.
+I chose to join a team which was dissolved within a few weeks.
+This was due to a lack of response from the project lead.
+I was fortunate in that I started early in looking at joining another project.
+
+I joined a team of two, one of which I still work with now three months later.
+Our project was to create a dashboard which could display the status of several deployments.
+Ellucian offers tech solutions to many clients which in total serve millions of students.
+The dashboard was an easy way to see what was built and how long ago.
+The raw output data which supplies the table with information is from Jenkins.
+The console output is parsed by a Powershell script written by someone on my team.
+This is then served through a Node Express server which is then available to be called to by our React app.
+
+There are many options when it comes to making a table in React.
+We even tried out a few different options.
+Eventually we landed on making the app using AG-Grid which has great features.
+The interface is simple, and there are a vast array of options on how to control the table.
+We made use of a lot of the features including custom tooltips, custom css, fast reloading.
+This all enabled the table to be quick and information.
+
+> AG-Grid, handles all the needed table features
+<Img src="/posts/11/table.PNG" size="lg" />
+
+A great feature of the table is that it has different customizable aspects.
+You can filter search each column, change size, alter the refresh rate for the data.
+We wanted a table which remembered these settings. We added support for creating and reading cookies.
+This allows the page to be refreshed and the columns will be filtered by the same data. 
+
+> Table settings for how often to refresh table data and from how long ago
+<Img src="/posts/11/settings.PNG" size="md" />
+
+One tricky part of the project was having multiple tables, or what is perceived as multiple tables.
+Basically there are different production environments that need to be switched between.
+The most logical way to separate out these views is with a tabulated table which changes the view.
+At first we setup a different initialization of ag-grid on each route.
+However, this lead to issues with state crossing over into other tables.
+This happened due to the fact that every row and column needs its own unique ID to be managed.
+When you have hundreds of total rows and columns, some with the same name but in a different category this can be tricky.
+We in the end make one initialization of the ag-grid and were able to pass it dynamically the data for each tab and refresh the table.
+
+> Dashboard with 6 tab combinations for 6 table views
+
+<Img src="/posts/11/tab.PNG" />
+
+Our application was complete and we needed to deploy on a Windows machine.
+This was difficult since many server tools are built in Linux and are simpler to handle.
+After correctly configuring a proxy for the express and setting up a domain for the application to be under we were done.
+The project is used in production currently and the project manager was very satisfied with our work.
+I was expecting us to be called back to fix something breaking on it sometime soon after finishing it.
+However, I never heard back a complaint and since have got back in touch with the manager and she told me the app runs smoothly without any issue.
+
+While I cannot recreate a good clone of the project for public viewing since it depends on many other server components.
+I did manage to strip away a couple features to allow it to work with a static data set for viewing.
+So, if this project sounded interesting please checkout [this dashboard](https://codabool.com/projects#4) written in React using AG-Grid
+# Thanks for reading 👍
