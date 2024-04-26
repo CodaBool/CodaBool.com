@@ -86,7 +86,7 @@ function heading(level) {
 
 function p(props) {
   return (
-    <p>&emsp;{props.children}</p>
+    <p className="font-light">&emsp;{props.children}</p>
   )
 }
 

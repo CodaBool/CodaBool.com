@@ -11,6 +11,11 @@ bun install
 bun dev
 ```
 
+## update packages
+```bash
+bunx npm-check-updates -u
+```
+
 # Performance 
 ## lighthouse
 - / = 74
