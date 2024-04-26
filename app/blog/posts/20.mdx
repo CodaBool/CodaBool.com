@@ -1,0 +1,180 @@
+---
+title: "Three.js Spinner"
+description: "After playing the game Rust, I loved using a spinner item and wanted to port it to the browser with Three.js"
+publishedTime: "2021-11-20"
+cover: "/coverImg/spinner.jpg"
+tags: "Three.js, React, Blender"
+id: 20
+---
+
+# 4 Color Spinner
+>> This is a live project which can be visited [here](https://p13.codabool.com) (it takes about 2 minutes to load)
+
+After seeing many [examples](https://threejs.org/examples/) online and checking out the docs.
+I got inspired to create a Three.js project.
+There are helper packages like [Fiber](https://docs.pmnd.rs/react-three-fiber) and [Drei](https://github.com/pmndrs/drei) which make the process very simple.
+If you view [my repository](https://github.com/CodaBool/p13-spinner) you can see that
+rendering a model to the canvas can be as light as 25 lines of code. 
+
+```js
+function ButtonModel({ spin }) {
+  const { nodes, materials } = useGLTF('/button.glb')
+  return (
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Circle.geometry}
+        material={materials['Material.002']}
+        scale={.35}
+        position={[0, 2.55, -.1]}
+        rotation={[Math.PI /2, 0, 0]}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cylinder.geometry}
+        material={materials['Material.003']}
+        scale={.4}
+        position={[0, 2.55, 0]}
+        rotation={[Math.PI /2, 0, 0]}
+        onClick={spin}
+      />
+    </>
+  )
+}
+```
+Even that is generated code which I was able to create from a [helper site](https://gltf.pmnd.rs).
+Before that step I created the model in Blender.
+
+Blender is a free, open source 3d modeling/animation app.
+There are many youtube tutorials on how to get started with it.
+I did pull most of the models from sketchfab.
+The [table](https://sketchfab.com/3d-models/foldable-table-fa805b31129b4034b2b8433073873367) and [wheel](https://sketchfab.com/3d-models/wheel-of-fortune-3164c3ea0e3f4ae0bc2e843f101cc207) can be found there.
+Also the background is called an HDR and that was from [Greg Zaal](https://polyhaven.com/all?a=Greg%20Zaal) at PolyHaven.
+The resources were CC licensed, meaning I just need to credit the original artist to use them.
+
+> Rust spinner object was the inspiration for the project
+
+<Img src="/posts/20/rust.jpg" size="lg" />
+
+There is also an audio effect which I was able to download from a Reddit post which contained all sound effects from the game Rust.
+There I was able to find the spinner object sound file. 
+There were a couple files there but I found a continuous spinning sound file which was perfect.
+
+Now I had gathered all the materials but the original spinning wheel model was more like a Wheel of Fortune wheel.
+In fact it literally said Wheel of Fortune on it. This would need to be removed, which is where I needed to edit the model in Blender.
+
+<Img src="/posts/20/originalWheel.jpg" size="lg" />
+
+I needed to lookup tutorials and found it would be best to split the static parts of the spinner from the moving parts.
+I was able to achieve this in Blender and export as glb which seemed like the best format for the framework and was what my code generator tool was taking as input. After splitting the model into moving and not moving parts. I redid a lot of what the spinner wheel looked like
+
+<Img src="/posts/20/model-spin.jpg" size="lg" />
+
+Now I just needed to fix the texture which printed out "Wheel of Fortune" on the top. This was something I was able to do in photoshop by downloading the file which is read for the texture. Then editing it to replace the top of it a plain wood texture which surrounds it. Then reuploading that to Blender. 
+
+Or so I thought. I noticed that the reflection of the stand still had the outline of the "Wheel of Fortune" so I looked back and noticed the other files involved in the model. There was a metallic roughness and also a normal map which gave the texture data about how to reflect light. I went ahead and did the same process of removing the "Wheel of Fortune" there.
+
+<Img src="/posts/20/texture.jpg" size="lg" />
+
+# > Write Code
+
+Once that was all done. I had finished the model work and had all the assets to continue to code. I used the helper tool I mentioned at the beginning and imported the glb models. From there I altered the scale and rotation to get everything lined up how I would want in the scene. I added a OrbitControls, PerspectiveCamera, and PositionalAudio to the scene. This allowed me to move circle around the object and load in my audio file.
+
+
+## Handling user input
+
+Since this is a React application I stored some rendered variables into useState. I also made use of the useRef hook which I connected to 5 hidden input elements on the screen. 
+
+> React hooks useState, useRef
+
+```js
+const [greenText, setGreenText] = useState('Green')
+const [redText, setRedText] = useState('Red')
+const [yellowText, setYellowText] = useState('Yellow')
+const [blueText, setBlueText] = useState('Blue')
+const [speed, setSpeed] = useState(0)
+const [activeColor, setActiveColor] = useState()
+const [playClick, setPlayClick] = useState()
+const redIn = useRef(null) // input element
+const greenIn = useRef(null) // input element
+const yellowIn = useRef(null) // input element
+const blueIn = useRef(null) // input element
+const emptyIn = useRef(null) // input element
+```
+
+Let's next look at how React state can get connected to a real 3D model in the browser. Drei offers an amazing implementation of Three.js where we can interact with geometry through the use of an onClick property, just like you would any other DOM element. 
+
+> The Green quarter of the spinner
+
+```js
+<mesh
+  geometry={nodes.Green.geometry}
+  material={nodes.Green.material}
+  rotation={[1.54, -0.29, 0.1]}
+  scale={1.6}
+  position={[-.1,.1,.35]}
+  onClick={(e) => setActiveColor('green')}
+/>
+```
+
+Here we take the event click and use it as an indicator that the user wants to edit the green input state. Which will be used later to write text over the green mesh.
+
+> Text rendered in front of the green quarter of the spinner
+
+```js
+<Text 
+  color='black'
+  scale={3}
+  position={[-.5,1,.2]}
+  rotation={[0, 0, .4]}
+  outlineColor='white'
+  outlineWidth={activeColor === 'green' ? .005 : 0}
+>
+```
+
+Those are the main working parts of selecting and editing the text over each quarter of the spinner model. I also do a event listener for if the enter key is pressed and to set the focus to the hidden empty input to prevent unwanted key press captures. 
+
+## Adding Spin
+Lastly it's not much of a spinner game without some spin. I first tried creating a velocity variable outside of state, I wanted to do this to prevent trying to update state too often and hitting performance issues. I also wanted to have the velocity be as smooth as possible and state updates are relatively long as well as asynchronous. However,  I ran into some difficultly with placing the spin velocity as a variable outside of state. I ended up making the spin much slower and using state for velocity.
+
+> function for calculating the speed
+
+```js
+function spin() {
+  setPlayClick(true) // activates the PositionalAudio of a spinner
+  setTimeout(() => setPlayClick(false), 500)
+  setSpeed(.05)
+  // Interval runs every .2s
+  let interval = setInterval(() => {
+    setSpeed(prev => {
+      if ((prev - .0005) > .02) {
+        return prev - .0005
+      } else if ((prev - .00025) > 0) {
+        return prev - .00025
+      } else {
+        setSpeed(0)
+      }
+    })
+  }, 200)
+  // Runs after 30s and clears interval
+  setTimeout(() => clearInterval(interval), 30000)
+}
+```
+
+Then once I have the logic in place to alter the speed I needed to use it. In Three.js this is done with a useFrame hook. Any animation changes can be done inside of these. Here is what the useFrame hook looks like for the colored spinner
+
+> Animation for the spinner model
+
+```js
+useFrame(() => {
+  if (speed > 0) {
+    group.current.rotation.z = group.current.rotation.z += speed
+  }
+})
+```
+
+Once that is in place I just needed to have an handle an event from the button press with a `onClick={spin}` and it was done. Once again this is a live application and you can try it out yourself [here](https://p13.codabool.com). There is no optimization work done so it will take a few minutes to load. Also if you want to see most of the code is written in the [App.js](https://github.com/CodaBool/p13-spinner/blob/main/src/App.jsx) file of my repo.
+
+# Thanks for reading 👍

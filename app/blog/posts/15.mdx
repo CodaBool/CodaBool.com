@@ -1,0 +1,128 @@
+---
+title: "Type Racing Game"
+description: "Web Sockets for live multiplayer type racing competitions."
+publishedTime: "2021-02-26"
+cover: "/coverImg/race-cover.png"
+tags: "React, Socket.io, MongoDB"
+id: 15
+---
+
+# Type fast to win
+> This is a live project! play [here](https://p8.codabool.com)
+
+> The source code can be at my repo on [GitHub](https://github.com/CodaBool/p08-type-racer)
+
+This was a project I took up between jobs and had a lot of fun with. 
+I first followed a YouTube guide from [Coding with Chaim](https://www.youtube.com/watch?v=E4V6nbP_NoQ) on how to setup a socket.io which allowed for a chat socket in React.
+I then followed a YouTube guide from [NoobCoder](https://www.youtube.com/watch?v=YHmrPd5ZIuo) which sets up a working Socket.io type racing game. 
+I forked off from his code and used styling from [Web Dev Simplified](https://www.youtube.com/watch?v=R-7eQIHRszQ).
+This made for all the basic features of the app, a type race, using styling to show progress and finally a chat embedded within the same socket for the game data.
+
+I wanted the application to have cars similar to the popular type racing game [play.typeracer.com](https://play.typeracer.com).
+So, created art for different color cars and a traffic light to indicate if you were ready to start or not. 
+I did try to find a way to access popular media quotes through the use of an API.
+However, I could not find any which were free so I decided to solve the issue with some web scraping. 
+I used chrome browser extension [Web Scraper - Free Web Scraping](https://chrome.google.com/webstore/detail/web-scraper-free-web-scra/jnhgnonknehpejjnehehllkliplmbmhn) which allowed me to scrape data programmatically from pages.
+I was able to find the source form which the popular typeracer.com game pulled from. 
+They use user submitted quotes and they are viewable on these pages found [here](https://data.typeracer.com/pit/text_info?id=4790331).
+So selecting the elements of relevant data I was able to scrape 4000 lines of JSON to use as quote data. 
+This was actually ideal since it came with average word per minute speed for the given passage.
+This is a bit of data I was able to use in the end of round screen. 
+
+## Challenges
+I did run into a couple issues related to building the socket. 
+The biggest issue I had was with the timer for the round. 
+I could not find a easy way to emit to the socket that the host should clear the timeout that the server is running. 
+The only way it worked is if the creator of the socket emits to clear the timer. 
+For this reason, I had to do a inefficient solution where the host will continue to run the timer when the game is over and upon a new round it will automatically be reset.
+This is particularly inefficient due to the updates to game state which happen with the timer, all members of the socket are getting those new game update emits.
+
+```js
+socket.on('join-game', async ({ gameID, name }) => {
+
+  // get game
+  let game = await Game.findById(gameID)
+  if (!game) {
+    throw `No game found by ID ${gameID}`
+  }
+
+  // check if game is allowing users to join
+  if (game.isOpen) {
+
+    // check if player is already in game
+    const playerObj = game.players.find(player => player.name === name)
+    if (playerObj) {
+      throw 'A player with that name already exists. Please change your name and try again or create a new game.'
+    }
+
+    // make players socket join the game room
+    socket.join(gameID)
+
+    // create our player
+    let player = {
+      socketID: socket.id,
+      name
+    }
+
+    // add player to the game
+    game.players.push(player)
+
+    // save the game
+    game = await game.save()
+
+    // send updated game to all sockets within game
+    io.to(gameID).emit('updateGame', game)
+  } else {
+    throw 'Game Closed'
+  }
+})
+```
+
+Another issue I ran into which was kind of hilarious was that if you refreshed the page you could join the game repeatedly.
+This was due to the join logic happening by the content of the URL query. 
+Meaning if you join a game you will be pushed to the route of /online?gameID=GAME_ID and refreshing will attempt the same join game logic.
+This is fine but there needed to be validation on if the player was already in the game. 
+I did not have accounts or want to add authentication to the app. 
+However, what I did have was a requirement for entering a username. 
+I used this to validate. Usernames need to be unique to join the game.
+This is not fool proof but should work fine for the scope of this game. 
+
+## What I learned
+I learned a lot, too many things to write out here but a neat thing which I learned was how to automatically delete data on the database.
+Every time a game was created it would be stored and this can quickly lead to a overfilled database with no reason for keeping most of its collections.
+So, there is a feature in mongoose (NPM MongoDB driver wrapper) where you can have documents delete after a select time.
+
+```js
+createdAt: {
+  type: Date,
+  default: Date.now,
+  index: { expires: '45m' }
+}
+```
+
+&emsp;
+I also learned from some StackOverflow comments that Math.random is not a great source of randomness and the crypto library is much more secure.
+I used the built in js/node crypto module to generate the game ids. 
+
+```js
+const crypto = require('crypto')
+
+game._id = crypto.randomBytes(3).toString('hex').toUpperCase()
+```
+
+
+### Future updates to this app
+&emsp;
+I may want to update this app later, we will see.
+If I were too, I would like to add:
+- car customization
+- account creation
+- leaderboard
+- convert mp4 title into a pure js/css/html bundle in case moving off Heroku hosting and data expenses become a problem 
+
+
+&emsp;
+Did I already say you can play it? [Play now](https://p8.codabool.com)
+# Thanks for reading 👍
+&emsp;
+Extra thanks to [Matthew Nau](https://github.com/matthewnau/keyboard) and [/user/zhengc](https://www.reddit.com/user/zhengc) for their art used in the title page

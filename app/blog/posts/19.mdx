@@ -1,0 +1,83 @@
+---
+title: "TadHack-athon"
+description: "I participated in a weekend global hackathon, our team ended up getting great results!"
+publishedTime: "2021-11-05"
+cover: "/coverImg/tadhack.jpg"
+tags: "Nest.js, React, sockets, MongoDB"
+id: 19
+---
+
+# Global TadHack 2021
+&emsp;
+My first experience with weekend coding events was a game jam where you have a weekend to create a game around a certain theme.
+I had a lot of fun and ended up meeting some friends who I still talk to.
+One of them, [Vincent Tang](https://twitter.com/vincentntang), let me know about this event.
+Vincent is awesome and recently started a Florida community called TampaDevs which has a lot of Orlando people, like me, in it as well.
+I was happy to meet up with him again and we joined the same team.
+I also got to see [German](https://twitter.com/GermanGamGon) who was on my team at the 2019 game jam as well.
+> German made a fun project where you text a number and it adds it to a public blog.
+
+There was a lot going on at this event and I did not get to meet all the teams or see what everyone was doing but still had tons of fun.
+
+
+<Img src="/posts/19/vin.jpg" size="lg" />
+
+&emsp;
+The team I was joining had some great minds on it and were already prepped with an idea of what to build.
+The team wanted to build a rescue bot which could find and assist in emergency situations.
+This would be used by first responders in areas where it might be too dangerous to send someone in to help.
+Recently in Florida a Miami building collapsed, in situations like that there is a lot of danger for the rescuers.
+Sending in a robot which can take pictures and speak to victims helps make sure the rescuers are safe.
+We had two great team members who had experience with hardware: Chris Woodle and Muntaser Syed.
+Chris was able to assemble the robot dog and Muntaser configured it.
+
+<Img src="/posts/19/cat.jpg" size="lg" />
+
+The robot was able to be controlled through text, it could speak whatever was texted to it.
+There also was a function to take a photo, which would be texted back to the configured number.
+
+> Sending messages through text
+<Video controls="controls" src="/posts/19/talk.mp4" />
+
+They were also able to use this text messaging technology to ensure authentication with two factor auth.
+This would help secure the robot so only rescuers were able to operate it.
+
+<Img src="/posts/19/bread.jpg" size="lg" />
+
+I worked on the frontend for this application.
+There were many planned features but considering the scope of the project and the limited time, we had to cut down on many.
+I built the frontend in React and the backend was written in Nest.js which is an opinionated backend framework.
+Our database solution was MongoDB.
+
+<Img src="/posts/19/frontend.jpg" size="lg" />
+
+I was able to get a great looking frontend but many aspects of the backend were still being written so I ended up moving on to sockets.
+Sockets were needed for live video to the robot, this would help for doing manual control of the robot.
+I used Agora to make for live video feed over websockets. 
+This worked great and was able to get a live feed from a host to client.
+
+<Img src="/posts/19/collab.jpg" size="lg" />
+
+I worked closely with Vincent to be able to have an api setup for the frontend to be able to speak to the backend which would control the robot's movements.
+There was also an interesting software I got to work with Davindra Tulsi.
+He is new to software development and was learning Python. 
+He helped make a script which would generate a transcript text file from an audio file. 
+
+> Building robot with a pi
+<Video autoPlay loop muted src="/posts/19/build.mp4" />
+
+There are a couple features like transcription Python script which are interesting to have but did not getting into the presented build of the project.
+Overall the event was very fun and was great to be working on a fast paced team where every success was exciting to experience live.
+
+> Sensor check
+<Video size="sm" controls="controls" src="/posts/19/move.mp4" />
+
+The blog post from tadhack covers the finer details and includes a long video covering many of the other presentation as well as the one by my team.
+My favorite other project was actually done by a professor at the school the event was hosted at, Valencia College.
+He made a automated musical script connected to hardware which could play notes texted to it by changing the frequency of cathode ray tubes.
+This was very interesting to me and was all put together very quickly which was very impressive. 
+
+> Cathode Ray Tube presentation
+<Video size="lg" controls="controls" src="/posts/19/twinkle.mp4" />
+
+# Thanks for reading 👍

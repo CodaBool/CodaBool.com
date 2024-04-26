@@ -1,0 +1,374 @@
+---
+title: "Using Linux as a daily driver"
+description: "I have been using Linux distros for my main OS for almost a year. I was originally on Ubuntu but have since moved over to arch in January. Here is my rundown on how I've set it up and what my thoughts are."
+publishedTime: "2024-04-17"
+cover: "/coverImg/arch_logo.jpg"
+tags: "linux"
+id: 32
+---
+
+
+# Reflecting on Windows
+I've been using Windows all my life and am deeply familiar with it at this point. One of the things I love about it is the same thing mentioned from the channel Tom Scott, in short, you can hack your way to do anything.
+
+
+
+
+> Tom Scott uses Windows to make an emoji keyboard
+<iframe width="800" height="650" src="https://www.youtube.com/embed/lIFE7h3m40U" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+
+
+
+Yes, an emoji keyboard is possible to do on any operating system, but the difference is that there are so many graphical programs to assist you in Windows. Generally you download an `.exe`, you run through an install wizard, then you do what you need to do, minimal knowledge required.
+
+
+This method is so convenient and familiar there was a <a href="https://github.com/sherlock-project/sherlock/issues/2006">viral GitHub issue that got posted to a project asking for an `.exe`</a>. Which led to it becoming a meme, like this person <a href="https://github.com/twitter/the-algorithm/issues/1999">asking for an `.exe` from when Twitter open sourced their algorithm</a>. While the later one is obviously a joke, this does reflect how the average person consumes programs on Windows.
+
+
+### Why leave Windows?
+I think Windows is great, I do like their latest, Windows 11. I even was using <a href="https://github.com/farag2/Sophia-Script-for-Windows">debloat scripts</a> and felt pretty good about my latest install. But for me my time with it is done. Here are the main reasons I prefer Linux:
+
+
+- Better developer experience
+- Good for my career
+- Privacy
+- Minimalism
+- FOSS is awesome
+- Linux offers much better file systems
+- No more weird hacky solutions
+- I didn't have to leave behind gaming
+
+
+These are likely self explanatory but I will expand on the "Good for my career" one. This mainly has to do with how nearly all servers are running on Linux. So, understanding common Linux CLI better makes me better at my job. Additionally the market share of Macs has been growing. Many software distribution tools just work on Linux as well. Namely `brew` which is a common way to install CLI tools on Macs. This just works on Linux and is a great benefit.
+
+
+I have to also mention that I was sick of the issues surrounding Windows using backslash for their paths despite this being the common escape character.
+
+
+This issue was closely followed by my annoyance with folder naming. Windows folders are case insensitive. Meaning attempting to open a folder named "CoDaBoOl" with using "codabool" will work on Windows but fail on Linux.
+
+
+> From doing a quick search it seems case insensitivity is also the default on MacOS file systems.
+
+
+While this seems small, I was often transferring files between my server and my Windows machine. So, the casing issue cropped up often.
+
+
+# Introduction to Linux
+I have had a self host server running for 6 years now. Originally I used 3 Raspberry Pis but now I'm using a single desktop setup. I have been using Ubuntu for those servers. So, when I first started on Linux on my main machine I added Ubuntu as a dual boot option.
+
+
+I was immediately impressed with how snappy and clean the environment felt in Ubuntu. I liked how straightforward the solutions seemed to be. Meaning, when something did go wrong, the solution made more sense than it would on Windows.
+
+
+> don't get me started on how useless any search results that lead to a answers.microsoft.com site were. Which usually involved a Windows support staff suggesting trying a million things
+
+
+Let me give an example. In Windows, it happened a few times that the network just stopped working. So, I ran a troubleshooter from the settings menu. Which I can only assume ran something like `netsh winsock reset` and `netsh int ip reset`. But the troubleshooter doesn't tell you what it does or what ended up fixing the issue.
+
+
+The solutions for issues on Linux on the other hand are generally lower level. Which for me is useful since I enjoy having a deeper understanding of issues on my machine. I like how easy it is to output the logs and get a better idea of what the issue is. With the ubiquity of systemd, I generally can run `journalctl -u some_service` and find what the issue is with a service.
+
+
+While it no doubt required lots of time from me to learn Linux and the CLI. I find it a rewarding experience.
+
+
+>  Linux is only free if your time has no value -Jamie Zawinski (one of the founders of Netscape and Mozilla.org)
+
+
+# Arch
+I have fully switched to Arch as of January and have been loving it. I decided to go with KDE as my desktop environment. I bought the Steam Deck when it came out and was surprised to see they use Arch and KDE for their Steam OS builds.
+
+
+> Valve now funds and contributes to KDE.
+
+
+I thoroughly enjoy the package management in Arch, this is definitely in part to the AUR helpers like `yay` or `paru`. So far, any piece of software I want is available through official or AUR. Installs are very simple and quick.
+
+
+I also am a huge fan of the installation script that is now available. When booting from a USB, you can simply type `archinstall` and a walkthrough menu will guide you down the whole installation. This saved me hours of configuration and works great.
+
+
+I have leaned into two things with this install. Which I can't fully recommend yet but will say they are solid solutions. I am using flatpaks for most GUI applications (exceptions being steam and my browser) and I am using the btrfs file system. Flatpaks help me achieve one of my goals of privacy with this install, since the applications are sandboxed.
+
+
+## Instability
+My biggest concern with Arch was with the idea that it was a rolling release. This combined with the fact that things move quickly in Arch. Updates for your packages will come out daily.
+
+
+While the stability for Arch has been increasing over time, I still have trouble fully trusting it. This _should_ only really be a concern on brand new hardware or if doing <a href="https://wiki.archlinux.org/title/system_maintenance#Partial_upgrades_are_unsupported">partial upgrades</a>. But, like I mentioned, I felt a bit paranoid staying this close to the edge of software releases.
+
+
+> it is apparently possible to use LTS releases of the kernel on Arch. I think this can be a good path for increasing stability. But not one that I have personally gone down.
+
+
+### BTRFS
+To help alleviate some of this I used snapshots. Snapshots are available in (but not limited to) `btrfs` (pronounced butter-fs), a file system that uses subvolumes. Subvolumes are for the most part just like your regular folders but can be snapshotted. Here are some of the features of `btrfs`:
+
+
+- can compress your data on write
+- supports RAID
+- data integrity mechanisms (Fault isolation and checksum algorithms)
+- snapshots
+- very efficient and stable with 15 years of history
+
+
+Here is a summary of snapshots I <a href="https://ounapuu.ee/posts/2022/04/05/btrfs-snapshots">found online</a> that does a good job:
+
+
+> If you're not sure what snapshots are, then you can think of them as a still image of the state of your filesystem at a certain point in time. You can create a snapshot of the filesystem, delete all your files, and still be able to get your files back just like you left them.
+
+
+> If you're a developer who has used git and doesn't mind oversimplified (and probably incorrect) explanations: you can think of snapshots like git commits. You can take snapshots (commit), roll back to a previous snapshot (reset/revert) or view the contents of a previous snapshot (checkout commit).
+
+
+The comparison to git is apt here. Snapshots use a dif method which makes the very efficient in space (not as efficient as `zfs` which also utilizes deduplicating). Combined with file compression and you have a low impact safety net.
+
+
+> Since SSDs can only write so many times before they die, it's worth the trouble to try and prevent excessive writes.
+
+
+In order to prevent excessive writes you can have folders ignored for snapshotting. The way to do this is by changing the folder to ignore into its own subvolume. Besides the default of `/var/log` I also added `/var/cache`, `/var/lib/docker` and `/var/lib/flatpak`. Since those folders have large changes and are not essential in a rollback.
+
+
+### Rollback
+When an update is made on arch, `pacman -Syu`, several folders will usually receive changes. `/boot`, `/bin`, `/etc`, `/usr` to name a few. By default btrfs has a subvolume on root `/`. This means if a snapshot gets made before an update we can rollback the changes from an update.
+
+
+This will actually only rollback the folders at the root which are not already a subvolume. To made it a bit more clear how that works, let's say for example we have two subvolumes:
+
+
+- /
+- /home
+
+
+If we rollback to a previous snapshot of that root (`/`) subvolume the `/home` subvolume will be left unchanged. Even if it has changes that happened after the snapshot. This is not intuitive since `/home` is inside the root but this is how snapshots work and is what makes them efficient.
+
+
+
+
+### Recommendation
+If anyone is looking to implement this filesystem I would recommend installing a VM and trying everything out. It's very easy to misconfigured unfortunately and took me lots of time to get right.
+
+
+
+
+# Application Preferences
+I researched around but ended up just coming back to the defaults and my favorite applications.
+Here is my current toolkit:
+
+
+```yml
+temporary notes  : kate
+permanent notes  : obsidian
+code             : vs code
+terminal         : konsole
+shell            : zsh
+```
+
+
+### ZSH
+I originally started with zsh just because it looks nice but now I'm in love with the plugins. The best of which is the `zsh-autosuggestions`. Today I installed a new one for jira. All I need to do is type `jira X` where x is the number of a ticket and it opens jira to that ticket. Just small time saving stuff like that is what these plugins are all about.
+
+
+Another one I just installed today was the one for `python`. This had a super helpful shortcut of `mkv` which is normally something I would write a script for myself. What it does is it will perform `python3 venv && source venv/bin/activate`. Meaning it creates a virtual environment and sources into it.
+
+
+### Browser
+One thing I have decided to change recently is to switch to `Brave` browser. I have always cringed at this browser and its Basic Attention Tokens. However, after not being able to login at Chase.com and then at Publix.com (popular grocery store in the SouthEast).
+
+
+> to be fair I checked today and logins on Firefox are working for both those sites (though I did need to disable Ublock Origin to login to publix)
+
+
+I'm just done with Firefox. It has just been years of settling for a lesser quality browser. Every few months something just does not work. I do like Mozilla and what they do but I'm not returning to Firefox.
+
+
+<Img src="/posts/32/support.jpg" size="lg" />
+
+
+I chose Brave since they have the most privacy features. They also support playing YouTube videos in the background on their mobile app, which is nice. Also it is possible to turn off all the annoying things they promote in Brave.
+
+
+### Notes
+Since I have a self-host server I am leveraging this to synchronize my notes across devices. I use syncthing, which I have installed on all devices, set to automatically startup. This will synchronize the notes I have in Obsidian to any device I'm on.
+
+
+
+
+# Snapper rollbacks
+This setup enables snapshots to be automatically made before and after every package update.
+This also will add grub entries which allow you to boot to a previous version in case something breaks and you cannot login.
+
+
+```sh
+# assumes you are using btrfs with the default subvolumes
+# assumes you are using grub as your boot loader
+
+
+# inotify-tools is not needed on all machines
+# you can skip and check logs of grub-btrfsd after starting the
+# service and it will tell you if inotify-tools is needed
+paru -S snapper snap-pac grub-btrfs snapper-rollback inotify-tools
+
+
+sudo su
+cd /
+
+
+# snapper defaults are weird
+# we need to remove the .snapshots folder to create a config
+umount .snapshots
+rm -r .snapshots
+
+
+# create a config for root
+snapper -c root create-config /
+# adding -p because I am not sure if this is needed here but doesn't hurt
+mkdir -p .snapshots
+
+
+# no need to edit /etc/fstab since it should still be in there
+# we can just remount it
+mount -a
+
+
+# you can safely remove the .snapshots subvolume
+# since there is a subvolume called @.snapshots by default
+btrfs sub delete .snapshots
+
+
+# add "wheels" to group and set schedule
+# https://wiki.archlinux.org/title/snapper#Set_snapshot_limits
+nano /etc/snapper/configs/root
+
+
+# start your engines
+sudo systemctl enable --now grub-btrfsd
+sudo systemctl enable --now snapper-timeline.timer
+sudo systemctl enable --now snapper-cleanup.timer
+
+
+# did I mention these things have weird defaults
+btrfs sub set-default 256 /
+
+
+# add a hook to allow changing the read only file system to write when rolling back
+# this may not be necessary since there seems to be a hook you could use instead
+# https://wiki.archlinux.org/title/snapper#Booting_into_read-only_snapshots
+wget https://raw.githubusercontent.com/Antynea/grub-btrfs/master/initramfs/Arch%20Linux/overlay_snap_ro-install -O /etc/initcpio/install/snap-hook
+wget https://raw.githubusercontent.com/Antynea/grub-btrfs/master/initramfs/Arch%20Linux/overlay_snap_ro-hook -O /etc/initcpio/hooks/snap-hook
+
+
+# add "snap-hook" to the hooks
+nano /etc/mkinitcpio.conf
+mkinitcpio -P
+
+
+# change "@snapshots" to "@.snapshots"
+# uncomment and set your root device id on the last line
+nano /etc/snapper-rollback.conf
+
+
+mount -a
+
+
+# to help preserve my SSD lifespan there are a few additional things I did
+#   1. enabled compression on all btrfs mounts in /etc/fstab with "compress=zstd" (the default level 3 is good)
+#   2. I added subvolumes `/var/cache`, `/var/lib/docker`, `/var/lib/flatpak`. Since those folders would bloat up my rollback root snapshots
+#      I used a script to allow me to create subvolumes for busy folders here:
+#      https://gist.github.com/zatricky/b195b474ed5f3c3c4c57e878eef4f0f5
+#      Make sure to add the new subvolume to /etc/fstab e.g. ... subvol=/@/var/cache
+#   3. edit /usr/lib/systemd/system/snapper-timeline.timer to weekly so less snapshots need to be made
+```
+
+
+# Automatic Updates
+While they are not recommended in the Arch community. I have enabled automatic updates. I am taking this risk since I have the above rollbacks in place. I do write down for debugging exactly what versions everything had before the update and after. 
+
+The frequency for how often you should do your updates in Arch is not an aggreed upon value. Most people will update their system and all packages at least once a week to once a month. There are outliers which update daily and those that don't update for years. It is a balance of not collecting all bugs immediately as they are pushed out and not waiting for too long that you become an edge case for the developer. Waiting too long to update can be risky because you are now falling out of line with how the developers are testing their updates. Put another way, incremental updates are significantly safer than large versions jumps.
+
+I have settled on weekly updates that happen on Thursday night (or whenever the closest boot to that time happens). Here is the script which updates everything and writes the versions to a file in my ~/Documents folder. Ideally I'd like to have some kind of automation that before shutdown on Thursday it would perform the update but I haven't looked into that yet.
+
+```bash
+#!/bin/bash
+
+# records versions before and after updating
+# updates all of official, AUR, and flatpaks to latest
+
+# assumes using flatpak and paru
+
+BACKUP_LOCATION=/home/codabool/Documents/codabool.packages.backup
+
+function write_versions() {
+    # write packages and their description
+    # https://superuser.com/questions/1523973/archlinux-pacman-list-installed-packages-with-description?newreg=828a1d0f69b542a88afc8f1a2a35dddc
+    echo -e "\n\nPackages\n" >> $BACKUP_LOCATION
+    for line in "$(pacman -Qqe)"; do
+      pacman -Qi $(echo "$line"); done \
+      | perl -pe 's/ +/ /gm' \
+      | perl -pe 's/^(Groups +: )(.*)/$1($2)/gm' \
+      | perl -0777 -pe 's/^Name : (.*)\nVersion :(.*)\nDescription : ((?!None).*)?(?:.|\n)*?Groups :((?! \(None\)$)( )?.*)?(?:.|\n(?!Name))+/$1$2$4\n    $3/gm' \
+      | grep -A1 --color -P "^[^\s]+" >> $BACKUP_LOCATION
+
+    echo -e "\n\nFlatpaks\n" >> $BACKUP_LOCATION
+    flatpak list >> $BACKUP_LOCATION
+
+    echo -e "\nkernal = $(uname -r)\n" >> $BACKUP_LOCATION
+
+    echo -e "\nplasma = $(pacman -Q plasma-desktop)\n" >> $BACKUP_LOCATION
+
+    systemctl --version | head -n 1 >> $BACKUP_LOCATION
+
+    echo -e "\n" >> $BACKUP_LOCATION
+
+    nvidia-smi >> $BACKUP_LOCATION
+}
+
+
+# move previous to a backup
+mv $BACKUP_LOCATION "$BACKUP_LOCATION.old"
+
+echo $(date) >> $BACKUP_LOCATION
+echo -e "====== Pre-update ======" >> $BACKUP_LOCATION
+write_versions
+
+# update keyring
+sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Su --noconfirm
+
+# update packages
+echo -e "\n====== updating official and AUR packages ======\n" >> $BACKUP_LOCATION
+paru -Syu --skipreview --removemake --nocleanafter --pgpfetch --noconfirm >> $BACKUP_LOCATION
+
+echo -e "\n====== updating flatpaks ======\n" >> $BACKUP_LOCATION
+/usr/bin/flatpak update --noninteractive --assumeyes
+
+echo -e "\n\n====== Post-update ======" >> $BACKUP_LOCATION
+
+write_versions
+```
+
+
+> this is then ran by a timer
+```toml
+[Unit]
+Description=System update
+
+[Timer]
+OnCalendar=Thur 20:00 America/New_York
+
+[Install]
+WantedBy=timers.target
+```
+
+> paired with a service
+```toml
+[Unit]
+Description=System update
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/codabool/code/scripts/bash-scripts/update
+```

@@ -1,0 +1,117 @@
+---
+title: "Final for Data Analytics and Security class"
+description: "I learned a lot this semester and worked with a group to analyze some real work data for my final. I used this to create a Python script which did data analysis. Popular Python libraries like pandas and matplotlib were essential for our final."
+publishedTime: "2022-11-10"
+cover: "/coverImg/cover-fall-2022.jpg"
+tags: "react, bootstrap, three.js, fiber, react router"
+id: 26
+---
+
+# Class Overview
+This class gave me the opportunity to try out some data analytics on real work data.
+We had some assignments which used the programming language R. 
+Which I had not heard of but it seems to be mainly a language for data analysis and statistics.
+The language was very high level and unopinionated. 
+Using it I was able to generate many charts using important statistics functions.
+I took AP Statistics in high school so it had been a while since I had used any of them before.
+
+# The Final
+I learned a lot in the class about data and the final put a focus on security.
+For the Final we were to be put into teams. 
+Our task was to create an interesting analysis about data from a real world security scan.
+After being placed on a team of five we all gathered into a discussion on how to approach this problem.
+We were provided with a large JSON file which had a report of the security findings of the top downloaded app stores.
+From that my team was able to find there was several approaches we could take.
+We ended up following three different hypothesis.
+
+- Do applications which reach out to more apps have less security?
+- Do applications which ask for more permissions have less security?
+- Are applications which are under a game category less secure?
+
+With these questions in mind I was able to write a Python script which pulled these relevant values out of the 300,000 line JSON files we were provided. 
+Each JSON file typically contained security scans for two applications.
+Here is some example output from my Python script.
+I removed the name of the applications.
+
+```yaml
+fb245f76-b90f-4a03-af9e-96bb7f457164.json
+  APP_NAME_1
+    30 permissions
+    180 urls
+    is not a game
+    24.9 score
+    vulnerabilites
+      - api_resource_misconfiguration
+  APP_NAME_2
+    10 permissions
+    174 urls
+    is a game
+    83.1 score
+    vulnerabilites
+      - writable_executable_files_private_check
+ffb97e85-2df0-496d-9f14-b2b63233224b.json
+  APP_NAME_1
+    67 urls
+    is not a game
+    78.7 score
+    vulnerabilites
+      - leaked_logcat_data_build_fingerprint
+  APP_NAME_1
+    28 permissions
+    52 urls
+    is not a game
+    81.3 score
+
+correlation between urls and security 0.32574467189115913
+correlation between permissions and security 0.17805601971994012
+correlation between being a game and security -0.3589489598292062
+```
+
+There is a print out of the correlation which summarizes our findings.
+To fully interpret the correlation data you could say that:
+
+- Apps that request more URLs are weakly more secure
+- Apps that ask for more permissions are very weakly more secure
+- Apps that are games are weakly less secure
+
+None of the correlation data is strong but the whole dataset is just a collection of 22 applications.
+Since there is not a large sample size it is hard to get a strong conclusion.
+One of our applications was TikTok which happened to be a major outlier for our data.
+
+### The Results
+I found the results surprising. 
+I would have expected that more requests and more permissions would mean more of a security attack vector.
+However, the results seem to suggest that the more they have of these the more secure. 
+This lead me to question if the apps which had more requests and permissions were just more mature.
+In other words apps which gained a following and could support themselves eventually took on the responsibility to secure themselves as they grew.
+This would certainly explain our outlier which was by far the most popular and had the highest security score.
+
+> snippet for finding correlation and then rendering a graph
+```python
+print("correlation between being a game & security", df['score'].corr(df['game']))
+
+plt.rcParams.update({'figure.figsize':(10,8), 'figure.dpi':100})
+sns.lmplot(x='game', y='score', data=df)
+plt.title("Are games less secure?");
+plt.show()
+```
+
+
+#### Graphs
+
+I used MatPlotLib to generate graphs as part of the Python Script
+
+> Amount of Requests vs Security (0.33 correlation)
+> <Img src="/posts/26/req.png" size="lg" />
+
+---
+
+> Amount of Permissions vs Security (0.18 correlation)
+> <Img src="/posts/26/perm.png" size="lg" />
+
+---
+
+> 1 means it is a Game, 0 means it is not a Game (-0.36 correlation)
+> <Img src="/posts/26/games.png" size="lg" />
+
+# Thanks for reading 👍

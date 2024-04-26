@@ -1,0 +1,126 @@
+---
+title: "A Group Financial Tracker"
+description: "Create an account and join in on a group financial goal. Complete with charts and data records tables."
+publishedTime: "2021-07-26"
+cover: "/coverImg/stat-charts.jpg"
+tags: "chart.js next-auth MongoDB"
+id: 18
+---
+
+# Charts can be fun
+>> A live sample can be see [here](https://codabool.com/projects#10)
+
+> The code is viewable [here](https://github.com/CodaBool/p14-financial-tracker), README.md describes how to self-host
+
+I have run into many instances where a company has setup their organization the way they want and have monitoring data but no great way to view it.
+This is where I found out about [Chart.js](https://www.npmjs.com/package/chart.js) a very popular way of displaying charts with a canvas.
+But if you are using React like I was, you want its companion [react-chartjs-2](npmjs.com/package/react-chartjs-2).
+This is surprisingly simple to create wonderful graphs which are animated and interactive.
+You just create a data object and pass it as props.
+
+```jsx
+// set the data for the doughnut chart
+const data = {
+
+  // labels will be the legend for the sections
+  labels: ['water', 'electricity', 'internet'], 
+
+  // dataset defines what how large and the color of each section
+  datasets: [
+    {
+      data: [100, 200, 80],
+      backgroundColor: ['red', 'green', 'blue'],
+    }
+  ]
+}
+
+// render
+return <Doughnut data={data} />
+```
+
+This creates a red, green and blue doughnut chart with the amount for each section matching the values in the data array.
+Here is an example of what another doughnut chart looks like after rendering to the package
+
+> Chart.js Pie
+<Img src="/posts/18/pie.jpg" size="lg" float />
+
+### Authentication
+I also wanted this to be a secure application since I planned to self-host it and fill it with private keeping.
+So, to secure the application I went with a natural fit for authentication in Next.js which is [next-auth](https://www.npmjs.com/package/next-auth).
+This allows me to signup and login to my application. I restrict the signup to only a small list of emails I know I can trust.
+After filling up the signup emails, I then have a couple secure accounts which have exclusive access to the application.
+
+### Database
+I used MongoDB for my database solution.
+Nothing too complex was happening with the data entry side, just simple CRUD operations for the records.
+However, I did have a complex situation with retrieving the data. I wanted all the chart data to be returned from one complex MongoDB query if possible.
+Turns out you can use a statement aggregator to accomplish this.
+This ended up being very verbose but gets me the data exactly how I want it for the bar graph, doughnut graph and history table all in one query.
+
+
+> A GET request for all the app data using a MongoDB aggregator
+
+```js
+// the middleware will ensure a mongo connection is established
+export default applyMiddleware(async (req, res) => {
+  try {
+
+    // deconstruct the request into the needed values
+    const { method, body, query } = req
+
+    // next-auth function to authorize from the req jwt
+    const session = await getSession({ req })
+    if (!session) throw 'Unauthorized'
+
+    // mongodb model query to get the matching db user with the one found in the jwt
+    const user = await User.findOne({ email: session.user.email.toLowerCase() })
+
+    // only allow users which are signed up
+    if (!user) throw `Could Not find ${session.user.email}`
+
+    // get the data, I would show the aggregated statement but its about 80 lines long
+    const agg = await getAgg()
+      .catch(err => {throw err})
+
+    // return the result
+    res.status(200).json(agg[0])
+  } catch (err) {
+
+    // ===================================== handle errors =====================================
+    // I use a trick here to seperate out runtime errors versus errors I have written throws for
+    // this works due to the way that explicitly throwing an error the way I do returns a String
+
+    if (typeof err === 'string') {
+
+      // my thrown error
+      res.status(400).json({  err })
+    } else {
+
+      // something unexpected
+      res.status(500).json({ msg: (err.message || err)})
+    }
+  }
+})
+```
+### Records
+I used Bootstrap styling to make a table for the record keeping
+Using Next.js api I developed the backend so that I could add new records using the bottom row form
+
+> Table of records
+<Img src="/posts/18/table.jpg" size="lg" float />
+
+## Future
+I still am actively using this application.
+I do notice a bug that the total is running up the table.
+When the intended behavior is that the Total column would be in reverse from what is seen in the screenshot above.
+I built out a CI/CD with Github Actions which will ssh and restart my systemctl for the node application.
+So, really this is in a state where I can just add whatever front-end features I would like.
+Then if I need to Next.js makes it easy to add any additional backend code with their amazing opinionated api folder tooling.
+
+### Possible features
+- sort by labels
+- budget page
+- edit date or rather be able to pick date instead of assuming 'today'
+- another graph to see how much is left for something
+
+# Thanks for reading 👍
