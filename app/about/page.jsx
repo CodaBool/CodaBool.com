@@ -5,9 +5,9 @@ export default function About() {
   return (
     <div className="container mx-auto my-10">
       <div className="flex flex-col items-center md:flex-row">
-        <div className="w-1/2 my-8">
+        <div className="w-1/2 mb-8">
           <div className="mx-auto rounded-full about-img" style={{maxWidth: 300, maxHeight: 300, boxShadow: '0 0 1rem grey'}}>
-            <Img className="rounded-full" alt="me" src="/codabool-lg.jpg" width={300} height={300} priority style={{ width: '100%', height: 'auto' }} placeholder="blur" blurDataURL="/codabool-lg.jpg" />
+            <Img className="rounded-full" alt="me" src="/codabool-lg.jpg" width={300} height={300} quality={40} priority style={{ width: '100%', height: 'auto' }} placeholder="blur" blurDataURL="/codabool-lg.jpg" />
           </div>
         </div>
         <div className="w-full mb-8 md:w-1/2">
@@ -28,6 +28,7 @@ export default function About() {
             className="rounded shadow-full"
             width={540}
             height={396}
+            quality={40}
             style={{ width: '100%', height: 'auto' }}
             priority
             placeholder="blur"

@@ -82,7 +82,7 @@ export default function Blog({ params }) {
           }),
         }}
       />
-      <h1 className="my-2 mt-5 font-semibold tracking-tighter text-7xl title">
+      <h1 className="my-2 mt-5 text-2xl font-semibold tracking-tighter title sm:text-7xl">
         {post.metadata.title}
       </h1>
       <h2 className="mt-2 mb-8 text-2xl text-gray-400">{formatDate(post.metadata.publishedTime)}</h2>

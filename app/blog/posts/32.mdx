@@ -123,7 +123,7 @@ Here is a summary of snapshots I <a href="https://ounapuu.ee/posts/2022/04/05/bt
 > If you're a developer who has used git and doesn't mind oversimplified (and probably incorrect) explanations: you can think of snapshots like git commits. You can take snapshots (commit), roll back to a previous snapshot (reset/revert) or view the contents of a previous snapshot (checkout commit).
 
 
-The comparison to git is apt here. Snapshots use a dif method which makes the very efficient in space (not as efficient as `zfs` which also utilizes deduplicating). Combined with file compression and you have a low impact safety net.
+The comparison to git is apt here. Snapshots use a dif method which makes them very efficient in space (not as efficient as `zfs` which also utilizes deduplicating). Combined with file compression and you have a low impact safety net.
 
 
 > Since SSDs can only write so many times before they die, it's worth the trouble to try and prevent excessive writes.

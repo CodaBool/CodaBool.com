@@ -163,10 +163,10 @@ export default function page() {
 
 function ProjectBox({ description, link, tags, year, image, id, title}) {
   return (
-    <Card className="w-full mb-4 md:m-4 lg:w-[47%]">
+    <Card className="w-full mb-4 md:m-4 lg:w-[47%] mr-1">
       <Link href={link} target="_blank" className="h-full">
-        <CardHeader className="h-44">
-          <CardTitle className="mb-2">{title}</CardTitle>
+        <CardHeader className="">
+          <CardTitle className="">{title}</CardTitle>
           <CardDescription>&emsp;{description}</CardDescription>
         </CardHeader>
         <CardContent>

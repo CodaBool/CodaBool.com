@@ -20,10 +20,10 @@ export default function Blog(props) {
       <hr />
       <div className="flex flex-wrap justify-center mt-5">
         {blogs.map(blog => (
-          <Card className="w-full mb-4 md:m-4 lg:w-[47%]" key={blog.slug}>
+          <Card className="w-full mb-4 md:m-4 lg:w-[47%] mr-1" key={blog.slug}>
             <Link href={`/blog/${blog.slug}`} key={blog.slug} className="">
-              <CardHeader className="h-40">
-                <CardTitle className="mb-2">{blog.metadata.title}</CardTitle>
+              <CardHeader className="">
+                <CardTitle className="">{blog.metadata.title}</CardTitle>
                 <CardDescription >&emsp;{blog.metadata.description} {blog.slug < blogs.length - 3 ? "lazy": "prio"}</CardDescription>
               </CardHeader>
               <CardContent>

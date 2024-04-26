@@ -29,3 +29,8 @@ bun dev
 
 - 384kb img
 - 109kb script
+
+
+https://tools.pingdom.com/
+https://lighthouse-metrics.com/lighthouse (requires changing VPN to do multiple tests)
+https://www.debugbear.com/
