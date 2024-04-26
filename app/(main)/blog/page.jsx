@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from 'next/link'
-import { formatDate, getBlogPosts } from '@/app/blog/util'
+import { formatDate, getBlogPosts } from '@/app/(main)/blog/util'
 
 export default function Blog(props) {
   const blogs = getBlogPosts(true)

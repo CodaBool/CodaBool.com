@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import MDX from '@/components/mdx'
-import { formatDate, getBlogPosts } from '@/app/blog/util'
+import { formatDate, getBlogPosts } from '@/app/(main)/blog/util'
 import BlogNav from '@/components/ui/BlogNav'
 import Image from 'next/image'
 import Script from 'next/script'
