@@ -1,5 +1,6 @@
 import Img from 'next/image'
 import Link from 'next/link'
+import { Github, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -19,24 +20,10 @@ export default function Footer() {
       </div>
       <div className="flex flex-wrap items-center justify-center my-2">
         <Link href="https://github.com/codabool" className="mr-3">
-          <Img
-            src="/logos/git-logo.jpg"
-            alt="github"
-            className="rounded-full"
-            width={60}
-            height={60}
-            priority
-          />
+          <Github size={60} />
         </Link>
         <Link href="https://twitter.com/coda_bool" className="mr-3">
-          <Img
-            src="/logos/twitter-logo.jpg"
-            alt="twitter"
-            className="rounded-full"
-            width={60}
-            height={60}
-            priority
-          />
+          <Twitter size={60} />
         </Link>
       </div>
     </footer>

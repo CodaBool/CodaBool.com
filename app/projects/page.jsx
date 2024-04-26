@@ -135,7 +135,7 @@ export default function page() {
             tags={['API', 'React']}
             year={2021}
             id={3}
-            image="/coverImg/flickr.png"
+            image="/coverImg/flickr.jpg"
           />
           <ProjectBox
             title="Web Dev 101 School Project"

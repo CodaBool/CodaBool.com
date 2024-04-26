@@ -3,6 +3,7 @@ import MDX from '@/components/mdx'
 import { formatDate, getBlogPosts } from '@/app/blog/util'
 import BlogNav from '@/components/ui/BlogNav'
 import Image from 'next/image'
+import Script from 'next/script'
 
 const baseUrl = "http://localhost:3000"
 
@@ -117,6 +118,14 @@ export default function Blog({ params }) {
         <MDX source={post.content} />
       </article>
       <BlogNav current={Number(post.metadata.id)} />
+      <Script 
+        src="https://utteranc.es/client.js" 
+        repo="codabool/CodaBool.com"
+        issue-term="pathname"
+        crossOrigin="anonymous"
+        lazyOnload
+        async
+      />
     </section>
   )
 }
