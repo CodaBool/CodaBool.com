@@ -293,24 +293,20 @@ I have settled on weekly updates that happen on Thursday night (or whenever the 
 
 ```bash
 #!/bin/bash
+# written to a file named "update"
 
 # records versions before and after updating
 # updates all of official, AUR, and flatpaks to latest
 
-# assumes using flatpak and paru
-
 BACKUP_LOCATION=/home/codabool/Documents/codabool.packages.backup
+# use your username, paru and flatpak shouldn't be ran as root
+USERNAME=codabool
 
 function write_versions() {
     # write packages and their description
     # https://superuser.com/questions/1523973/archlinux-pacman-list-installed-packages-with-description?newreg=828a1d0f69b542a88afc8f1a2a35dddc
     echo -e "\n\nPackages\n" >> $BACKUP_LOCATION
-    for line in "$(pacman -Qqe)"; do
-      pacman -Qi $(echo "$line"); done \
-      | perl -pe 's/ +/ /gm' \
-      | perl -pe 's/^(Groups +: )(.*)/$1($2)/gm' \
-      | perl -0777 -pe 's/^Name : (.*)\nVersion :(.*)\nDescription : ((?!None).*)?(?:.|\n)*?Groups :((?! \(None\)$)( )?.*)?(?:.|\n(?!Name))+/$1$2$4\n    $3/gm' \
-      | grep -A1 --color -P "^[^\s]+" >> $BACKUP_LOCATION
+    for line in "$(pacman -Qqe)"; do pacman -Qi $(echo "$line") ; done | perl -pe 's/ +/ /gm' | perl -pe 's/^(Groups +: )(.*)/$1($2)/gm' | perl -0777 -pe 's/^Name : (.*)\nVersion :(.*)\nDescription : ((?!None).*)?(?:.|\n)*?Groups :((?! \(None\)$)( )?.*)?(?:.|\n(?!Name))+/$1$2$4\n    $3/gm' | grep -A1 --color -P "^[^\s]+" >> /home/codabool/Documents/codabool.packages.backup
 
     echo -e "\n\nFlatpaks\n" >> $BACKUP_LOCATION
     flatpak list >> $BACKUP_LOCATION
@@ -331,18 +327,21 @@ function write_versions() {
 mv $BACKUP_LOCATION "$BACKUP_LOCATION.old"
 
 echo $(date) >> $BACKUP_LOCATION
-echo -e "====== Pre-update ======" >> $BACKUP_LOCATION
+echo -e "\n====== Pre-update ======" >> $BACKUP_LOCATION
 write_versions
 
 # update keyring
+echo -e "\n========== keyring ==========\n"
 sudo pacman -Sy archlinux-keyring --noconfirm && sudo pacman -Su --noconfirm
 
 # update packages
 echo -e "\n====== updating official and AUR packages ======\n" >> $BACKUP_LOCATION
-paru -Syu --skipreview --removemake --nocleanafter --pgpfetch --noconfirm >> $BACKUP_LOCATION
+echo -e "\n========== official & AUR ==========\n"
+sudo -u $USERNAME paru -Syu --skipreview --removemake --nocleanafter --pgpfetch --noconfirm >> $BACKUP_LOCATION
 
 echo -e "\n====== updating flatpaks ======\n" >> $BACKUP_LOCATION
-/usr/bin/flatpak update --noninteractive --assumeyes
+echo -e "\n========== flatpak ==========\n"
+sudo -u $USERNAME /usr/bin/flatpak update --noninteractive --assumeyes >> $BACKUP_LOCATION
 
 echo -e "\n\n====== Post-update ======" >> $BACKUP_LOCATION
 
@@ -356,7 +355,7 @@ write_versions
 Description=System update
 
 [Timer]
-OnCalendar=Thur 20:00 America/New_York
+OnCalendar=Thursday *-*-* 20:00:00 America/New_York
 
 [Install]
 WantedBy=timers.target
