@@ -9,9 +9,10 @@ jobs:
       - uses: actions/setup-node@v4
         # with:
         #   node-version: 18
+      - uses: oven-sh/setup-bun@v1
       - run: |
           bun i
-          bun run rss
+          bun rss
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update RSS
