@@ -56,8 +56,6 @@ export default function Blog({ params }) {
 
   if (!post) notFound()
 
-  // TODO: scroll to top
-
   return (
     <section className="px-2 mx-auto sm:container">
       <script
