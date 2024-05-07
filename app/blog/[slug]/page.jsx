@@ -7,6 +7,7 @@ import Script from 'next/script'
 
 const baseUrl = "http://localhost:3000"
 
+// statically generates all blog post routes at build time
 export async function generateStaticParams() {
   return getBlogPosts().map(post => ({
     slug: post.slug,
