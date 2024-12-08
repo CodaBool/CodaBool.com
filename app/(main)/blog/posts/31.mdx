@@ -8,8 +8,8 @@ id: 31
 ---
 
 # End of Life Data
-AWS only offers an API to get database maintenaince events which are a week in advance. 
-There is a lot to know when it comes to RDS maintenance. 
+AWS only offers an API to get database maintenaince events which are a week in advance.
+There is a lot to know when it comes to RDS maintenance.
 Despite RDS being a managed service.
 Meaning you do not need to actually interact with the PostgreSQL or MySQL startup on a server.
 
@@ -24,12 +24,12 @@ In order to get the most accurate information about the topic there are sever AW
 
 When an RDS instance enters its maintenance windows it will upgrade the minor version (this can be automated by setting the auto minor upgrade property on an instance). Downtime can be significantly reduced (typically less than 60 seconds) with multi-AZ instances. Compared to the expected 30 minutes of a regular maintenance. When using this approach the process will work as follows:
 
-1. the standby will have maintenance. 
+1. the standby will have maintenance.
 2. Once maintenance is finished on the standby it will be promoted to primary
 3. The original primary will become standby and go into maintenance
 
 ### State
-A RDS instance could go into maintenance for several reasons. This could be an OS update, or a deprecated database engine version. This will eventually happen as new versions release and current versions eventually are no longer supported. 
+A RDS instance could go into maintenance for several reasons. This could be an OS update, or a deprecated database engine version. This will eventually happen as new versions release and current versions eventually are no longer supported.
 
 To see the state of the pending maintenance you can visit RDS in the AWS console. There you can find a maintenance column for RDS which can have the following maintenance states:
 - `required` The maintenance action will be applied to the resource and can't be deferred indefinitely.
@@ -149,7 +149,7 @@ I mentioned in the title that I merged a PR to a free and open source software r
 I contributed to have two new API endpoints in the endoflife.date community.
 I wrote the data and script to help automate the process of posting to RDS PostgreSQL and MySQL pages.
 
-- The new [AWS MySQL for RDS page](https://endoflife.date/amazon-rds-mysql) 
+- The new [AWS MySQL for RDS page](https://endoflife.date/amazon-rds-mysql)
 - The new [AWS PostgreSQL for RDS page](https://endoflife.date/amazon-rds-postgresql)
 
 I worked with them to merge in the following PRs
@@ -158,5 +158,5 @@ I worked with them to merge in the following PRs
 - [PostgreSQL PR](https://github.com/endoflife-date/endoflife.date/pull/2624)
 - [automatic data PR](https://github.com/endoflife-date/release-data/pull/86)
 
-This project creates a collective API where end of life data can be freely accessed. 
+This project creates a collective API where end of life data can be freely accessed.
 For anyone hoping to find similar RDS end of life data for programmatic use I would recommend they use the data from this community.

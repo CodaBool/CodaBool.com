@@ -1,5 +1,5 @@
 import { Home } from 'lucide-react'
-import { getNumOfBlogPosts } from '@/app/blog/util'
+import { getNumOfBlogPosts } from '@/app/(main)/blog/util'
 import {
   Pagination,
   PaginationContent,

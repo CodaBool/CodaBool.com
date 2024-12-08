@@ -43,11 +43,11 @@ function getMDXData(dir) {
 }
 
 export function getNumOfBlogPosts() {
-  return fs.readdirSync("app/blog/posts").length
+  return fs.readdirSync("app/(main)/blog/posts").length
 }
 
 export function getBlogPosts(sort) {
-  const posts = getMDXData(path.join(process.cwd(), 'app', 'blog', 'posts'))
+  const posts = getMDXData(path.join(process.cwd(), 'app', '(main)', 'blog', 'posts'))
   if (sort) {
     return posts.sort((a, b) => {
       if (

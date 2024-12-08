@@ -89,15 +89,14 @@
 }
 .blog-card h3 {
   text-decoration-color: rgba(0, 0, 0, 0);
-  transition: text-decoration-color .3s ease;
-  
+  transition: text-decoration-color 0.3s ease;
 }
 .blog-card:hover img {
   transform: scale(1.02);
 }
 .blog-card {
   background-color: rgba(211, 211, 211, 0.08);
-  box-shadow: 0 0 2rem .5rem rgba(211, 211, 211, 0.05);
+  box-shadow: 0 0 2rem 0.5rem rgba(211, 211, 211, 0.05);
 }
 
 article img {

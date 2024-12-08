@@ -68,8 +68,8 @@ const PaginationNext = ({
     size="default"
     className={cn("gap-1 pr-2.5", className)}
     {...props}>
-    <span className="text-xl ml-14" style={{top: '-1.8px', position: 'relative'}}>Next</span>
-    <ChevronRight className="w-6 h-6" style={{top: '-1.8px', position: 'relative'}} />
+    <span className="text-xl ml-14" style={{ top: '-1.8px', position: 'relative' }}>Next</span>
+    <ChevronRight className="w-6 h-6" style={{ top: '-1.8px', position: 'relative' }} />
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"

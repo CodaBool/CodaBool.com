@@ -1,13 +1,12 @@
 import { notFound } from 'next/navigation'
 import MDX from '@/components/mdx'
-import { formatDate, getBlogPosts } from '@/app/blog/util'
+import { formatDate, getBlogPosts } from '@/app/(main)/blog/util'
 import BlogNav from '@/components/ui/BlogNav'
 import Image from 'next/image'
 import Script from 'next/script'
 
 const baseUrl = "http://localhost:3000"
 
-// statically generates all blog post routes at build time
 export async function generateStaticParams() {
   return getBlogPosts().map(post => ({
     slug: post.slug,
@@ -56,8 +55,6 @@ export default function Blog({ params }) {
   const post = getBlogPosts().find(post => post.slug === params.slug)
 
   if (!post) notFound()
-
-  // TODO: scroll to top
 
   return (
     <section className="px-2 mx-auto sm:container">
@@ -114,13 +111,13 @@ export default function Blog({ params }) {
         </div>
       </div>
 
-      
+
       <article>
         <MDX source={post.content} />
       </article>
       <BlogNav current={Number(post.metadata.id)} />
-      <Script 
-        src="https://utteranc.es/client.js" 
+      <Script
+        src="https://utteranc.es/client.js"
         repo="codabool/CodaBool.com"
         issue-term="pathname"
         crossOrigin="anonymous"

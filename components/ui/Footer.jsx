@@ -1,17 +1,10 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
 import Img from 'next/image'
 import Link from 'next/link'
 import { Github, Twitter } from "lucide-react"
 
 export default function Footer() {
-  const pathname = usePathname()
-  if (pathname === "/module") {
-    return
-  }
   return (
-    <footer className="container px-4 mx-auto sm:px-6 lg:px-8">
+    <footer className="container px-4 mx-auto mb-4 sm:px-6 lg:px-8">
       <div className="flex flex-wrap mt-12">
         <div className="w-full mx-auto sm:w-1/2 md:w-1/3 lg:w-1/4">
           <hr />

@@ -86,12 +86,12 @@ function heading(level) {
 
 function p(props) {
   return (
-    <p>&emsp;{props.children}</p>
+    <p className="font-light">&emsp;{props.children}</p>
   )
 }
 
 const Video = props => {
-  let {size, pos, full, grid} = props
+  let { size, pos, full, grid } = props
 
   if (!size) size = 'md'
   let margin = 'none'
@@ -112,7 +112,7 @@ const Video = props => {
     style.height = '100%'
     style.margin = '1rem'
   }
-  
+
   // style.width = `${props.grid ? '40%' : '75%;'}`
   return (
     <>
@@ -157,11 +157,11 @@ const Video = props => {
 const Img = ({ src, size, float }) => {
   if (!size) size = 'sm'
   return (
-    <div 
-      className={`img-container blog-img-${size}`} 
-      style={{margin: `${float ? 'none' : '2rem auto 2rem auto'}`, maxWidth: `${float && '50rem'}`}}
+    <div
+      className={`img-container blog-img-${size}`}
+      style={{ margin: `${float ? 'none' : '2rem auto 2rem auto'}`, maxWidth: `${float && '50rem'}` }}
     >
-      <Image src={src} sizes="60vw" fill alt='image' quality={50}  />
+      <Image src={src} sizes="60vw" fill alt='image' quality={50} />
     </div>
   )
 }

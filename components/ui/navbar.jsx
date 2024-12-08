@@ -1,14 +1,6 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 export default function navbar() {
-  const pathname = usePathname()
-  if (pathname === "/module") {
-    return
-  }
-
   // https://preline.co/docs/navbar.html#with-collapse
   return (
     <header className="flex flex-wrap w-full py-4 text-sm bg-gray-800 dark:bg-white">

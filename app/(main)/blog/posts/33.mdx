@@ -1,0 +1,133 @@
+---
+title: "Trying out Next.js v14, my impressions"
+description: "I have built two projects in Next.js 14 using the app router. Here are my thoughts after several hours. Also I will talk about how I rewrote this blog to be much faster. I also talk about shadcn/ui and Tailwind"
+publishedTime: "2024-04-28"
+cover: "/coverImg/next-cover.png"
+tags: "webdev, personal"
+id: 33
+---
+
+# Server Components
+
+I remember being impressed with React when I first started web development. For the exact same reason I felt Docker had changed the way distribution happens today. The packaging and ease of use are unmatched.
+
+While there are many competing frameworks for the web, I will speak to the general state in that components are a winning design. The killer feature being that you can build them in a way that keeps them simple to use. You do not need to know everything that goes on inside a component. In addition you can use them as often as you like.
+
+This is not really anything new at this point but I bring it up because the feeling I first had when I unlocked that knowledge was powerful. In some ways server components give me a similar (though mixed) feeling.
+
+
+# Summary
+I'm not mainly a web developer and only do a couple projects in React a year so I'll keep my summary of server rendering/components quick. They allow you to render some portion of the page ahead of time. This can mean a much faster website because fewer requests have to be made by the client and reaching the database is a lot faster. There are also several other benefits in caching, security and performance.
+
+> you can imagine that the the sidebar here is rendered by the server. You can also prefetch from the database elements of the user's profile page.
+<Img src="/posts/33/component.png" size="lg" />
+
+This breaks the standard flow which would normally give the client their bundle of html/css/js and have them make a request to the API server which will then fill the page with relevant data. This waterfall is slow. Which is why major companies end up using server side rendering to keep their sites as fast as possible.
+
+One really amazing benefit of this that I like is that the bundle of html/css/js can be cut down. This is because you don't need to send the client the whole package for rendering a sidebar if you can just do that server side. Provide the client with a render and they won't need all that extra code. This means excess parts of your app actually stay on the server.
+
+### Not all rainbows
+You can't use server components for everything. Some things need to interact with the browsers API and to keep state. This means they must remain as client components and don't get all those benefits. Things like buttons and inputs must be client components.
+
+Unfortunately this happens about half the time and feels kind of bad when it does. There are some ways you can hack your way around using the URL query data. For example if you have different pages a user could see when they search something into an input. This would render different pages but it doesn't feel like the proper usage. This was something I attempted with my first Next.js 14 project but ended up surrendering to not doing server rendering for searches.
+
+
+# 1st Project
+> you can see the site for yourself [here](https://maps.codabool.com)
+<Img src="/posts/33/search.png" size="lg" />
+
+
+The first project I did was for a collection of RPG maps. I have been getting into virtual tabletop role playing games. This usually require a map to play on. I found a creator who had put his maps under an open license. I packaged them up into a module that works with the virtual tabletop platform I had been playing on. They now can be easily installed through the UI of the platform now. This allows access to roughly a hundred scenes that players can use for free. I published this under a creative commons non commercial license.
+
+> Lighthouse gave a 94 score for performance with a total resource size of .9Mb
+
+<Img src="/posts/33/enlarged.png" size="lg" />
+
+
+## The techstack
+I built this using Next.js 14 and my new favorite UI library [shadcn/ui](https://ui.shadcn.com). Which provides beautiful, accessible components. Which work perfectly with both Tailwind and server side rendering. I used to use Bootstrap for my styling but it has aged horribly. Everyone has moved to Tailwind 🤣. I was forced to because Bootstrap actually just did not work with server side rendering.
+
+So, I have fully switched to Tailwind and shadcn/ui and it has been nice. The VS Code extenstion that sorts Tailwind classes helps and using the [cheatsheet](https://nerdcave.com/tailwind-cheat-sheet) is a must.
+
+# 2nd Project
+I rewrote `codabool.com` in Next.js 14. Yes, the one you are on
+
+I was surprised to find that it doesn't really require _any_ client components. I don't think I'll ever be able to get away with this again but it's (at least at the time of writing) completely server rendered. The exception being the very stylized landing page which is actually it's own [React project](https://github.com/CodaBool/CodaBool.com-landing-page) because it has lots of hacky stuff that actually breaks on new versions.
+
+> I'm able to use two React projects on the same site with my config and a index.html file in the public folder
+
+```js
+// next.config.mjs
+async rewrites() {
+  return [
+    {
+      source: '/',
+      destination: '/index.html'
+    }
+  ]
+}
+```
+
+> I'm able to create a single index.html file from a React project with gulp
+
+```js
+const gulp = require('gulp');
+const inlinesource = require('gulp-inline-source');
+const replace = require('gulp-replace');
+
+gulp.task('default', () => {
+  return gulp
+    .src('./build/*.html')
+    .pipe(replace('.js"></script>', '.js" inline></script>'))
+    .pipe(replace('rel="stylesheet">', 'rel="stylesheet" inline>'))
+    .pipe(
+      inlinesource({
+        compress: false,
+        ignore: ['png'],
+      })
+    )
+    .pipe(gulp.dest('./build'));
+});
+```
+
+## Performance
+Due to this whole site being server rendered it is super fast. Every test I could find online put this site very high (excluding the landing page which again is a different project and got a score of 74).
+
+<Img src="/posts/33/timing.png" size="lg" />
+
+> The accessibility score is helped from all the beneficial stuff that the shadcn/ui does for you out of the box
+<Img src="/posts/33/score.png" size="lg" />
+
+
+
+## For comparison
+
+Here is a lighthouse test on apple.com which somehow reported a FCP of 11 seconds, which seemed wrong because it took about 2 seconds when I tested in my browser. But it does show the massive bundle and images that websites normally use.
+
+> they had 2.6Mb in images, 1.2Mb in font for their landing page, 7Mb in total resource size
+<Img src="/posts/33/apple.png" size="lg" />
+
+
+Which if you know your website sizes, you shouldn't generally ever go over 2Mb in size (99% of websites don't have a good reason to be over 2Mb) unless you are doing something that justifies it. i.e. 3D graphics, video or other media heavy uses.
+
+My script asset was 108Kb compared to their 547Kb. With the total resource size being .9Mb compared to their 7.2Mb. They of couse have to carry around lots of quality control and tracking code which must be delivered to the client. As well as flashy video which requires large data. But regardless I am happy to have a passing score with the lighthouse test.
+
+I enjoy having the fast website here since I do cover my larger online projects and like to be able to show them quickly in person if needed. The speed at which I can pull up and see a page has definitely been improved on since the last version.
+
+# Review
+There is too much in Next.js 13+ and their app router to explain in a single post. If you are curious about it you can read the numerous pages they have put out in their [docs](https://nextjs.org/docs). It requires a lot of patience to learn all the things that have changed. Overall I find there to be a lot to work with here and the results speak for themselves.
+
+### Server actions
+
+I am still curious about server actions, which can be used with form submissions and data mutations. Most recently when I was fetching/submitting I used [SWR](https://swr.vercel.app) which allows you to handle errors and mutate the request when needed. I enjoyed using it but am interested to see where server actions takes the React community.
+
+### Bun
+I have also switched to using [Bun](https://bun.sh) instead of node/npm for my package management and as a runtime. It has been very, very fast and hasn't let me down yet.
+
+### Compared to old
+I redeployed my old website and the score on performance was the exact same. It seems there is no proof the new router had a benefit in my case. However, the migration from Bootstrap to shadcn/ui did improve accessibility scores significantly.
+
+# 🍍 Bonus picture
+
+> I've grown a Pineapple, it's just a baby though
+<Img src="/posts/33/pineapple.jpg" size="lg" />

@@ -1,13 +1,11 @@
 {
   "name": "codabool.com_app",
   "version": "0.1.0",
-  "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "rss": "node ./lib/rss.mjs",
+    "rss": "node ./lib/rss.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -24,13 +22,13 @@
     "react": "^18",
     "react-dom": "^18",
     "rehype-highlight": "^7.0.0",
-    "rss": "^1.2.2",
     "tailwind-highlightjs": "^2.0.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "postcss": "^8",
+    "rss": "^1.2.2",
     "tailwindcss": "^3.4.1"
   }
 }
