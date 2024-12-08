@@ -1,0 +1,153 @@
+---
+title: "My Selfhost RAID setup"
+description: "I have been selfhosting for a couple years now. I installed this onto a Fedora (headless) Server machine."
+publishedTime: "2024-12-08"
+cover: "/coverImg/selfhost.webp"
+tags: "linux, docker"
+id: 33
+---
+
+
+# Self-Host
+> I keep a repository with my current Docker self-host setup [here](https://github.com/codabool/docker-public)
+
+
+## Original Setup
+I originally started with a single raspberry pi. I expanded this into multiple Ubuntu raspberry pi's.
+I built out automation using bash scripts and cron jobs.
+Eventually I upgraded my PC, which required a new motherboard.
+At which point it usually makes more sense to buy several parts new and rebuilt.
+
+Initially I had a single 1TB drive and ran Kubuntu (Ubuntu with KDE for its Desktop Environment / DE).
+By this point I had begun to be pulled into the orbit of Docker.
+Docker as a software has slowly eaten up the market for how software should be distributed.
+This means that over time my repo installed and bash scripted software was replaced with docker containers.
+
+
+
+
+
+## Current Setup
+> I was able to get an excellent Intel CPU for this, a i9-10900K
+
+### Disks
+I now have installed 2 extra HHDs and began a RAID setup.
+This set me down the path of doing RAID 5. However, looking back I would have rather just bought one less HDD and done RAID 1.
+RAID 6 is a great solution as well but requires a 4 drive minimum.
+Another unfortunate thing about this is that my file system, btrfs, is unstable on RAID 5 when it comes to metadata. Supposedly leading to loss of the metadata, I haven't looked into if this issue is happening but regardless I would rather have RAID 1.
+Here were some commands I used to setup the RAID 5
+
+```sh
+# get drive names
+sudo fdisk -l
+sudo mkfs.btrfs -m raid5 -d raid5 /dev/sda /dev/sdb /dev/sdc
+sudo mkdir /hdd
+# get the UUID
+sudo blkid /dev/sda
+sudo mount -t btrfs /dev/sda /hdd
+# edit /etc/fstab to have a new btrfs line
+# UUID= /hdd btrfs rw,relatime,compress=zstd,seclabel,space_cache=v2,subvolid=5,subvol=/
+```
+
+
+After running a speed test I was getting a 5Gb/s write speed across 20Tb of usable space, I was plenty happy.
+
+<Img src="/posts/33/hdd.jpg" size="lg" />
+
+
+### OS
+I really enjoyed Ubuntu and would have been happy to continue using it.
+However, I tried Fedora on a personal device since I was attracted to its release schedule and its extensive enterprise sponsorships.
+I also enjoy the added depth of knowledge I gain for common cloud server distros.
+Amazon's AL2 is a fork of Fedora and is very popular.
+Lastly I used to use a GUI, but I challenged myself to install Fedora Server, which is headless.
+This means all actions must be taken from the CLI.
+
+
+# Bootstrap
+While most software is installed via Docker, I still have a few items I do manually.
+I installed `sshd` and opened the firewall.
+
+```sh
+firewall-cmd --add-port=22/tcp
+```
+I quickly found that Fedora Server seems to not expand the partition to the full disk size.
+This may have been due to me not checking a `Automatic` storage configuration. But I'm not sure what the actual cause was.
+I found a stackoverflow command which allowed me to expand the partition to take all the remaining disk space.
+Next I needed a static IP
+This was a bit of a pain in Fedora Server.
+It took a few hours to resolve but these were the commands to use a static IP
+
+```sh
+# find the network device using
+nmcli con show
+
+# use the device name to set the static IP and gateway
+sudo nmcli con mod enp2s0 IPv4.address 192.168.0.25/24
+sudo nmcli con mod enp2s0 IPv4.gateway 192.168.0.1
+sudo nmcli con mod enp2s0 IPv4.dns 8.8.8.8,8.8.4.4
+sudo nmcli con mod enp2s0 IPv4.method manual
+sudo nmcli con down enp2s0 && sudo nmcli con up enp2s0
+```
+
+This allows me to always expect my server to be assigned the IP `192.168.0.25`.
+I now had everything I needed done. All that was left was to unplug the monitor, reboot, and begin a secure shell...
+
+
+## A few more things
+I installed a proprietary Nvidia driver for my GPU from the RPM Fusion repository.
+Installed Docker and configured my fstab correctly.
+Lastly I wanted to not need to enter a password for `SSH` this means I needed to use `ssh-copy-id`
+
+> always verify that you are using the latest crypto algorithms
+```sh
+ssh-keygen -t ed25519 -C "contact@codabool.com"
+ssh-add ~/.ssh/id_ed25519
+ssh-copy-id -i ~/.ssh/id_ed25519.pub codabool@192.168.0.25
+```
+
+Now I can quickly `SSH` without entering password.
+
+> I do have a few crontab lines but they are simple and not all that interesting
+
+
+# Docker
+
+> All of the remaining software is Docker and is pushed [here](https://github.com/codabool/docker-public)
+
+I am using a folder structure where each folder is a service.
+This only assumes that there exists a /hdd with a few folders.
+
+
+- microbin (a pastebin)
+- factorio (game server)
+- minecraft (game server)
+- valheim (game server)
+- flaresolverr (solves torrent captchas)
+- foundry (VTT RPG)
+- immich (Google Photos alternative)
+- jellyfin (media server)
+- plex (media server)
+- paperless (document manager)
+- prowlarr (indexer)
+- radarr (movie torrent)
+- sonarr (TV torrent)
+- qbittorrent & VPN (torrent client)
+- cloudflare tunnel (provides public access to my server without exposing ports)
+- watchtower (updates all containers)
+- uptime kuma (emails me if containers go down)
+- syncthing (syncs my obsidian notes)
+- miniflux (rss)
+- reddit-top-rss (reddit -> rss feed)
+
+I have not gone for a K8 solution I don't find it necessary.
+I also target latest for all of these services, this leads to breaks every few months but I am fine with this instability.
+Since I am alerted within a few minutes by email when a service goes down (thanks to Uptime Kuma).
+There are several older folders of services such as `adgaurd`, `borg`, `mealie`, `vaultwarden`, but I have since stopped these and am not running them.
+
+I am able to use Cloudflare Tunnels to secure anything which I want to have public internet access to.
+This can block requests unless they acquire a token with an email code entry.
+This only works under the HTTP protocol (except for SSH connections which can be done in browser with Cloudflare's Zero Trust) so game server traffic unfortunately cannot be secured this way.
+For the game servers I just run the latest code and port forward those services.
+
+This covers my current setup. There is plenty of configuration I do in these services but there is not a ton of interesting info about how I perform those changes.

@@ -24,7 +24,7 @@ export default function Blog(props) {
             <Link href={`/blog/${blog.slug}`} key={blog.slug} className="">
               <CardHeader className="">
                 <CardTitle className="">{blog.metadata.title}</CardTitle>
-                <CardDescription >&emsp;{blog.metadata.description} {blog.slug < blogs.length - 3 ? "lazy": "prio"}</CardDescription>
+                <CardDescription >&emsp;{blog.metadata.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 {/* give priority loading to the top 4 */}
