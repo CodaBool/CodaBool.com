@@ -20,7 +20,7 @@ export default function BlogNav({ current }) {
           </PaginationItem>
         }
         <PaginationItem>
-          <PaginationLink href="/blog"><Home size={28} style={{top: '-3px', position: 'relative'}} /></PaginationLink>
+          <PaginationLink href="/blog"><Home size={28} style={{ top: '-3px', position: 'relative' }} /></PaginationLink>
         </PaginationItem>
         {current < numberOfPosts &&
           <PaginationItem>

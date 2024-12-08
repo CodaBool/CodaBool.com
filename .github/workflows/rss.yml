@@ -1,0 +1,16 @@
+permissions:
+  contents: write
+on: push
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: |
+          bun i
+          bun rss
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update RSS

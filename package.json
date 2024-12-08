@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "rss": "node ./lib/rss.mjs",
     "lint": "next lint"
   },
   "dependencies": {
