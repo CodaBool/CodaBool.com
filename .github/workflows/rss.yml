@@ -11,6 +11,6 @@ jobs:
       - run: |
           bun i
           bun rss
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Update RSS
+      # - uses: stefanzweifel/git-auto-commit-action@v5
+      #   with:
+      #     commit_message: Update RSS
