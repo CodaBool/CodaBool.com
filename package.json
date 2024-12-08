@@ -1,11 +1,12 @@
 {
   "name": "codabool.com_app",
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "rss": "node ./lib/rss.js",
+    "rss": "node ./lib/rss.mjs",
     "lint": "next lint"
   },
   "dependencies": {

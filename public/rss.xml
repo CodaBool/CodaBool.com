@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[test]]></title>
+        <description><![CDATA[test]]></description>
+        <link>http://github.com/dylang/node-rss</link>
+        <image>
+            <url>https://raw.githubusercontent.com/CodaBool/CodaBool.com/main/app/icon.jpg</url>
+            <title>test</title>
+            <link></link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Sun, 08 Dec 2024 22:56:24 GMT</lastBuildDate>
+        <atom:link href="https://codabool.com/rss" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[My Selfhost RAID setup]]></title>
+            <link>https://codabool.com/blog/34</link>
+            <guid isPermaLink="false">34</guid>
+            <category><![CDATA[linux]]></category>
+            <category><![CDATA[docker]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sun, 08 Dec 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trying out Next.js v14, my impressions]]></title>
+            <link>https://codabool.com/blog/33</link>
+            <guid isPermaLink="false">33</guid>
+            <category><![CDATA[webdev]]></category>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sun, 28 Apr 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Using Linux as a daily driver]]></title>
+            <link>https://codabool.com/blog/32</link>
+            <guid isPermaLink="false">32</guid>
+            <category><![CDATA[linux]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Wed, 17 Apr 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Finding RDS End of Life Data from AWS (My first FOSS contribution)]]></title>
+            <link>https://codabool.com/blog/31</link>
+            <guid isPermaLink="false">31</guid>
+            <category><![CDATA[FOSS]]></category>
+            <category><![CDATA[AWS]]></category>
+            <category><![CDATA[RDS]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 13 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Creating a Websocket VPS]]></title>
+            <link>https://codabool.com/blog/30</link>
+            <guid isPermaLink="false">30</guid>
+            <category><![CDATA[three.js]]></category>
+            <category><![CDATA[vite]]></category>
+            <category><![CDATA[tampadev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Wed, 12 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[TampaDevs event page fly through]]></title>
+            <link>https://codabool.com/blog/29</link>
+            <guid isPermaLink="false">29</guid>
+            <category><![CDATA[threejs]]></category>
+            <category><![CDATA[vite]]></category>
+            <category><![CDATA[tampadev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Tue, 11 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Multiplayer browser card game]]></title>
+            <link>https://codabool.com/blog/28</link>
+            <guid isPermaLink="false">28</guid>
+            <category><![CDATA[socket.io]]></category>
+            <category><![CDATA[next.js]]></category>
+            <category><![CDATA[three.js]]></category>
+            <category><![CDATA[fiber]]></category>
+            <category><![CDATA[rapier]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Update: Improvements to Lambda into Discord web scraper]]></title>
+            <link>https://codabool.com/blog/27</link>
+            <guid isPermaLink="false">27</guid>
+            <category><![CDATA[update]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Tue, 20 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Final for Data Analytics and Security class]]></title>
+            <link>https://codabool.com/blog/26</link>
+            <guid isPermaLink="false">26</guid>
+            <category><![CDATA[react]]></category>
+            <category><![CDATA[bootstrap]]></category>
+            <category><![CDATA[three.js]]></category>
+            <category><![CDATA[fiber]]></category>
+            <category><![CDATA[react router]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 10 Nov 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[TadHack 2022]]></title>
+            <link>https://codabool.com/blog/25</link>
+            <guid isPermaLink="false">25</guid>
+            <category><![CDATA[react]]></category>
+            <category><![CDATA[bootstrap]]></category>
+            <category><![CDATA[three.js]]></category>
+            <category><![CDATA[fiber]]></category>
+            <category><![CDATA[react router]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 10 Oct 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to Health Informatics]]></title>
+            <link>https://codabool.com/blog/24</link>
+            <guid isPermaLink="false">24</guid>
+            <category><![CDATA[chart.js]]></category>
+            <category><![CDATA[next-auth]]></category>
+            <category><![CDATA[prisma]]></category>
+            <category><![CDATA[postgresql]]></category>
+            <category><![CDATA[nextjs]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Tue, 10 May 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[DevOps Talk for TampaDevs]]></title>
+            <link>https://codabool.com/blog/23</link>
+            <guid isPermaLink="false">23</guid>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 07 Apr 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Admitted to Georgia Tech Online]]></title>
+            <link>https://codabool.com/blog/22</link>
+            <guid isPermaLink="false">22</guid>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sat, 04 Dec 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Newly hired at Oddball]]></title>
+            <link>https://codabool.com/blog/21</link>
+            <guid isPermaLink="false">21</guid>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 25 Nov 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Three.js Spinner]]></title>
+            <link>https://codabool.com/blog/20</link>
+            <guid isPermaLink="false">20</guid>
+            <category><![CDATA[Three.js]]></category>
+            <category><![CDATA[React]]></category>
+            <category><![CDATA[Blender]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sat, 20 Nov 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[TadHack-athon]]></title>
+            <link>https://codabool.com/blog/19</link>
+            <guid isPermaLink="false">19</guid>
+            <category><![CDATA[Nest.js]]></category>
+            <category><![CDATA[React]]></category>
+            <category><![CDATA[sockets]]></category>
+            <category><![CDATA[MongoDB]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Fri, 05 Nov 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[A Group Financial Tracker]]></title>
+            <link>https://codabool.com/blog/18</link>
+            <guid isPermaLink="false">18</guid>
+            <category><![CDATA[chart.js next-auth MongoDB]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 26 Jul 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Web Scraper]]></title>
+            <link>https://codabool.com/blog/17</link>
+            <guid isPermaLink="false">17</guid>
+            <category><![CDATA[Lambda]]></category>
+            <category><![CDATA[Node.js]]></category>
+            <category><![CDATA[Serverless]]></category>
+            <category><![CDATA[Discord.js]]></category>
+            <category><![CDATA[Web Scrape]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sat, 26 Jun 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Newly hired at Leidos]]></title>
+            <link>https://codabool.com/blog/16</link>
+            <guid isPermaLink="false">16</guid>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 29 Mar 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Type Racing Game]]></title>
+            <link>https://codabool.com/blog/15</link>
+            <guid isPermaLink="false">15</guid>
+            <category><![CDATA[React]]></category>
+            <category><![CDATA[Socket.io]]></category>
+            <category><![CDATA[MongoDB]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Fri, 26 Feb 2021 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ellucian Search Engine]]></title>
+            <link>https://codabool.com/blog/14</link>
+            <guid isPermaLink="false">14</guid>
+            <category><![CDATA[React]]></category>
+            <category><![CDATA[ElasticSearch]]></category>
+            <category><![CDATA[Python]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sat, 26 Dec 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Senior Semester Final, E-commerce Site]]></title>
+            <link>https://codabool.com/blog/13</link>
+            <guid isPermaLink="false">13</guid>
+            <category><![CDATA[postgresql]]></category>
+            <category><![CDATA[express]]></category>
+            <category><![CDATA[next.js]]></category>
+            <category><![CDATA[heroku]]></category>
+            <category><![CDATA[stripe]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sun, 15 Nov 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Senior Project Trafficking Spotters]]></title>
+            <link>https://codabool.com/blog/12</link>
+            <guid isPermaLink="false">12</guid>
+            <category><![CDATA[express]]></category>
+            <category><![CDATA[next.js]]></category>
+            <category><![CDATA[heroku]]></category>
+            <category><![CDATA[mongodb]]></category>
+            <category><![CDATA[AWS]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 15 Oct 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[eCRM Dashboard]]></title>
+            <link>https://codabool.com/blog/11</link>
+            <guid isPermaLink="false">11</guid>
+            <category><![CDATA[react]]></category>
+            <category><![CDATA[webdev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 10 Sep 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Creating the Landing Page]]></title>
+            <link>https://codabool.com/blog/10</link>
+            <guid isPermaLink="false">10</guid>
+            <category><![CDATA[webdev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Tue, 08 Sep 2020 04:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ellucian Cloud Internship Extension]]></title>
+            <link>https://codabool.com/blog/9</link>
+            <guid isPermaLink="false">9</guid>
+            <category><![CDATA[webdev]]></category>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 07 Sep 2020 04:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Creation of this Blog]]></title>
+            <link>https://codabool.com/blog/8</link>
+            <guid isPermaLink="false">8</guid>
+            <category><![CDATA[webdev]]></category>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 22 Jun 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ellucian DevOps Internship Details]]></title>
+            <link>https://codabool.com/blog/7</link>
+            <guid isPermaLink="false">7</guid>
+            <category><![CDATA[devops]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 18 May 2020 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Asteroid BattleGrounds: Game Jam Orlando]]></title>
+            <link>https://codabool.com/blog/6</link>
+            <guid isPermaLink="false">6</guid>
+            <category><![CDATA[personal]]></category>
+            <category><![CDATA[gamedev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Fri, 27 Sep 2019 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ellucian Help Desk Technician]]></title>
+            <link>https://codabool.com/blog/5</link>
+            <guid isPermaLink="false">5</guid>
+            <category><![CDATA[personal]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 17 Jun 2019 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Tech Support Shop]]></title>
+            <link>https://codabool.com/blog/4</link>
+            <guid isPermaLink="false">4</guid>
+            <category><![CDATA[webdev]]></category>
+            <category><![CDATA[javascript]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sun, 14 Apr 2019 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Django Social Blog]]></title>
+            <link>https://codabool.com/blog/3</link>
+            <guid isPermaLink="false">3</guid>
+            <category><![CDATA[django]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Thu, 14 Feb 2019 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Django Personal Blog]]></title>
+            <link>https://codabool.com/blog/2</link>
+            <guid isPermaLink="false">2</guid>
+            <category><![CDATA[django]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Fri, 14 Dec 2018 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Photography Website]]></title>
+            <link>https://codabool.com/blog/1</link>
+            <guid isPermaLink="false">1</guid>
+            <category><![CDATA[webdev]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Sat, 14 Mar 2015 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
