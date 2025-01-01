@@ -9,8 +9,21 @@
             <link></link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sun, 08 Dec 2024 22:56:24 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 01 Jan 2025 22:07:04 GMT</lastBuildDate>
         <atom:link href="https://codabool.com/rss" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Bootc]]></title>
+            <link>https://codabool.com/blog/35</link>
+            <guid isPermaLink="false">35</guid>
+            <category><![CDATA[fedora]]></category>
+            <category><![CDATA[linux]]></category>
+            <category><![CDATA[bootc]]></category>
+            <category><![CDATA[docker]]></category>
+            <category><![CDATA[containers]]></category>
+            <category><![CDATA[podman]]></category>
+            <dc:creator><![CDATA[CodaBool]]></dc:creator>
+            <pubDate>Mon, 09 Dec 2024 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[My Selfhost RAID setup]]></title>
             <link>https://codabool.com/blog/34</link>

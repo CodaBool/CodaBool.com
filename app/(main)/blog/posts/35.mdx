@@ -1,0 +1,282 @@
+---
+title: "Bootc & Podman"
+description: "Bootable containers are a new concept and an attempt to use some of the discoveries of app based containerization over to the OS as well."
+publishedTime: "2024-12-09"
+cover: "/coverImg/bootc_fedora.webp"
+tags: "fedora, linux, bootc, docker, containers, podman"
+id: 35
+---
+
+# Bootable Containers
+> my podman & bootc code is checked in [here](https://github.com/CodaBool/podman)
+
+The [bootc project](https://github.com/containers/bootc/blob/main/MAINTAINERS.md) ([docs](https://containers.github.io/bootc)) has been working to create bootable containers.
+While the immediate use was not clear to me I still had enough curiosity to try it out.
+Here is my current understanding of why bootable containers are worthwhile.
+
+- the Docker container model of __layers__ works well and can be applied to an OS as well
+- existing Docker tools for code scans, validation and signing can also apply to the OS
+- better security and reliability since all directories except for `/etc` and `/var` are mounted read only
+- system can self-update when a new image is detected in the remote registry
+- system can automatically roll back when there is an issue with the new image
+- the pre-build remote registry becomes a better source of truth (however, there are still significant deploy time configuration which we will get into)
+- easy factory resets
+
+The main projects which are moving tech forward in a stateless/immutable OS space are [NixOS](https://nixos.org) and [CoreOS](https://fedoraproject.org/coreos).
+I see the value in explicit configuration checked in and defined at build time.
+
+
+There is a phrase that has popped up a few times for this, __move left__.
+This means catching as many potential issues before runtime as possible.
+
+
+# Podman
+```
+         .--"--.
+       / -     - \
+      / (O)   (O) \
+   ~~~| -=(,Y,)=- |
+    .---. /`  \   |~~
+ ~/  o  o \~~~~.----. ~~
+  | =(X)= |~  / (O (O) \
+   ~~~~~~~  ~| =(Y_)=-  |
+  ~~~~    ~~~|   U      |~~
+```
+
+The other new technology I decided to try at the same time was __podman__.
+Podman is a Docker alternative and has better performance and security.
+Unfortunately, its developer experience is nowhere near as good as Docker (notably a lack of docker-compose drop in support 😮‍💨).
+However, now that I have learned it, I'm glad I did.
+
+Here is what I __love__ about Podman:
+
+- creating a `.container` file (or any of the [resource type files](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)) in `/.config/containers/systemd` will automatically create and run a systemd service for it. This is an incredible idea!
+- unlike Docker, podman does __not__ run on a daemon with escalated privileges. There are numerous bad security effects Docker suffers from this design. Podman fixes this and correctly puts the process back into user space. This also means Podman is more performant, especially in startup times, due to its daemonless design
+- automatic update feature built in
+- automatic roll back support
+- very high compatibility with Docker commands and tools
+
+Here is what I did __not__ like about podman:
+
+- no compose support working out of the box! I don't know if the project maintainers understand how common docker compose is used for development. I hope this changes (yes I know it's possible to get compose features with some extra work)
+- the common commands are too long. If you change a `.container` file you will need to run the top three commands to restart and see logs
+  - systemctl --user daemon-reload
+  - systemctl --user restart containerNameHere
+  - journalctl --user -u containerNameHere -f
+  - /usr/libexec/podman/quadlet --user --dryrun (validates the resource files)
+- the extra security has downsides compared to docker's high ease of use
+  - Volume mounts require a `:z` or `:Z` at the end. I would prefer if the `:Z` behavior was by default
+  - some additional security labels are needed and it's not clear which or why at times. I often would just resort to `PodmanArgs=--privileged` to get something to work
+  - it's not easy enough to run containers without the user logged in. I understand why this is not the default but it should be easier than running the command `loginctl enable-linger $USER` as well as a line `WantedBy=default.target` in the `.container`
+- other nitpicks/friction:
+  - short names behave different. Meaning you can't use `image: cloudflare/cloudflared` but instead must use `Image=docker.io/cloudflare/cloudflared` (this behavior can be sorted with a config)
+  - need to define `TimeoutStartSec=900` on all containers
+  - cumbersome to manage dependent containers. You will get blocked from doing what you want at times
+  - need to resort to kubernetes to keep multiple containers in one file
+  - volume mounts will fail if the directory does not exist on the host (docker by default creates the folder if it does not exist)
+
+### An Example `.container` file
+```toml
+[Container]
+ContainerName=factorio
+
+# notice the longname is being used
+Image=docker.io/factoriotools/factorio:stable
+
+# environment variables passed to the container
+Environment=GENERATE_NEW_SAVE=true
+Environment=SAVE_NAME=pierce_the_heavens
+Environment=LOAD_LATEST_SAVE=false
+
+# read a secret .env file
+EnvironmentFile=/mnt/volumes/.factorio.env
+
+# mount a volume
+# the :Z tells podman to label files as "private unshared"
+# meaning no containers outside the pod can read or write
+Volume=/mnt/volumes/factorio:/factorio:Z
+
+PublishPort=34197:34197/udp
+PublishPort=27015:27015/tcp
+
+# allow the container to auto update when podman-auto-update.timer runs
+AutoUpdate=registry
+
+[Service]
+
+# allow extra time for a new image to download
+TimeoutStartSec=900
+Restart=always
+
+[Install]
+
+# automatic startup if linger is enabled
+WantedBy=default.target
+```
+
+I used a go CLI called [podlet](https://github.com/containers/podlet) to convert my [previous Docker compose files](https://github.com/codabool/docker-public) to `.container` files and I'd recommend it
+
+So assuming you have created the folder for the volume mount, enabled linger, and enabled the update timer.
+Placing the above file under `~/.config/containers/systemd/factorio.container` and running `systemctl --user daemon-reload && systemctl --user start factorio` is all you need. The update timer by default will check daily for a new image and can perform an upgrade with automatic rollback. Since linger and `WantedBy=default.target` are defined the container will start on boot and does not require the user to be logged in.
+
+> want to see other examples? I have all my podman files checked in [here](https://github.com/CodaBool/podman)
+
+# Combining bootc and podman
+> I spend a week of free time bringing these two technologies to my self-host server
+
+Let's put the two together. The goal is this:
+
+### setup my entire self-host server from a single ISO without any manual intervention.
+
+> WARN: There were a lot of deadends involved and ultimately I would not recommend anyone attempt this. Especially since the value isn't obvious to me still
+
+Here is where I define what packages to install on my server. Yes, its just `git` (podman, AMD GPU drivers come preinstalled on Fedora)
+
+```Dockerfile
+FROM quay.io/fedora/fedora-bootc:41
+RUN dnf update -y && dnf install -y git && dnf clean all
+```
+
+The other half of is done by the [Anaconda installer](https://anaconda-installer.readthedocs.io/en/latest/intro.html) and a [kickstart](https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html) file. Which can automate the following installation steps:
+- users & groups
+- ssh key
+- partitioning
+- bootloader
+- network
+- mounts
+- enable systemd services
+- set hostname
+- write the `.container` files
+
+```yml
+# kickstart file
+text --non-interactive
+lang en_US.UTF-8
+keyboard us
+timezone --utc America/New_York
+
+# prevent data loss, restrict to one SSD
+# use `ls -l /dev/disk/by-id` to find a drive's ID
+ignoredisk --only-use=/dev/disk/by-id/nvme-Sabrent_Rocket_Q_CD8E07031F9E02553696
+
+# use `mkpasswd -m yescrypt` to hash a password
+rootpw $y$j9T$TLmZI4s0kzyHp5I29M1Mn0$aZqMs5x6tnuWCQGw3aDG1IPx5dMHUgEboSItwdkbXk1 --iscrypted
+user --name=codabool --password=$y$j9T$TLmZI4s0kzyHp5I29M1Mn0$aZqMs5x6tnuWCQGw3aDG1IPx5dMHUgEboSItwdkbXk1 --groups wheel --iscrypted
+
+# add a public ssh key
+# initial generation can be done with
+# ssh-keygen -C "codabool@pm.me"
+sshkey --username=codabool "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMfUsfu77V5hCYDnZT/nNc0FH++NfbFrMPMLA5vd3voT codabool@pm.me"
+
+# dangerously wipe drive, use with care
+zerombr
+clearpart --all --initlabel
+autopart --noswap
+
+# set a static IP
+# use the mac address from `ip a`
+network --bootproto=static --device=2c:f0:5d:92:b3:51 --ip=192.168.0.25 --gateway=192.168.0.1 --nameserver=192.168.0.1 --netmask=255.255.255.0 --activate --onboot=yes
+
+# perform actions as chroot
+# package installation should be done in the Dockerfile
+%post
+
+# write mount entry
+# use `sudo fdisk -l` to get partition UUID
+echo "UUID=9ad9e322-be33-4f0c-8c7b-eb5a5fb6bb3b /mnt ext4 defaults 0 0" >> /etc/fstab
+
+# setup podman
+mkdir -p /home/codabool/.config/containers/systemd
+cd /home/codabool/.config/containers/systemd
+git clone https://github.com/codabool/podman .
+chown -R 1000:1000 /home/codabool/.config
+
+# enable linger, which allows services to start before login
+# `loginctl enable-linger codabool` did not work for me
+mkdir -p /var/lib/systemd/linger
+touch /var/lib/systemd/linger/codabool
+
+# daily updates to containers with AutoUpdate=registry
+# this should be done for rootless and root (rootless happens later)
+systemctl enable podman-auto-update.timer
+
+# Symlink the socket unit from system's user-unit dir to default.target.wants
+# which will effectively enable the service
+# `systemctl --user -M codabool@ enable --now podman.socket` did not work for me
+mkdir -p /home/codabool/.config/systemd/user/default.target.wants
+chmod 0755 /home/codabool/.config/systemd/user
+ln -sf /usr/lib/systemd/user/podman.socket /home/codabool/.config/systemd/user/default.target.wants/podman.socket
+ln -sf /usr/lib/systemd/user/podman-auto-update.timer /home/codabool/.config/systemd/user/default.target.wants/podman-auto-update.timer
+
+# give the machine a name manually
+# `hostnamectl set-hostname` does not work for me
+echo "mom" > /etc/hostname
+
+%end
+reboot
+```
+
+I used the [bootc image builder](https://github.com/osbuild/bootc-image-builder) to combine the image with the kickstart script (under config.toml here) to create an iso file. 
+
+```sh
+# this skips my podman build and push commands for `ghcr.io/codabool/fedora-bootc`
+sudo podman run \
+  --rm \
+  -it \
+  --privileged \
+  --security-opt label=type:unconfined_t \
+  -v ./output:/output \
+  -v /var/lib/containers/storage:/var/lib/containers/storage \
+  -v ./config.toml:/config.toml \
+  quay.io/centos-bootc/bootc-image-builder \
+  --rootfs btrfs \
+  --type anaconda-iso \
+  --local \
+  ghcr.io/codabool/fedora-bootc:latest
+```
+
+I write the ISO to a USB boot on it from the server. This fully configures my server automatically and clones down my `.container` files.
+
+It writes an entry to `/etc/fstab` which mounts my previously configured RAID 1 array to the filesystem. Which is where all .env secrets and persistent volumes are located.
+
+I was able to get hardware acceleration working for the media services due to built in AMD drivers on Fedora. 
+
+
+# Conclusion
+I still have questions about what if the benefits of bootc are worth the drawbacks. I know that the OS can perform automatic updates if the upstream changes. So, I believe that means if I push to ghcr.io/codabool/fedora-bootc the OS will do an upgrade with automatic rollback. However, since the vast majority of actions took place on the bootstrap install/deployment step (Anaconda + kickstart). I'm left questioning the usefulness of using a bootable container.
+
+I guess if my Containerfile was more than just two lines I would see more benefit. But to be fair, automatic OS updates (assuming I set up that automation of checking upstream Fedora for changes and pushing to my github registry) is nothing to scoff at.
+
+I'll stay tuned to the bootc project as well as NixOS and CoreOS to see how those projects develop. As well as what the claimed benefits are. For now I'm happy to learn of Podman and implement it on my server.
+
+# Workarounds
+> The road was bumpy, did I mention I worked on this for 5 days, here were the biggest potholes
+
+## Alma/Rocky/RHEL
+I attempted with Alma linux first but had trouble building the image. I tried both Rocky and RHEL but they ignored the Anaconda and kickstart steps for some reason. I ultimately just stuck with Fedora. Alma linux would be ideal since it has a long support cycle and better security than Fedora (would require firewall-cmd lines too) but I just couldn't get it to work.
+
+## Systemd and /etc
+The `/etc` directory is a mess, there are too many cooks in the kitchen. Bootc explains that OSTree performs a __3-way merge__ of /etc. It seems that attempting to perform user systemd actions will not work. This is tricky because podman is a user driver process with heavy systemd integration. What this means is that I had to perform the underlying file system action manually.
+
+> enable linger
+
+instead of running `loginctl enable-linger codabool` I needed to create a `/var/lib/systemd/linger/codabool` file
+
+> enable update timer
+
+you want both the root and rootless timer enabled. I found out from the CoreOS docs that as a substitute for `systemctl --user enable your.service` you can instead create symlinks like this
+
+```sh
+ln -sf /usr/lib/systemd/user/podman-auto-update.timer /home/codabool/.config/systemd/user/default.target.wants/podman-auto-update.timer
+```
+
+I needed to do the same for exposing the podman.socket, which the Kuma Uptime service reads under the path `/run/user/1000/podman/podman.sock`
+
+
+> hostname
+
+running hostnamectl will not work so I had to instead manually write the hostname under `/etc/hostname`
+
+
+## NVIDIA drivers
+I was able to add the free and nonfree RPM Fusion repos. However, there were some issues I saw for starting services that NVIDIA depends on (akmod maybe). I just decided to go nuclear and buy a (RX 7600) AMD GPU. Which allowed me to get those sweet built in drivers and better linux support. This worked flawlessly. My Jellyfin and Plex services can use hardware acceleration from a bootable container out of the box.

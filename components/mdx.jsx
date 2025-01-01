@@ -19,6 +19,14 @@ import yaml from 'highlight.js/lib/languages/yaml'
 import go from 'highlight.js/lib/languages/go'
 import json from 'highlight.js/lib/languages/json'
 import nginx from 'highlight.js/lib/languages/nginx'
+import diff from 'highlight.js/lib/languages/diff'
+import makefile from 'highlight.js/lib/languages/makefile'
+import vim from 'highlight.js/lib/languages/vim'
+import sql from 'highlight.js/lib/languages/sql'
+import rust from 'highlight.js/lib/languages/rust'
+import r from 'highlight.js/lib/languages/r'
+
+
 import 'highlight.js/styles/atom-one-dark.css'
 
 const languages = {
@@ -32,6 +40,12 @@ const languages = {
   go,
   json,
   nginx,
+  makefile,
+  diff,
+  vim,
+  sql,
+  rust,
+  r,
   ini, // includes toml
 }
 

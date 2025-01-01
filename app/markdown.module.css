@@ -739,6 +739,8 @@
 .markdown ul ul {
   margin-top: 0;
   margin-bottom: 0;
+  font-size: 1em;
+  opacity: 0.9;
 }
 
 .markdown li {
