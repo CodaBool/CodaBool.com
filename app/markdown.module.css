@@ -1051,10 +1051,13 @@
 }
 
 @media (max-width: 767px) {
-  .markdown h1,
+  .markdown h1 {
+    font-weight: 600;
+    font-size: 2.8em;
+  }
   .markdown h2 {
     font-weight: 500;
-    font-size: 2.5em;
+    font-size: 2.2em;
   }
   .markdown p {
     font-size: 1.3rem;
@@ -1063,7 +1066,6 @@
     font-size: 1.2rem;
     padding-left: 0.75rem;
   }
-
   .markdown blockquote {
     padding: 0 6px;
   }
