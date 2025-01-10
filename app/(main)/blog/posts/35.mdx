@@ -216,7 +216,7 @@ echo "mom" > /etc/hostname
 reboot
 ```
 
-I used the [bootc image builder](https://github.com/osbuild/bootc-image-builder) to combine the image with the kickstart script (under config.toml here) to create an iso file. 
+I used the [bootc image builder](https://github.com/osbuild/bootc-image-builder) to combine the image with the kickstart script (under config.toml here) to create an iso file.
 
 ```sh
 # this skips my podman build and push commands for `ghcr.io/codabool/fedora-bootc`
@@ -239,7 +239,7 @@ I write the ISO to a USB boot on it from the server. This fully configures my se
 
 It writes an entry to `/etc/fstab` which mounts my previously configured RAID 1 array to the filesystem. Which is where all .env secrets and persistent volumes are located.
 
-I was able to get hardware acceleration working for the media services due to built in AMD drivers on Fedora. 
+I was able to get hardware acceleration working for the media services due to built in AMD drivers on Fedora.
 
 
 # Conclusion
@@ -248,6 +248,28 @@ I still have questions about what if the benefits of bootc are worth the drawbac
 I guess if my Containerfile was more than just two lines I would see more benefit. But to be fair, automatic OS updates (assuming I set up that automation of checking upstream Fedora for changes and pushing to my github registry) is nothing to scoff at.
 
 I'll stay tuned to the bootc project as well as NixOS and CoreOS to see how those projects develop. As well as what the claimed benefits are. For now I'm happy to learn of Podman and implement it on my server.
+
+# Update Early 2025
+I read more of the Bootc documentation and understand more of its update lifecycle.
+This helped me realize another piece was needed, automatic Image builds.
+I have written a GitHub workflow which will check the upstream image of `fedora-bootc` compare it with my image.
+Then if there is a difference it will build and push a new image.
+
+
+For a little more detail on that process, I'm using a Image called `imagetools` to get the distro version of both the upstream and my image.
+Then I login to GitHub container registry and push the newly build image.
+
+From that point the bootc auto update timer will trigger the update feature of the bootable container.
+This update service runs these three commands:
+
+```sh
+bootc upgrade --check
+bootc upgrade
+bootc upgrade --apply
+```
+
+This will cause the server to restart and boot into the new image.
+If there is an issue the server will rollback to the previous image.
 
 # Workarounds
 > The road was bumpy, did I mention I worked on this for 5 days, here were the biggest potholes
