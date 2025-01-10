@@ -9,7 +9,7 @@
             <link></link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 10 Jan 2025 04:14:40 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 10 Jan 2025 04:16:18 GMT</lastBuildDate>
         <atom:link href="https://codabool.com/rss" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Bootc & Podman]]></title>
@@ -268,7 +268,7 @@
             <guid isPermaLink="false">10</guid>
             <category><![CDATA[webdev]]></category>
             <dc:creator><![CDATA[CodaBool]]></dc:creator>
-            <pubDate>Tue, 08 Sep 2020 04:00:00 GMT</pubDate>
+            <pubDate>Tue, 08 Sep 2020 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Ellucian Cloud Internship Extension]]></title>
@@ -277,7 +277,7 @@
             <category><![CDATA[webdev]]></category>
             <category><![CDATA[personal]]></category>
             <dc:creator><![CDATA[CodaBool]]></dc:creator>
-            <pubDate>Mon, 07 Sep 2020 04:00:00 GMT</pubDate>
+            <pubDate>Mon, 07 Sep 2020 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Creation of this Blog]]></title>
