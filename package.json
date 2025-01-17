@@ -1,6 +1,5 @@
 {
-  "name": "codabool.com_app",
-  "version": "0.1.0",
+  "name": "codabool.com",
   "type": "module",
   "scripts": {
     "dev": "next dev",
@@ -10,26 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.2.3",
-    "@radix-ui/react-slot": "^1.0.2",
-    "class-variance-authority": "^0.7.0",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.1.5",
+    "@radix-ui/react-slot": "^1.1.1",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "highlight.js": "^11.9.0",
-    "lucide-react": "^0.373.0",
-    "next": "14.2.3",
-    "next-mdx-remote": "^4.4.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "rehype-highlight": "^7.0.0",
+    "highlight.js": "^11.11.1",
+    "lucide-react": "^0.473.0",
+    "next": "15.1.5",
+    "next-mdx-remote": "^5.0.0",
+    "react": "^19",
+    "react-dom": "^19",
+    "rehype-highlight": "^7.0.1",
     "tailwind-highlightjs": "^2.0.1",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "postcss": "^8",
     "rss": "^1.2.2",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.17"
   }
 }
