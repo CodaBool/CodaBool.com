@@ -8,16 +8,19 @@ import {
   CardFooter,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import NewsLetter from "@/components/ui/newsletter"
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from '@/app/(main)/blog/util'
 
-export default function Blog(props) {
+export default async function Blog({ searchParams }) {
   const blogs = getBlogPosts(true)
+  const param = await searchParams
 
   return (
     <div className="mx-auto my-3 md:container">
       <h1 className="m-4 text-6xl font-light">Blog 📝</h1>
-      <hr />
+      <NewsLetter param={param} />
+      {/* <hr /> */}
       <div className="flex flex-wrap justify-center mt-5">
         {blogs.map(blog => (
           <Card className="w-full mb-4 md:m-4 lg:w-[47%] mr-1" key={blog.slug}>

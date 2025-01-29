@@ -4,7 +4,7 @@ export default function Contact() {
       <div className="my-10">
         <h1 className="text-6xl">Email. ✉️</h1>
         <h2 className="text-2xl">Business email</h2>
-        <h2 className="text-2xl"><a href="mailto:contact@codabool.com" className="text-blue-500 hover:underline">contact@codabool.com</a></h2>
+        <h2 className="text-2xl"><a href="mailto:proxy.htrwd@passmail.com" className="text-blue-500 hover:underline">proxy.htrwd@passmail.com</a></h2>
       </div>
       <div className="my-10">
         <h1 className="text-5xl">Connect. 🐦</h1>

@@ -11,9 +11,9 @@ export default function Footer() {
           <p className="mt-2 text-sm text-center text-gray-600">
             DevOps Engineer and Full-stack Dev. I run this as a personal blog and hub for my projects.
           </p>
-          <Link href="mailto:contact@codabool.com" className="text-blue-500 hover:underline">
+          <Link href="mailto:proxy.htrwd@passmail.com" className="text-blue-500 hover:underline">
             <p className="text-center">
-              contact@codabool.com
+              proxy.htrwd@passmail.com
             </p>
           </Link>
         </div>

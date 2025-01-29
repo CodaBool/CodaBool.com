@@ -45,7 +45,7 @@ export default function Module() {
       </div>
       <h4 className="mb-3 text-center text-gray-400">Enjoy your new module ❤️</h4>
 
-      <h4 style={{ marginBottom: "10em" }}>If you run into any issues you can <a href="mailto:contact@codabool.com">email me</a> or message me on Discord at <span className="text-blue-400">codabool</span></h4>
+      <h4 style={{ marginBottom: "10em" }}>If you run into any issues you can <a href="mailto:proxy.htrwd@passmail.com">email me</a> or message me on Discord at <span className="text-blue-400">codabool</span></h4>
     </div>
   )
 }
