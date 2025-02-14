@@ -98,24 +98,25 @@ export default async function Blog({ params }) {
           sizes="100vw"
         />
       </div>
-      <div className="flex mt-5 mb-6 ms-7">
-        <div>
-          <Image
-            src='/codabool.jpg'
-            alt='CodaBool'
-            className="rounded-full shadow-full"
-            width={100}
-            height={100}
-            quality={80}
-          />
-        </div>
-        <div className="mx-4 mt-8">
-          <h2 className="text-3xl font-light text-gray-600">CodaBool</h2>
-        </div>
-      </div>
 
 
-      <article>
+
+      <article className="container mx-auto max-w-[850px]">
+        <div className="flex m-3">
+          <div>
+            <Image
+              src='/codabool.jpg'
+              alt='CodaBool'
+              className="rounded-full shadow-full"
+              width={100}
+              height={100}
+              quality={80}
+            />
+          </div>
+          <div className="mx-4 mt-8">
+            <h2 className="text-3xl font-light text-gray-600">CodaBool</h2>
+          </div>
+        </div>
         <MDX source={post.content} />
       </article>
       <BlogNav current={Number(post.metadata.id)} />
