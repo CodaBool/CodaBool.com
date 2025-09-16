@@ -3,6 +3,7 @@ permissions:
 on: push
 jobs:
   release:
+    if: "! contains(github.event.commits[0].message, '[no ci]')"
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/checkout
