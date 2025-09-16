@@ -1,11 +1,12 @@
----
-title: "Introduction to Health Informatics"
-description: "My first course at Georgia Tech, this shows a final project for Introduction to Health Informatics. I chose to create a web app which assists users to manage their obesity. This uses charts as well as 3D models to make tracking weight progress fun."
-publishedTime: "2022-05-10"
-cover: "/coverImg/obesity-cover.jpg"
-tags: "chart.js, next-auth, prisma, postgresql, nextjs"
-id: 24
----
+export const metadata = {
+  title: "Introduction to Health Informatics",
+  description: "My first course at Georgia Tech, this shows a final project for Introduction to Health Informatics. I chose to create a web app which assists users to manage their obesity. This uses charts as well as 3D models to make tracking weight progress fun.",
+  publishedTime: "2022-05-10",
+  cover: "/coverImg/obesity-cover.jpg",
+  tags: "chart.js, next-auth, prisma, postgresql, nextjs",
+  id: 24,
+}
+
 
 # Managing Obesity
 > This is a live project which can be seen at the home page [here](https://p10.codabool.com)
@@ -15,7 +16,7 @@ This app seeks to provide a tool to manage obesity.
 This was done for a school project, I worked as a solo team on this application.
 
 ## The Project
-This app uses Next.js, PostgreSQL, Prisma, and next-auth for authentication. 
+This app uses Next.js, PostgreSQL, Prisma, and next-auth for authentication.
 I also use a nice npm package called chart.js to make pretty charts 😎.
 There is also some Three.js which I was happy to include.
 
@@ -38,10 +39,10 @@ There was a requirement to use some form of health data for the application.
 I chose to use a BMI dataset collected by the CDC.
 This BMI data is then used for a histogram which places the users own data on top of.
 Thi can be seen with the small blue dot on the chart below at the 46 mark.
-The dataset can be found in CDCs [National Health and Nutrition Examination Survey (NHANES) page](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Examination&Cycle=2017-2020) under the "Body Measures" Data file. 
-This uses an XPT file format, which may require downloading software. For this the software "Datasly" can be used. 
+The dataset can be found in CDCs [National Health and Nutrition Examination Survey (NHANES) page](https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Examination&Cycle=2017-2020) under the "Body Measures" Data file.
+This uses an XPT file format, which may require downloading software. For this the software "Datasly" can be used.
 The column Body Mass Index (BMXBMI) was used, filtering out empty values and rows which contained any value for BMI Category - Children/Youth (BMDBMIC).
-Filtering out rows which contain BMDBMIC effectively removes all data collected from youth ages 1-18. 
+Filtering out rows which contain BMDBMIC effectively removes all data collected from youth ages 1-18.
 This leaves 8388 usable rows of adult data which was then processed to generate a BMI histogram viewable within the application.
 
 > BMI dataset
@@ -174,9 +175,9 @@ Also they are being added and removed from the page so its easy to lose track of
 ```
 
 What I ended up doing was using some simple vanilla JS with the use of querySelector, getElementsByTagName and node iteration.
-I first assigned an id to every input when it is added to the page. This is done in a map in the render method (in the return since it is a functional component). 
+I first assigned an id to every input when it is added to the page. This is done in a map in the render method (in the return since it is a functional component).
 Then this makes setting the appropriate value to each input easy I have a useEffect hook which sets the initial value of all inputs on the table.
-This allows me to not need to mess with state for all the inputs, which would get messy. 
+This allows me to not need to mess with state for all the inputs, which would get messy.
 I instead am just providing the initial value and then later extracting all final values.
 Whatever the user does to the input along the way I don't track here.
 
@@ -239,7 +240,7 @@ function save() {
 }
 ```
 
-Once the data is posted I will have several promises to request to the database. 
+Once the data is posted I will have several promises to request to the database.
 For that I use a for loop where I go over the data in the body of the request.
 I have an array of promises I am building which are requests to Prisma to update the data by the id.
 I already have the data formatted the way Prisma wants so all that is needed is some small validation on the date as well as number properties in the data.

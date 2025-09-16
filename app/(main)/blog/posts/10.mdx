@@ -1,11 +1,11 @@
----
-title: "Creating the Landing Page"
-description: "This applications landing page simulates a terminal with Unix commands. Here I break down how I made it"
-publishedTime: "2020-09-8"
-cover: "/coverImg/landing-page-cover.jpg"
-tags: "webdev"
-id: 10
----
+export const metadata = {
+  title: "Creating the Landing Page",
+  description: "This applications landing page simulates a terminal with Unix commands. Here I break down how I made it",
+  publishedTime: "2020-09-8",
+  cover: "/coverImg/landing-page-cover.jpg",
+  tags: "webdev",
+  id: 10,
+}
 
 # Creating a Terminal in the browser
 
@@ -25,15 +25,15 @@ I found several other sites which had the aesthetic I was looking for.
 When researching I make notes of the websites I like and what I like about them.
 
 ## The Websites I used as inspiration
-- great font and simple look [link](https://mikehodgson.com/)  
-- auto type terminal, feels empowering to anyone [link](http://hackertyper.com/)  
-- great style provides good functionality [link](https://aerolab.co/coding-challenge)  
-- amazing terminal, can play music provides feedback [link](https://cmd.to/fm)  
-- incredible live css editing [link](https://www.strml.net/)  
-- uses Block caret [link](https://www.masswerk.at/jsuix/index.html)  
-- selecting a link does terminal commands for you [link](https://www.robscanlon.com/encom-boardroom)  
-- Dated site but uses a static input box, which is the easiest implementation [link](https://brkmnd.com/)  
-- beautiful live changing text [link](https://ertdfgcvb.xyz/)  
+- great font and simple look [link](https://mikehodgson.com/)
+- auto type terminal, feels empowering to anyone [link](http://hackertyper.com/)
+- great style provides good functionality [link](https://aerolab.co/coding-challenge)
+- amazing terminal, can play music provides feedback [link](https://cmd.to/fm)
+- incredible live css editing [link](https://www.strml.net/)
+- uses Block caret [link](https://www.masswerk.at/jsuix/index.html)
+- selecting a link does terminal commands for you [link](https://www.robscanlon.com/encom-boardroom)
+- Dated site but uses a static input box, which is the easiest implementation [link](https://brkmnd.com/)
+- beautiful live changing text [link](https://ertdfgcvb.xyz/)
 - auto typing, nice colored font, provides helpful navigation links [link](https://pradyuman7.github.io/)
 
 As you can see there are a lot of different ways to build a terminal in the browser.
@@ -141,7 +141,7 @@ useEffect(() => {
 The landing page is confusing and can feel overwhelming to many users.
 For this reason I added a neat CSS trick to add a loading bar to the border of the terminal.
 
-> Progress bar border around the terminal timed to the 28 second terminal switch 
+> Progress bar border around the terminal timed to the 28 second terminal switch
 ```css
 .terminalBorder {
   width: 80%;

@@ -1,11 +1,11 @@
----
-title: "TadHack-athon"
-description: "I participated in a weekend global hackathon, our team ended up getting great results!"
-publishedTime: "2021-11-05"
-cover: "/coverImg/tadhack.jpg"
-tags: "Nest.js, React, sockets, MongoDB"
-id: 19
----
+export const metadata = {
+  title: "TadHack-athon",
+  description: "I participated in a weekend global hackathon, our team ended up getting great results!",
+  publishedTime: "2021-11-05",
+  cover: "/coverImg/tadhack.jpg",
+  tags: "Nest.js, React, sockets, MongoDB",
+  id: 19,
+}
 
 # Global TadHack 2021
 &emsp;
@@ -53,15 +53,15 @@ Our database solution was MongoDB.
 
 I was able to get a great looking frontend but many aspects of the backend were still being written so I ended up moving on to sockets.
 Sockets were needed for live video to the robot, this would help for doing manual control of the robot.
-I used Agora to make for live video feed over websockets. 
+I used Agora to make for live video feed over websockets.
 This worked great and was able to get a live feed from a host to client.
 
 <Img src="/posts/19/collab.jpg" size="lg" />
 
 I worked closely with Vincent to be able to have an api setup for the frontend to be able to speak to the backend which would control the robot's movements.
 There was also an interesting software I got to work with Davindra Tulsi.
-He is new to software development and was learning Python. 
-He helped make a script which would generate a transcript text file from an audio file. 
+He is new to software development and was learning Python.
+He helped make a script which would generate a transcript text file from an audio file.
 
 > Building robot with a pi
 <Video autoPlay loop muted src="/posts/19/build.mp4" />
@@ -75,7 +75,7 @@ Overall the event was very fun and was great to be working on a fast paced team 
 The blog post from tadhack covers the finer details and includes a long video covering many of the other presentation as well as the one by my team.
 My favorite other project was actually done by a professor at the school the event was hosted at, Valencia College.
 He made a automated musical script connected to hardware which could play notes texted to it by changing the frequency of cathode ray tubes.
-This was very interesting to me and was all put together very quickly which was very impressive. 
+This was very interesting to me and was all put together very quickly which was very impressive.
 
 > Cathode Ray Tube presentation
 <Video size="lg" controls="controls" src="/posts/19/twinkle.mp4" />

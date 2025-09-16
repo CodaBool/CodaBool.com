@@ -1,42 +1,42 @@
----
-title: "Creation of this Blog"
-description: "I wanted to create a project in React and then deploy using server side rendering. While the tech stack is overkill for a simple blog. This is more of a test of the technology and becoming literate at it."
-publishedTime: "2020-06-22"
-cover: "/coverImg/next-cover.png"
-tags: "webdev, personal"
-id: 8
----
+export const metadata = {
+  title: "Creation of this Blog",
+  description: "I wanted to create a project in React and then deploy using server side rendering. While the tech stack is overkill for a simple blog. This is more of a test of the technology and becoming literate at it.",
+  publishedTime: "2020-06-22",
+  cover: "/coverImg/next-cover.png",
+  tags: "webdev, personal",
+  id: 8,
+}
 
 # My first blog, and main website
 > The source code for this site can be viewed [here](https://github.com/codabool/CodaBool.com)
 
-I have purchased a domain before and attempted to create a hub for my work. 
-However, there was just too many new things to learn. 
-Now, I have gotten a good understanding for the technologies involved in building a website. 
-This blog is built in React, using the NextJS framework. 
-This allows for server-side rendering, routing and better SEO (search engine optimization). 
-I am using NextJS's hosting service Vercel (previously Ziet Now). 
-The technologies involved are overkill for a simple blog but I know them and do get some benefits from them. 
-This works as a good practice to make sure I really know what I am doing when building websites. 
-I am using markdown to write these blog posts. 
-This is accomplished using remark, remark-html and gray-matter. 
-I can setup a heading where I define the title, date and cover image. 
-Then that data is interpreted using gray-matter. 
-The markdown is processed to assign proper element tags. 
-This allows me to write paragraphs and paragraphs without creating hundreds of tags. 
-The styling was simple, I am using the same markdown styling from Github. 
-If you have seen how Github styles their README.md files, that is what is being used here. 
+I have purchased a domain before and attempted to create a hub for my work.
+However, there was just too many new things to learn.
+Now, I have gotten a good understanding for the technologies involved in building a website.
+This blog is built in React, using the NextJS framework.
+This allows for server-side rendering, routing and better SEO (search engine optimization).
+I am using NextJS's hosting service Vercel (previously Ziet Now).
+The technologies involved are overkill for a simple blog but I know them and do get some benefits from them.
+This works as a good practice to make sure I really know what I am doing when building websites.
+I am using markdown to write these blog posts.
+This is accomplished using remark, remark-html and gray-matter.
+I can setup a heading where I define the title, date and cover image.
+Then that data is interpreted using gray-matter.
+The markdown is processed to assign proper element tags.
+This allows me to write paragraphs and paragraphs without creating hundreds of tags.
+The styling was simple, I am using the same markdown styling from Github.
+If you have seen how Github styles their README.md files, that is what is being used here.
 This bloated the CSS file at nearly 1000 lines but css modules help keep things from getting messy.
 
-NextJS has allowed me to easily setup the different pages to the application. 
-If you are unfamiliar to the framework, unlike normal React applications. 
+NextJS has allowed me to easily setup the different pages to the application.
+If you are unfamiliar to the framework, unlike normal React applications.
 Where you need to establish a router with many attributes.
 NextJS has opinionated rules about how to setup pages but allows for simplicity.
 All that is needed is to create a directory called pages.
 Once created any folders within /pages will create a new page of the application.
 For example for this site currently I have blog, posts, contact, projects and about pages.
-This means I have created a folder for each page. 
-For dynamic pages NextJS requires brackets around the name of the JavaScript file. 
+This means I have created a folder for each page.
+For dynamic pages NextJS requires brackets around the name of the JavaScript file.
 
 > Pages Dir
 ```treeview
@@ -59,12 +59,12 @@ pages/
 └── index.js
 ```
 
-Something new is the use of React-Bootstrap for this project. 
-I have used Bootstrap but the use of Bootstrap components is completely new. 
+Something new is the use of React-Bootstrap for this project.
+I have used Bootstrap but the use of Bootstrap components is completely new.
 Instead of creating a div with class container, I import Container from 'react-bootstrap/Container'.
-This is cleaner but requires learning some new things. 
-For instance I could not apply styles using a CSS module file to the Container component. 
-I learned ways to get the styling I wanted through the documentation online. 
+This is cleaner but requires learning some new things.
+For instance I could not apply styles using a CSS module file to the Container component.
+I learned ways to get the styling I wanted through the documentation online.
 
 > Bootstrap Components (Container, Row, Col)
 ```jsx
@@ -90,13 +90,13 @@ I learned ways to get the styling I wanted through the documentation online.
 </Container>
 ```
 
-A part which took some work was setting up a grid system for the posts in the blog page and a filter system for the posts. 
-Grid systems have been a sticking point for my development. 
-They never seem to work quickly and easily. 
+A part which took some work was setting up a grid system for the posts in the blog page and a filter system for the posts.
+Grid systems have been a sticking point for my development.
+They never seem to work quickly and easily.
 I did do a write up for my first post on a photography website where I reconstruct a image gallery ([post](https://codabool.com/posts/1)).
-For this site I was greatly helped with the use of a npm package called lodash which has a function called chunk. 
-Using chunk I was able to split an array of posts into arrays of a set number. 
-The set number would be the number of columns, in my case 2. 
+For this site I was greatly helped with the use of a npm package called lodash which has a function called chunk.
+Using chunk I was able to split an array of posts into arrays of a set number.
+The set number would be the number of columns, in my case 2.
 
 > Map on an array of post rows
 ```jsx
@@ -127,19 +127,19 @@ export default function MoreStories({ cols, posts }) {
 }
 ```
 
-Then using map I iterate over the rows of 2 posts each being its own column. 
-The column is created by using map on the row and you have your posts. 
-There I have a component for the post where I pass all the data to render a post within the grid. 
-I also make use of another npm package in that same file called timeago.js which displays dates in a human readable fashion. 
-This post was created 2020-06-22 but you will likely read it as something like "x years ago". 
+Then using map I iterate over the rows of 2 posts each being its own column.
+The column is created by using map on the row and you have your posts.
+There I have a component for the post where I pass all the data to render a post within the grid.
+I also make use of another npm package in that same file called timeago.js which displays dates in a human readable fashion.
+This post was created 2020-06-22 but you will likely read it as something like "x years ago".
 
-My most recent update has been adding _Syntax_ _Highlighting_. This combined with clean styling for code blocks allow me to share code easily in the page. I had some friction with these blogs being written in markdown and passing into a converter which outputs the html into a string which is passed as a child to a outter div tag. Syntax highlighting was done through a downloaded js and css file from [Prism](https://prismjs.com/index.html). I added some other functionality that I thought was interesting like the ability to replicate the styling of a terminal and its output. Some other plugins were for a easy copy button, line-numbers and a treeview language for showing file structures like I did in this post. 
+My most recent update has been adding _Syntax_ _Highlighting_. This combined with clean styling for code blocks allow me to share code easily in the page. I had some friction with these blogs being written in markdown and passing into a converter which outputs the html into a string which is passed as a child to a outter div tag. Syntax highlighting was done through a downloaded js and css file from [Prism](https://prismjs.com/index.html). I added some other functionality that I thought was interesting like the ability to replicate the styling of a terminal and its output. Some other plugins were for a easy copy button, line-numbers and a treeview language for showing file structures like I did in this post.
 
 The website is mostly finished I have gotten all the pages finished except the main index page.
-There I want a interactive experience where the user can scroll and there will be a clean aesthetic presentation. 
-I would want a hacker kind of look with a fake terminal and using ASCII art. 
-Until I complete that I want to keep this website as a top priority outside of my job. 
-I will make another post dealing with exclusively the main presentation index page once I have it completed. 
+There I want a interactive experience where the user can scroll and there will be a clean aesthetic presentation.
+I would want a hacker kind of look with a fake terminal and using ASCII art.
+Until I complete that I want to keep this website as a top priority outside of my job.
+I will make another post dealing with exclusively the main presentation index page once I have it completed.
 
 * * *
 
@@ -175,6 +175,6 @@ Of course this would be a major security concern if these endpoints were public.
 So, I require an API key which all my applications server-side will know and pass with their requests.
 Ultimately I should have scalable, performant, and best of all free applications now.
 The biggest limitation I have is the Heroku PostgresQL limitation of 10,000 rows for Hobby free tier.
-This can be expanded to 10 million rows for $9 a month if needed. 
+This can be expanded to 10 million rows for $9 a month if needed.
 
 # Thanks for reading 👍

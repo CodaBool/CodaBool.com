@@ -1,13 +1,13 @@
----
-title: "DevOps Talk for TampaDevs"
-description: "I gave a talk to the community of TampaDevs about how to get started in DevOps"
-publishedTime: "2022-04-07"
-cover: "/coverImg/devops-talk.jpg"
-tags: "personal"
-id: 23
----
+export const metadata = {
+  title: "DevOps Talk for TampaDevs",
+  description: "I gave a talk to the community of TampaDevs about how to get started in DevOps",
+  publishedTime: "2022-04-07",
+  cover: "/coverImg/devops-talk.jpg",
+  tags: "personal",
+  id: 23,
+}
 
-# My DevOps Talk in Tampa 
+# My DevOps Talk in Tampa
 
 > The full event
 
@@ -17,7 +17,7 @@ id: 23
 
 I spoke about what DevOps is and the basics of getting started.
 The slides for this presentation can be found [here](https://docs.google.com/presentation/d/1rpbtEQIdGf7nMPmT6wnt9egBcMDMsdgpAC4D4EvNGfs/edit?usp=sharing).
-I mainly covered Terraform, Bash and Github Actions. 
+I mainly covered Terraform, Bash and Github Actions.
 A resource that is helpful for those new to DevOps is a [roadmap](https://roadmap.sh/devops).
 
 ## TampaDevs
@@ -25,7 +25,7 @@ A resource that is helpful for those new to DevOps is a [roadmap](https://roadma
 <Img src="/posts/23/2.jpg" size="lg" />
 
 I have not given any technical talks like this before and I did find that I over prepared for the event.
-I had about double the amount of material than what I had time for. 
+I had about double the amount of material than what I had time for.
 Thankfully the event ended right on the final deploy of my first of two demos I set for the night.
 This was done by creating a Terraform pipeline on Github Actions which would deploy a EC2 instance.
 
@@ -59,10 +59,10 @@ This Terraform was ran by Github Actions which was simply running a `terraform a
 <Img src="/posts/23/1.jpg" size="lg" />
 
 
-However, this is just a bare Amazon Linux 2 AMI with nothing on it. 
+However, this is just a bare Amazon Linux 2 AMI with nothing on it.
 For the demo I wanted to show something so I have a [repository](https://github.com/CodaBool/tampa-dev) with a small Three.js application.
 So, I would install git, node and nginx to download and serve the application.
-I used a Github Actions Marketplace action called appleboy/ssh-action. 
+I used a Github Actions Marketplace action called appleboy/ssh-action.
 If I were to redo this demo I would replace this with a more reputable configuration tool like Ansible.
 The bash script ran can be seen here to startup a web server of the application.
 

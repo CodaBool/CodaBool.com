@@ -1,11 +1,12 @@
----
-title: "Senior Project Trafficking Spotters"
-description: "My Senior Project where I worked the full stack to assist in finding and getting help to those affected by human trafficking."
-publishedTime: "2020-10-15"
-cover: "/coverImg/traffick.jpg"
-tags: "express, next.js, heroku, mongodb, AWS"
-id: 12
----
+export const metadata = {
+  title: "Senior Project Trafficking Spotters",
+  description: "My Senior Project where I worked the full stack to assist in finding and getting help to those affected by human trafficking.",
+  publishedTime: "2020-10-15",
+  cover: "/coverImg/traffick.jpg",
+  tags: "express, next.js, heroku, mongodb, AWS",
+  id: 12,
+}
+
 
 # Senior Project, Social media for stopping human trafficking
 > A sample of this project which can be seen [here](https://codabool.com/projects#6)
@@ -78,9 +79,9 @@ To reduce friction proper form validation is needed.
 
 > React Hook Form combined with Bootstrap Form.Control
 ```js
-<Controller 
-  as={<Form.Control />} 
-  control={control} 
+<Controller
+  as={<Form.Control />}
+  control={control}
   type="email"
   name="email"
   defaultValue=""
@@ -94,7 +95,7 @@ To reduce friction proper form validation is needed.
 />
 ```
 
-This uses a hilariously large regex I found on StackOverflow, difficult to read (might as well be binary to me) but after some testing it has proven itself. 
+This uses a hilariously large regex I found on StackOverflow, difficult to read (might as well be binary to me) but after some testing it has proven itself.
 Searching again now, I only find shorter regex so, I am not entirely sure where I even found this regex from.
 
 But besides the rules property this is how React Hook Form works.

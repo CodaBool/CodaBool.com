@@ -1,11 +1,12 @@
----
-title: "Ellucian Search Engine"
-description: "A machine learned search engine for Atlassian Confluence data"
-publishedTime: "2020-12-26"
-cover: "/coverImg/react-search.jpg"
-tags: "React, ElasticSearch, Python"
-id: 14
----
+export const metadata = {
+  title: "Ellucian Search Engine",
+  description: "A machine learned search engine for Atlassian Confluence data",
+  publishedTime: "2020-12-26",
+  cover: "/coverImg/react-search.jpg",
+  tags: "React, ElasticSearch, Python",
+  id: 14,
+}
+
 
 # Machine Learning Search Engine
 > A sample of this project which can be seen [here](https://codabool.com/projects#5)
@@ -17,28 +18,28 @@ Using API access data was unloaded from ServiceNow (Ellucian's ticketing system)
 After using Python scripts to dump a large amount of data, the next task for me was to standup a ElasticSearch instance and use its API to load the data.
 I found that there were many configuration settings for building ElasticSearch.
 The two major configurations ended up being setting up authentication and jvm settings.
-For the EC2 instance I was developing on it did not have the required memory and a altered jvm memory size was required. 
-I also had to go through the docs on ElasticSearch, which were quite good, and find how to setup authentication. 
+For the EC2 instance I was developing on it did not have the required memory and a altered jvm memory size was required.
+I also had to go through the docs on ElasticSearch, which were quite good, and find how to setup authentication.
 The process was not too difficult and there were actually many different solutions available.
-Such as the use of API keys, or using accounts with username and password.  
+Such as the use of API keys, or using accounts with username and password.
 
-The basic idea behind the application was that you could search in one place and find any relevant links on either ServiceNow or Confluence. 
+The basic idea behind the application was that you could search in one place and find any relevant links on either ServiceNow or Confluence.
 This would be very helpful since many times something can be created in those systems but is difficult to find.
 This would help employees find relevant info fast as well as prevent the bloating of the Confluence system due to the often duplicated topics.
-So, after loading the ElasticSearch system with data, it then had API access with the use of an API key. 
-Meaning it was ready for the consumption by a front-end application. 
+So, after loading the ElasticSearch system with data, it then had API access with the use of an API key.
+Meaning it was ready for the consumption by a front-end application.
 At first I built the app to use Python Flask to make the front-end.
 This made sense since the scripts and API used Python.
 However, after running into a few issues and general dissatisfaction with the framework I switched it to React.
-From there I was able to rapidly develop the app and generate card results from a typed search. 
+From there I was able to rapidly develop the app and generate card results from a typed search.
 
 ElasticSearch being a machine learning technology was able to provide which results it thought to be most relevant.
-This would be a property in the API response and was utilized to rank the search results. 
+This would be a property in the API response and was utilized to rank the search results.
 I also needed to setup a reverse proxy for the instance due to its hosting of multiple apps which needed to have access through https 443 port.
-I needed the front-end application to be accessed through the node service. 
-Then I also needed the ElasticSearch to be able to be accessible to the client. 
+I needed the front-end application to be accessed through the node service.
+Then I also needed the ElasticSearch to be able to be accessible to the client.
 Nginx makes this easy, it really only comes down to a few lines in a .conf file which allows you to redirect traffic on sub-domains to the correct port.
-This way both applications can be on the same server and only a proper domain + sub-domain is required to hit the right service. 
+This way both applications can be on the same server and only a proper domain + sub-domain is required to hit the right service.
 
 My contract ended with Ellucian before I could fully built out the application but you can still view the sample [here](https://codabool.com/projects#5)
 

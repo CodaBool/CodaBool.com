@@ -1,11 +1,11 @@
----
-title: "Multiplayer browser card game"
-description: "A new game where you can play with up to three friends. This is based on the classic Egyptian Ratscrew / Slap card game."
-publishedTime: "2022-12-22"
-cover: "/coverImg/slaps.jpg"
-tags: "socket.io, next.js, three.js, fiber, rapier"
-id: 28
----
+export const metadata = {
+  title: "Multiplayer browser card game",
+  description: "A new game where you can play with up to three friends. This is based on the classic Egyptian Ratscrew / Slap card game.",
+  publishedTime: "2022-12-22",
+  cover: "/coverImg/slaps.jpg",
+  tags: "socket.io, next.js, three.js, fiber, rapier",
+  id: 28,
+}
 
 # Slap card game
 > This is live and playable [here](https://p12.codabool.com)
@@ -32,7 +32,7 @@ So, I ultimately switched back to a node socket.io server.
 ### Using a single Texture
 Threejs does not have great support for using texture atlas.
 This is very useful in game development because you can load one image and section it for use with multiple objects.
-I have a single image with all card faces and use the code below to 
+I have a single image with all card faces and use the code below to
 
 
 ```js
@@ -86,7 +86,7 @@ This reduced the texture requests send from 52 to just one.
 This also is a great game performance optimization since loading in textures can be costly.
 
 Originally I tried to use the threejs method of using SVGs since normally those would be extremely smaller than image textures.
-However, the performance was horrible for whatever reason. 
+However, the performance was horrible for whatever reason.
 So, that approach was abandonded.
 
 
@@ -96,7 +96,7 @@ I had to use the `three-stdlib` package for cloning skeletons from an original c
 
 `const scene = useMemo(() => SkeletonUtils.clone(object), [object])`
 
-Which can successfully create four characters. 
+Which can successfully create four characters.
 However, there is added difficulty in that I needed a map of the characters to interpret incoming peer multiplayer clients.
 This lead to a long file with plenty of conditionals which find the correct model in everyone's client and animate, position, rotate to the correct spot.
 
@@ -107,4 +107,3 @@ Would definitely recommend them over the popular cannonjs physics library.
 # Final Thoughts
 Overal the project was a huge learning experience.
 This definitely makes any future 3D web dev multiplayer projects way easier in the future.
-

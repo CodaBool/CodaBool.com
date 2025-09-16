@@ -1,11 +1,12 @@
----
-title: "Three.js Spinner"
-description: "After playing the game Rust, I loved using a spinner item and wanted to port it to the browser with Three.js"
-publishedTime: "2021-11-20"
-cover: "/coverImg/spinner.jpg"
-tags: "Three.js, React, Blender"
-id: 20
----
+export const metadata = {
+  title: "Three.js Spinner",
+  description: "After playing the game Rust, I loved using a spinner item and wanted to port it to the browser with Three.js",
+  publishedTime: "2021-11-20",
+  cover: "/coverImg/spinner.jpg",
+  tags: "Three.js, React, Blender",
+  id: 20,
+}
+
 
 # 4 Color Spinner
 >> This is a live project which can be visited [here](https://p13.codabool.com) (it takes about 2 minutes to load)
@@ -14,7 +15,7 @@ After seeing many [examples](https://threejs.org/examples/) online and checking 
 I got inspired to create a Three.js project.
 There are helper packages like [Fiber](https://docs.pmnd.rs/react-three-fiber) and [Drei](https://github.com/pmndrs/drei) which make the process very simple.
 If you view [my repository](https://github.com/CodaBool/p13-spinner) you can see that
-rendering a model to the canvas can be as light as 25 lines of code. 
+rendering a model to the canvas can be as light as 25 lines of code.
 
 ```js
 function ButtonModel({ spin }) {
@@ -59,7 +60,7 @@ The resources were CC licensed, meaning I just need to credit the original artis
 <Img src="/posts/20/rust.jpg" size="lg" />
 
 There is also an audio effect which I was able to download from a Reddit post which contained all sound effects from the game Rust.
-There I was able to find the spinner object sound file. 
+There I was able to find the spinner object sound file.
 There were a couple files there but I found a continuous spinning sound file which was perfect.
 
 Now I had gathered all the materials but the original spinning wheel model was more like a Wheel of Fortune wheel.
@@ -72,7 +73,7 @@ I was able to achieve this in Blender and export as glb which seemed like the be
 
 <Img src="/posts/20/model-spin.jpg" size="lg" />
 
-Now I just needed to fix the texture which printed out "Wheel of Fortune" on the top. This was something I was able to do in photoshop by downloading the file which is read for the texture. Then editing it to replace the top of it a plain wood texture which surrounds it. Then reuploading that to Blender. 
+Now I just needed to fix the texture which printed out "Wheel of Fortune" on the top. This was something I was able to do in photoshop by downloading the file which is read for the texture. Then editing it to replace the top of it a plain wood texture which surrounds it. Then reuploading that to Blender.
 
 Or so I thought. I noticed that the reflection of the stand still had the outline of the "Wheel of Fortune" so I looked back and noticed the other files involved in the model. There was a metallic roughness and also a normal map which gave the texture data about how to reflect light. I went ahead and did the same process of removing the "Wheel of Fortune" there.
 
@@ -85,7 +86,7 @@ Once that was all done. I had finished the model work and had all the assets to 
 
 ## Handling user input
 
-Since this is a React application I stored some rendered variables into useState. I also made use of the useRef hook which I connected to 5 hidden input elements on the screen. 
+Since this is a React application I stored some rendered variables into useState. I also made use of the useRef hook which I connected to 5 hidden input elements on the screen.
 
 > React hooks useState, useRef
 
@@ -104,7 +105,7 @@ const blueIn = useRef(null) // input element
 const emptyIn = useRef(null) // input element
 ```
 
-Let's next look at how React state can get connected to a real 3D model in the browser. Drei offers an amazing implementation of Three.js where we can interact with geometry through the use of an onClick property, just like you would any other DOM element. 
+Let's next look at how React state can get connected to a real 3D model in the browser. Drei offers an amazing implementation of Three.js where we can interact with geometry through the use of an onClick property, just like you would any other DOM element.
 
 > The Green quarter of the spinner
 
@@ -124,7 +125,7 @@ Here we take the event click and use it as an indicator that the user wants to e
 > Text rendered in front of the green quarter of the spinner
 
 ```js
-<Text 
+<Text
   color='black'
   scale={3}
   position={[-.5,1,.2]}
@@ -134,7 +135,7 @@ Here we take the event click and use it as an indicator that the user wants to e
 >
 ```
 
-Those are the main working parts of selecting and editing the text over each quarter of the spinner model. I also do a event listener for if the enter key is pressed and to set the focus to the hidden empty input to prevent unwanted key press captures. 
+Those are the main working parts of selecting and editing the text over each quarter of the spinner model. I also do a event listener for if the enter key is pressed and to set the focus to the hidden empty input to prevent unwanted key press captures.
 
 ## Adding Spin
 Lastly it's not much of a spinner game without some spin. I first tried creating a velocity variable outside of state, I wanted to do this to prevent trying to update state too often and hitting performance issues. I also wanted to have the velocity be as smooth as possible and state updates are relatively long as well as asynchronous. However,  I ran into some difficultly with placing the spin velocity as a variable outside of state. I ended up making the spin much slower and using state for velocity.

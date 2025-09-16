@@ -1,11 +1,12 @@
----
-title: "A Group Financial Tracker"
-description: "Create an account and join in on a group financial goal. Complete with charts and data records tables."
-publishedTime: "2021-07-26"
-cover: "/coverImg/stat-charts.jpg"
-tags: "chart.js next-auth MongoDB"
-id: 18
----
+export const metadata = {
+  title: "A Group Financial Tracker",
+  description: "Create an account and join in on a group financial goal. Complete with charts and data records tables.",
+  publishedTime: "2021-07-26",
+  cover: "/coverImg/stat-charts.jpg",
+  tags: "chart.js next-auth MongoDB",
+  id: 18,
+}
+
 
 # Charts can be fun
 >> A live sample can be see [here](https://codabool.com/projects#10)
@@ -23,7 +24,7 @@ You just create a data object and pass it as props.
 const data = {
 
   // labels will be the legend for the sections
-  labels: ['water', 'electricity', 'internet'], 
+  labels: ['water', 'electricity', 'internet'],
 
   // dataset defines what how large and the color of each section
   datasets: [

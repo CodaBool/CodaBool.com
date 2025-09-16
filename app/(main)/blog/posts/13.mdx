@@ -1,11 +1,12 @@
----
-title: "Senior Semester Final, E-commerce Site"
-description: "School Final to build a feature rich full stack application"
-publishedTime: "2020-11-15"
-cover: "/coverImg/market.jpg"
-tags: "postgresql, express, next.js, heroku, stripe"
-id: 13
----
+export const metadata = {
+  title: "Senior Semester Final, E-commerce Site",
+  description: "School Final to build a feature rich full stack application",
+  publishedTime: "2020-11-15",
+  cover: "/coverImg/market.jpg",
+  tags: "postgresql, express, next.js, heroku, stripe",
+  id: 13,
+}
+
 
 # E-Commerce market with Stripe
 > This is a live project which can be seen [here](https://codabool.com/projects#7)
@@ -28,7 +29,7 @@ I first created my own method which used localstorage.
 I then played with the idea of storing it into cookies but quickly disbanded that idea.
 I ended up using a package to reduce the amount of code maintenance I need to do.
 I installed Use Shopping Cart which uses localstorage underneath.
-The package was made for Stripe. 
+The package was made for Stripe.
 It does have some opinionated ways to enter in the data.
 However, the functions added to increment shopping cart are very useful.
 There is also an included method to validate the cart.
@@ -77,10 +78,10 @@ I have expanded and since rewrote the application. I switched it to a fully Serv
 I moved the database over to MongoDB which simplified my need for connection pooling that I needed with a PostgresQL implementation.
 I added support for PayPal as well as Reviews. I also expanded out an account page which you can see your orders as well as your reviews.
 I added support for variants to the products, this was to help support products in different colors or with different features.
-This variant aspect supports differences in price and I was able to solve an issue I often face with Amazon shopping. 
-Often on Amazon reviews you can't see which variant was purchased by the customer and that can very relevant for making a decision on what variant to purchase. 
-So, I have reviews include which variant was purchased by the author of the review. 
-Lastly I added CI/CD to the application with the Serverless framework. This allowed me to create the lambdas and S3 for static hosting for all operations of the app. 
+This variant aspect supports differences in price and I was able to solve an issue I often face with Amazon shopping.
+Often on Amazon reviews you can't see which variant was purchased by the customer and that can very relevant for making a decision on what variant to purchase.
+So, I have reviews include which variant was purchased by the author of the review.
+Lastly I added CI/CD to the application with the Serverless framework. This allowed me to create the lambdas and S3 for static hosting for all operations of the app.
 This means the backend is built entirely on an API lambda.
 The webhook functions are also triggered through lambdas which is used to validate orders which come in and save the update to MongoDB.
 Although I implemented a custom AWS Serverless deploy, it does cost money to host so, I did end up cutting it in favor of a free Vercel deploy which works just as well and can be seen [here](https://codabool.com/projects#7).

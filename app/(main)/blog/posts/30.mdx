@@ -1,11 +1,12 @@
----
-title: "Creating a Websocket VPS"
-description: "I created a multiservice websocket server. Includes Nginx, Socket.io, and PM2. As well as plenty of DevOps magic"
-publishedTime: "2023-07-12"
-cover: "/coverImg/proxy.jpg"
-tags: "three.js, vite, tampadev"
-id: 30
----
+export const metadata = {
+  title: "Creating a Websocket VPS",
+  description: "I created a multiservice websocket server. Includes Nginx, Socket.io, and PM2. As well as plenty of DevOps magic",
+  publishedTime: "2023-07-12",
+  cover: "/coverImg/proxy.jpg",
+  tags: "three.js, vite, tampadev",
+  id: 30,
+}
+
 
 # 🏗️ Reverse Proxy with a VPS
 > the code for this can be seen [here](https://github.com/CodaBool/sock)
@@ -91,9 +92,10 @@ module.exports = {
 }
 ```
 
+
 The other helpful piece of software is `amazon-cloudwatch-agent`.
 This will automatically pick up instance metrics like memory, network, drive data and upload them to AWS.
-I can then create a dashboard which has all the logs and instance data. 
+I can then create a dashboard which has all the logs and instance data.
 
 
 > Here is my current dashboard of the instance
@@ -137,7 +139,7 @@ This can be seen in the pipeline code here:
     terraform apply -auto-approve -var="ssh_ip=${{ secrets.MY_HOME_IP }}" -var="name=${{ env.repo }}"
 - name: Dashboard
   working-directory: ./ops
-  # update the cloudwatch dashboard 
+  # update the cloudwatch dashboard
   run: |
     ./dashboard.sh slap typer
   # cleanup scripts since you can incurr AWS costs for EBS and AMIs
@@ -200,7 +202,7 @@ Like stated in the socket.io docs you need to specify some headers which allow t
 
 # 🕳️ Pitfalls
 I ran into several issues with this strategy.
-If a request is sent from a secure protocol, like HTTPS. 
+If a request is sent from a secure protocol, like HTTPS.
 Then it must meet a secure protocol like HTTPS or WSS.
 To solve this I needed to have CloudFlare issue a certificate with an A record.
 I used a subdomain of `sock.codabool.com` which allowed me to use `HTTPS` from client to server.

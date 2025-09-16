@@ -1,23 +1,23 @@
----
-title: "Final for Data Analytics and Security class"
-description: "I learned a lot this semester and worked with a group to analyze some real work data for my final. I used this to create a Python script which did data analysis. Popular Python libraries like pandas and matplotlib were essential for our final."
-publishedTime: "2022-11-10"
-cover: "/coverImg/cover-fall-2022.jpg"
-tags: "react, bootstrap, three.js, fiber, react router"
-id: 26
----
+export const metadata = {
+  title: "Final for Data Analytics and Security class",
+  description: "I learned a lot this semester and worked with a group to analyze some real work data for my final. I used this to create a Python script which did data analysis. Popular Python libraries like pandas and matplotlib were essential for our final.",
+  publishedTime: "2022-11-10",
+  cover: "/coverImg/cover-fall-2022.jpg",
+  tags: "react, bootstrap, three.js, fiber, react router",
+  id: 26,
+}
 
 # Class Overview
 This class gave me the opportunity to try out some data analytics on real work data.
-We had some assignments which used the programming language R. 
+We had some assignments which used the programming language R.
 Which I had not heard of but it seems to be mainly a language for data analysis and statistics.
-The language was very high level and unopinionated. 
+The language was very high level and unopinionated.
 Using it I was able to generate many charts using important statistics functions.
 I took AP Statistics in high school so it had been a while since I had used any of them before.
 
 # The Final
 I learned a lot in the class about data and the final put a focus on security.
-For the Final we were to be put into teams. 
+For the Final we were to be put into teams.
 Our task was to create an interesting analysis about data from a real world security scan.
 After being placed on a team of five we all gathered into a discussion on how to approach this problem.
 We were provided with a large JSON file which had a report of the security findings of the top downloaded app stores.
@@ -28,7 +28,7 @@ We ended up following three different hypothesis.
 - Do applications which ask for more permissions have less security?
 - Are applications which are under a game category less secure?
 
-With these questions in mind I was able to write a Python script which pulled these relevant values out of the 300,000 line JSON files we were provided. 
+With these questions in mind I was able to write a Python script which pulled these relevant values out of the 300,000 line JSON files we were provided.
 Each JSON file typically contained security scans for two applications.
 Here is some example output from my Python script.
 I removed the name of the applications.
@@ -79,9 +79,9 @@ Since there is not a large sample size it is hard to get a strong conclusion.
 One of our applications was TikTok which happened to be a major outlier for our data.
 
 ### The Results
-I found the results surprising. 
+I found the results surprising.
 I would have expected that more requests and more permissions would mean more of a security attack vector.
-However, the results seem to suggest that the more they have of these the more secure. 
+However, the results seem to suggest that the more they have of these the more secure.
 This lead me to question if the apps which had more requests and permissions were just more mature.
 In other words apps which gained a following and could support themselves eventually took on the responsibility to secure themselves as they grew.
 This would certainly explain our outlier which was by far the most popular and had the highest security score.

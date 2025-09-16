@@ -1,5 +1,5 @@
 import { Home } from 'lucide-react'
-import { getNumOfBlogPosts } from '@/app/(main)/blog/util'
+import { getPosts } from '@/app/(main)/blog/util'
 import {
   Pagination,
   PaginationContent,
@@ -9,8 +9,10 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-export default function BlogNav({ current }) {
-  const numberOfPosts = getNumOfBlogPosts()
+export const revalidate = 0
+const numberOfPosts = await getPosts()
+
+export default async function BlogNav({ current }) {
   return (
     <Pagination className="mt-10">
       <PaginationContent>
@@ -22,7 +24,7 @@ export default function BlogNav({ current }) {
         <PaginationItem>
           <PaginationLink href="/blog"><Home size={42} style={{ top: '-3px', position: 'relative' }} /></PaginationLink>
         </PaginationItem>
-        {current < numberOfPosts &&
+        {current < numberOfPosts.length &&
           <PaginationItem>
             <PaginationNext href={`/blog/${current + 1}`} />
           </PaginationItem>

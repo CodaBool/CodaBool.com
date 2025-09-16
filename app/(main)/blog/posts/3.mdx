@@ -1,32 +1,32 @@
----
-title: "Django Social Blog"
-description: "A social media feature clone of Twitter. Allows the creation of groups. As well as the following and posting to groups. There is a section for account creation."
-publishedTime: "2019-02-14"
-cover: "/coverImg/dj-social-cover.jpg"
-tags: "django"
-id: 3
----
+export const metadata = {
+  title: "Django Social Blog",
+  description: "A social media feature clone of Twitter. Allows the creation of groups. As well as the following and posting to groups. There is a section for account creation.",
+  publishedTime: "2019-02-14",
+  cover: "/coverImg/dj-social-cover.jpg",
+  tags: "django",
+  id: 3,
+}
 
 # Django Social Media application, my second Django project.
 
-This project was still while under the same Udemy course. 
-The teacher did a great job of explaining every piece and how it fit into a larger whole. 
-Like the previous Django project I did, a blog application, I still was new to the framework. 
-The course led us to deploy on a hosting service called PythonAnywhere. 
-I did follow the course but after completion I learned Heroku and changed my deployment to there. 
-Both projects can be viewed now under the projects tab. 
-The code is also visible by visiting my Github page. 
+This project was still while under the same Udemy course.
+The teacher did a great job of explaining every piece and how it fit into a larger whole.
+Like the previous Django project I did, a blog application, I still was new to the framework.
+The course led us to deploy on a hosting service called PythonAnywhere.
+I did follow the course but after completion I learned Heroku and changed my deployment to there.
+Both projects can be viewed now under the projects tab.
+The code is also visible by visiting my Github page.
 
 <Video autoPlay loop src="/posts/3/social-show.mp4" />
 
-This is a social media clone of Twitter. 
-The features are mainly composed of accounts, groups and posts. 
-An account is created on a signup page. 
-The account can then be logged in or out. 
-Groups can be created, joined or deleted. 
-Posts can be either created or deleted. 
-All groups and posts can be viewed in a list. 
-The project makes use of SQLite, Bootstrap, Misaka and django-braces. 
+This is a social media clone of Twitter.
+The features are mainly composed of accounts, groups and posts.
+An account is created on a signup page.
+The account can then be logged in or out.
+Groups can be created, joined or deleted.
+Posts can be either created or deleted.
+All groups and posts can be viewed in a list.
+The project makes use of SQLite, Bootstrap, Misaka and django-braces.
 
 <Img src="/posts/3/signup.jpg" size="lg" />
 
@@ -51,5 +51,5 @@ class JoinGroup(LoginRequiredMixin, generic.RedirectView):
         return super().get(request, *args, **kwargs)
 ```
 
-I already covered my experiences with Django and Python in my post about Django blog project. I enjoy the framework and language. I see myself using React and JavaScript in the future but I am in love with Python as a way of scripting and doing object oriented programming.  
+I already covered my experiences with Django and Python in my post about Django blog project. I enjoy the framework and language. I see myself using React and JavaScript in the future but I am in love with Python as a way of scripting and doing object oriented programming.
 # Thanks for reading 👍

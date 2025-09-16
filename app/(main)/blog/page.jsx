@@ -10,10 +10,10 @@ import {
 import { Badge } from "@/components/ui/badge"
 import NewsLetter from "@/components/ui/newsletter"
 import Link from 'next/link'
-import { formatDate, getBlogPosts } from '@/app/(main)/blog/util'
+import { formatDate, getPosts } from '@/app/(main)/blog/util'
 
 export default async function Blog({ searchParams }) {
-  const blogs = getBlogPosts(true)
+  const blogs = await getPosts()
   const param = await searchParams
 
   return (
@@ -22,22 +22,22 @@ export default async function Blog({ searchParams }) {
       <NewsLetter param={param} />
       {/* <hr /> */}
       <div className="flex flex-wrap justify-center mt-5">
-        {blogs.map(blog => (
-          <Card className="w-full mb-4 md:m-4 lg:w-[47%] mr-1" key={blog.slug}>
-            <Link href={`/blog/${blog.slug}`} key={blog.slug} className="">
+        {blogs.map(({ metadata }) => (
+          <Card className="w-full mb-4 md:m-4 lg:w-[47%] mr-1" key={metadata.id}>
+            <Link href={`/blog/${metadata.id}`} key={metadata.id} className="">
               <CardHeader className="">
-                <CardTitle className="">{blog.metadata.title}</CardTitle>
-                <CardDescription >&emsp;{blog.metadata.description}</CardDescription>
+                <CardTitle className="">{metadata.title}</CardTitle>
+                <CardDescription >&emsp;{metadata.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 {/* give priority loading to the top 4 */}
-                {blog.slug < blogs.length - 3
-                  ? <Img src={blog.metadata.cover} alt="project" width={634} height={317} quality={50} className="mx-auto rounded" />
-                  : <Img src={blog.metadata.cover} alt="project" width={634} height={317} quality={50} className="mx-auto rounded" priority />
+                {metadata.id < blogs.length - 3
+                  ? <Img src={metadata.cover} alt="project" width={634} height={317} quality={50} className="mx-auto rounded" />
+                  : <Img src={metadata.cover} alt="project" width={634} height={317} quality={50} className="mx-auto rounded" priority />
                 }
               </CardContent>
               <CardFooter className="flex-wrap">
-                {blog.metadata.tags && blog.metadata.tags.split(", ").map(tag => <Badge variant="secondary" key={tag}>{tag}</Badge>)}
+                {metadata.tags && metadata.tags.split(", ").map(tag => <Badge variant="secondary" key={tag}>{tag}</Badge>)}
               </CardFooter>
             </Link>
           </Card>

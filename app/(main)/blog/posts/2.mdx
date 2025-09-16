@@ -1,44 +1,44 @@
----
-title: 'Django Personal Blog'
-description: "Created while learning the Django Framework. Allows for blog posts, comments and liking posts/comments."
-publishedTime: "2018-12-14"
-cover: "/coverImg/dj-blog-cover.jpg"
-tags: "django"
-id: 2
----
+export const metadata = {
+  title: 'Django Personal Blog',
+  description: "Created while learning the Django Framework. Allows for blog posts, comments and liking posts/comments.",
+  publishedTime: "2018-12-14",
+  cover: "/coverImg/dj-blog-cover.jpg",
+  tags: "django",
+  id: 2,
+}
 
 # My first Django project
 
-Before working on this project I never really used Python. 
-I can for sure say that I love it as a language after learning it. 
-My favorite language now and honestly a delight to work in. 
-The language is clean, powerful and popular. 
-I definitely do not miss all the odd quirks of JavaScript while in Python. 
+Before working on this project I never really used Python.
+I can for sure say that I love it as a language after learning it.
+My favorite language now and honestly a delight to work in.
+The language is clean, powerful and popular.
+I definitely do not miss all the odd quirks of JavaScript while in Python.
 
-Looking back something I realized was working on Django almost set expectations wrong for me as a developer. 
-The framework does so much for you out the box. 
-Django combined with a Heroku deployment meant I was able to make a full scale app in minutes. 
-This is why I say it set wrong expectations, everything was easy. 
-I certainly still learned a lot, but the output was incredible. 
+Looking back something I realized was working on Django almost set expectations wrong for me as a developer.
+The framework does so much for you out the box.
+Django combined with a Heroku deployment meant I was able to make a full scale app in minutes.
+This is why I say it set wrong expectations, everything was easy.
+I certainly still learned a lot, but the output was incredible.
 
 <Video autoPlay loop src="/posts/2/blog-show.mp4" />
 
-This Django project was to create a blog. 
-I learned Django and participated in a code along by using a Udemy course. 
-Every line of code was explained to me and I was able to get a good understanding of how Django works. 
-The course led us to deploy on a hosting service called PythonAnywhere. 
-I did follow the course but after completion I learned Heroku and changed my deployment to there. 
-The project can be viewed now under the projects tab. 
-The code is also visible by visiting my Github page. 
-The application lacks styling and is really a test for functionality. 
-After the creation of a superuser and logging in. 
-Posts can be created, comments made and approval granted. 
-Posts are first stored into a draft and then can be published. 
-This is all stored in a SQLite database. 
-This makes things easy and removes the backend mess I would not be able to handle at the time I created this. 
-There is a form of authentication needed before getting access to the stored posts. 
-For creating comments there is an extra tool for highlighted text. 
-Similar to the website Medium you can alter the text size, apply bold or italics by highlighting and selecting an option. 
+This Django project was to create a blog.
+I learned Django and participated in a code along by using a Udemy course.
+Every line of code was explained to me and I was able to get a good understanding of how Django works.
+The course led us to deploy on a hosting service called PythonAnywhere.
+I did follow the course but after completion I learned Heroku and changed my deployment to there.
+The project can be viewed now under the projects tab.
+The code is also visible by visiting my Github page.
+The application lacks styling and is really a test for functionality.
+After the creation of a superuser and logging in.
+Posts can be created, comments made and approval granted.
+Posts are first stored into a draft and then can be published.
+This is all stored in a SQLite database.
+This makes things easy and removes the backend mess I would not be able to handle at the time I created this.
+There is a form of authentication needed before getting access to the stored posts.
+For creating comments there is an extra tool for highlighted text.
+Similar to the website Medium you can alter the text size, apply bold or italics by highlighting and selecting an option.
 
 >Python with authentication decorator for adding comments
 ```python
@@ -57,12 +57,12 @@ def add_comment_to_post(request, pk):
     return render(request, 'blog/comment_form.html', {'form': form})
 ```
 
-I really enjoyed learning the framework and was able to successfully deploy another project under the same course. 
-After making this project I began using React and learned backend with graphQL using PostgresQL. 
-I learned there was training wheels put on by Django and I have since gained an appreciation for the framework. 
-While today I am working to learn all the grit of setting up an enterprise level application with loose coupling of as many aspects as possible. 
-I still appreciate the default bundling that Django offers. 
-I would like to make another application with Django soon, to make sure I do not forget too much of the framework. 
-I certainly would like to keep Django in my toolbelt and will certainly want to keep coding in Python whenever possible. 
+I really enjoyed learning the framework and was able to successfully deploy another project under the same course.
+After making this project I began using React and learned backend with graphQL using PostgresQL.
+I learned there was training wheels put on by Django and I have since gained an appreciation for the framework.
+While today I am working to learn all the grit of setting up an enterprise level application with loose coupling of as many aspects as possible.
+I still appreciate the default bundling that Django offers.
+I would like to make another application with Django soon, to make sure I do not forget too much of the framework.
+I certainly would like to keep Django in my toolbelt and will certainly want to keep coding in Python whenever possible.
 
 # Thanks for reading 👍

@@ -1,11 +1,11 @@
----
-title: "Update: Improvements to Lambda into Discord web scraper"
-description: "I have wrote a previous post about a web scraper I integrated with a Discord bot. I have made additions to it since as well as entirely rewrote the infrastructure around it."
-publishedTime: "2022-12-20"
-cover: "/coverImg/web-scrape.jpg"
-tags: "update"
-id: 27
----
+export const metadata = {
+  title: "Update: Improvements to Lambda into Discord web scraper",
+  description: "I have wrote a previous post about a web scraper I integrated with a Discord bot. I have made additions to it since as well as entirely rewrote the infrastructure around it.",
+  publishedTime: "2022-12-20",
+  cover: "/coverImg/web-scrape.jpg",
+  tags: "update",
+  id: 27,
+}
 
 ## Who would have thought that scrapers break easily
 About a year and a half ago I created a Lambda function which would scrape a couple sites and store that info in a database.
@@ -24,7 +24,7 @@ Namely it would gather information on the following subjects:
 The changes I made were to remove a scraping of a npmjs.com alternative site which was giving very slow response times.
 The Python scrape is completely new and is mainly due to my use of Python at my work.
 I updated the games scrape to no longer scrape upcoming games but instead the top selling games and if they are discounted.
-I altered some of the readability in the posts which are made from the bot. 
+I altered some of the readability in the posts which are made from the bot.
 
 ## Infrastructure
 A larger change I made is to move away from Serverless framework and towards Terraform.
