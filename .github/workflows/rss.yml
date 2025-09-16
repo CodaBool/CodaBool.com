@@ -6,13 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v4
-      # https://github.com/marketplace/actions/setup-bun
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@v5
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      - uses: actions/setup-node@v5
       - run: |
-          bun i
-          bun rss
+          npm i
+          npm run rss
       # https://github.com/marketplace/actions/git-auto-commit
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: Update RSS
