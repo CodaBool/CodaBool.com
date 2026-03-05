@@ -34,7 +34,7 @@ export default function Module() {
           <img src="/external/module_desktop.webp" className="w-100" alt="Desktop" />
         )}
       </div>
-      <h4 className="my-5">If you made an account with Itch.io your purchases can be viewed <a href="https://itch.io/my-purchases">here</a></h4>
+      <h4 className="my-5">If you made an account with Itch.io your purchases can be viewed <a href="https://itch.io/my-purchases" className="text-blue-400">here</a></h4>
 
       <h1 className="my-5 text-3xl">🔐 Where to use your key</h1>
 
@@ -45,7 +45,7 @@ export default function Module() {
       </div>
       <h4 className="mb-3 text-center text-gray-400">Enjoy your new module ❤️</h4>
 
-      <h4 style={{ marginBottom: "10em" }}>If you run into any issues you can <a href="mailto:proxy.htrwd@passmail.com">email me</a> or message me on Discord at <span className="text-blue-400">codabool</span></h4>
+      <h4 style={{ marginBottom: "10em" }}>If you run into any issues you can <a href="mailto:proxy.htrwd@passmail.com">email me</a> or message me on Discord by searching in the FoundryVTT Discord for <span className="text-blue-400">codabool</span></h4>
     </div>
   )
 }
