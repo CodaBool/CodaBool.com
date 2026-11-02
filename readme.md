@@ -9,3 +9,14 @@
 - https://tools.pingdom.com/
 - https://lighthouse-metrics.com/lighthouse (requires changing VPN to do multiple tests)
 - https://www.debugbear.com/
+
+
+# TODO
+
+- blog
+    - stargazer
+    - map dependency (d3, maplibre)
+        - location generation
+        - memory leak
+    - terminal
+    - standee mothership
