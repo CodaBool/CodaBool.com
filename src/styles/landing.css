@@ -193,7 +193,7 @@
 }
 @media (max-width: 500px) {
   #index-body .nav-group a { font-size: 1.3rem; }
-  #index-body #msg { font-size: 1rem; }
+  #index-body #msg { font-size: 0.8rem; }
   #index-body #msg h2 { font-size: 1.5rem; }
   #index-body .morph-section {
     font-size: 0.5em;

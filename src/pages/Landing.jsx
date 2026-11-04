@@ -19,15 +19,24 @@ export default function Landing() {
 
   // on small screens the page outgrows the viewport, so follow new lines unless the user scrolled up
   useEffect(() => {
-    let lastHeight = document.documentElement.scrollHeight
+    const root = document.documentElement
+    let follow = true
+    let lastY = window.scrollY
+    // new lines only ever push the bottom down, so scrolling up means the user took over
+    const onScroll = () => {
+      if (window.scrollY < lastY) follow = false
+      else if (window.scrollY + window.innerHeight >= root.scrollHeight - 80) follow = true
+      lastY = window.scrollY
+    }
     const observer = new ResizeObserver(() => {
-      const height = document.documentElement.scrollHeight
-      const atBottom = window.scrollY + window.innerHeight >= lastHeight - 80
-      if (height > lastHeight && atBottom) window.scrollTo({ top: height })
-      lastHeight = height
+      if (follow) window.scrollTo({ top: root.scrollHeight, behavior: 'instant' })
     })
     observer.observe(container.current)
-    return () => observer.disconnect()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
   }, [])
 
   useEffect(() => {
@@ -79,7 +88,7 @@ export default function Landing() {
         )
         : <div className="h-20" />
       }
-      <div className="landing-container">
+      <div className={`landing-container ${showTerminal ? '' : 'pb-16'}`}>
         <div ref={container} className="terminal">
           {!showTerminal &&
             <div className="p-4">
@@ -109,9 +118,9 @@ export default function Landing() {
             </>
           }
         </div>
-        {!showNav &&
+        {!showTerminal &&
           <button
-            className="fixed bottom-0 inset-x-0 z-10 pb-4 text-center cursor-pointer"
+            className="fixed bottom-0 inset-x-0 z-10 py-3 text-center cursor-pointer bg-[#16191A]"
             onClick={() => { setShowNav(true); setShowTerminal(true) }}
           >
             Click here to skip
