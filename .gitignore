@@ -34,3 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 
 .env
+
+# legacy cra landing source, its own repo, kept locally for reference
+/landing/

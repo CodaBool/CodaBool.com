@@ -25,7 +25,7 @@ The project has no tests or linter, so `npm run build` is the check. It must pas
 - Every page calls `useTitle(title, description)` from `src/lib/useTitle.js`. That hook is the only place title and meta description get set at runtime. Leave out `description` and it falls back to the site default, which has to stay in sync with `index.html`.
 - Import with the `@/` alias, which maps to `src/`. Router imports come from `react-router` (v8), not `react-router-dom`.
 - Tailwind v4 is configured in CSS (`src/styles/globals.css` `@theme`), and there is no `tailwind.config`. `src/components/ui/` holds hand-maintained shadcn-style components.
-- `landing/` is the legacy Create React App source for the `/` terminal intro. It has already been ported to `src/pages/Landing.jsx` and `src/components/landing/`, it isn't part of the build, and it is kept only as reference.
+- `landing/` is the legacy Create React App source for the `/` terminal intro. It has already been ported to `src/pages/Landing.jsx` and `src/components/landing/`, it isn't part of the build, and it is kept only as reference. It is its own git repo, so it is gitignored rather than tracked: a nested repo gets committed as a submodule with no URL, which breaks the Workers Builds clone.
 
 ## Style
 
