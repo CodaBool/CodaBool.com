@@ -15,21 +15,36 @@ export default function Landing() {
   const [showNav, setShowNav] = useState(false)
   const redirectTimer = useRef(null)
   const container = useRef(null)
+  const skip = useRef(null)
   const [loading, setLoading] = useState(null)
 
-  // on small screens the page outgrows the viewport, so follow new lines unless the user scrolled up
+  // on small screens the intro outgrows the viewport, so follow new lines unless the user scrolled up
   useEffect(() => {
-    const root = document.documentElement
+    // the intro is over, start the terminal from the top
+    if (showTerminal) {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
     let follow = true
     let lastY = window.scrollY
+    // where the page sits when the terminal bottom clears the skip button
+    const target = () => {
+      const gap = (skip.current?.offsetHeight ?? 0) + 16
+      return container.current.getBoundingClientRect().bottom + window.scrollY + gap - window.innerHeight
+    }
     // new lines only ever push the bottom down, so scrolling up means the user took over
     const onScroll = () => {
       if (window.scrollY < lastY) follow = false
-      else if (window.scrollY + window.innerHeight >= root.scrollHeight - 80) follow = true
+      else if (window.scrollY >= target() - 80) follow = true
       lastY = window.scrollY
     }
+    // only scroll once the output passes the bottom, so the first load stays at the top
     const observer = new ResizeObserver(() => {
-      if (follow) window.scrollTo({ top: root.scrollHeight, behavior: 'instant' })
+      const top = target()
+      if (follow && top > window.scrollY) {
+        window.scrollTo({ top, behavior: 'instant' })
+        lastY = window.scrollY
+      }
     })
     observer.observe(container.current)
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -37,7 +52,7 @@ export default function Landing() {
       observer.disconnect()
       window.removeEventListener('scroll', onScroll)
     }
-  }, [])
+  }, [showTerminal])
 
   useEffect(() => {
     document.documentElement.classList.add('bg-[#16191A]')
@@ -88,7 +103,7 @@ export default function Landing() {
         )
         : <div className="h-20" />
       }
-      <div className={`landing-container ${showTerminal ? '' : 'pb-16'}`}>
+      <div className={`landing-container ${showTerminal ? '' : 'pb-20'}`}>
         <div ref={container} className="terminal">
           {!showTerminal &&
             <div className="p-4">
@@ -120,10 +135,12 @@ export default function Landing() {
         </div>
         {!showTerminal &&
           <button
+            ref={skip}
             className="fixed bottom-0 inset-x-0 z-10 py-3 text-center cursor-pointer bg-[#16191A]"
             onClick={() => { setShowNav(true); setShowTerminal(true) }}
           >
-            Click here to skip
+            <span className="sm:hidden">Skip</span>
+            <span className="hidden sm:inline">Click here to skip</span>
           </button>
         }
       </div>
