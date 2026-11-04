@@ -14,7 +14,21 @@ export default function Landing() {
   const [showTerminal, setShowTerminal] = useState(false)
   const [showNav, setShowNav] = useState(false)
   const redirectTimer = useRef(null)
+  const container = useRef(null)
   const [loading, setLoading] = useState(null)
+
+  // on small screens the page outgrows the viewport, so follow new lines unless the user scrolled up
+  useEffect(() => {
+    let lastHeight = document.documentElement.scrollHeight
+    const observer = new ResizeObserver(() => {
+      const height = document.documentElement.scrollHeight
+      const atBottom = window.scrollY + window.innerHeight >= lastHeight - 80
+      if (height > lastHeight && atBottom) window.scrollTo({ top: height })
+      lastHeight = height
+    })
+    observer.observe(container.current)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     document.documentElement.classList.add('bg-[#16191A]')
@@ -66,7 +80,7 @@ export default function Landing() {
         : <div className="h-20" />
       }
       <div className="landing-container">
-        <div className="terminal">
+        <div ref={container} className="terminal">
           {!showTerminal &&
             <div className="p-4">
               <LineWriter lines={progressBar} interval={5} />
@@ -77,8 +91,8 @@ export default function Landing() {
           {showTerminal &&
             <>
               <div id="msg">
-                <div className="size-32 shrink-0 mr-6 mb-2">
-                  <img src="/logos/terminal.gif" width={120} height={120} alt="" />
+                <div className="size-20 sm:size-32 shrink-0 mr-4 sm:mr-6 mb-2">
+                  <img src="/logos/terminal.gif" width={120} height={120} alt="" className="size-full" />
                 </div>
                 <div>
                   <h2>Terminal</h2>
